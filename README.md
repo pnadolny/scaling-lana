@@ -1,7 +1,4 @@
 scaling-lana
 ============
 
-A google chart api sample javascript application - Treemaps
-
-
-https://developers.google.com/chart/interactive/docs/gallery/treemap
+A Google App Engine web application to keep a score at volleyball games and keep stats on players.

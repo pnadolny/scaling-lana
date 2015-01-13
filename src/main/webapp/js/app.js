@@ -15,13 +15,20 @@ volleyballApp.controller('VolleyballController', ['$scope', function($scope) {
      $scope.homeSubs = 0;
      $scope.visitorSubs = 0;
   
+     $scope.homeTimeout = 0;
+     $scope.visitorTimeout = 0;
+  
+  
     $scope.init = function() {
   	 $scope.homeScore = 0;
      $scope.visitorScore = 0;
      $scope.homeSubs = 0;
      $scope.visitorSubs = 0;
      
-     $scope.resetSetting();
+     $scope.homeTimeout = 0;
+     $scope.visitorTimeout = 0;
+  
+	 $scope.resetSetting();
      $scope.resetServer();
   	}
   
