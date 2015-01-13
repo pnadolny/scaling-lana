@@ -32,6 +32,20 @@ volleyballApp.controller('VolleyballController', ['$scope', function($scope) {
      $scope.resetServer();
   	}
   
+	$scope.resetHome = function() {
+	 
+	 $scope.homeScore = 0;
+     $scope.homeSubs = 0;
+     $scope.homeTimeout = 0;
+    	   
+    }
+  
+  
+  $scope.resetVisitor = function() {
+	 $scope.visitorScore = 0;
+     $scope.visitorSubs = 0;
+     $scope.visitorTimeout = 0;
+   }
   
   // Setting
 	$scope.setExcellant = 0;
