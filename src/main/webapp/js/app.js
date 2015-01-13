@@ -11,33 +11,33 @@ volleyballApp.controller('VolleyballController', ['$scope', function($scope) {
   
   
      $scope.homeScore = 0;
-     $scope.visitorScore = 0;
-     $scope.homeSubs = 0;
-     $scope.visitorSubs = 0;
-  
      $scope.homeTimeout = 0;
-     $scope.visitorTimeout = 0;
+     $scope.homeSubs = 0;
+     $scope.homeOverlap = 0;
+     
+	 $scope.visitorScore = 0;
+     $scope.visitorSubs = 0;
+  $scope.visitorTimeout = 0;
+  $scope.visitorOverlap = 0;
+  
   
   
     $scope.init = function() {
-  	 $scope.homeScore = 0;
-     $scope.visitorScore = 0;
-     $scope.homeSubs = 0;
-     $scope.visitorSubs = 0;
      
-     $scope.homeTimeout = 0;
-     $scope.visitorTimeout = 0;
-  
+      $scope.resetHome();
+      $scope.resetVisitor();
 	 $scope.resetSetting();
      $scope.resetServer();
   	}
   
 	$scope.resetHome = function() {
 	 
-	 $scope.homeScore = 0;
-     $scope.homeSubs = 0;
+     $scope.homeScore = 0;
      $scope.homeTimeout = 0;
-    	   
+     $scope.homeSubs = 0;
+     $scope.homeOverlap = 0;
+  	
+	
     }
   
   
@@ -47,7 +47,7 @@ volleyballApp.controller('VolleyballController', ['$scope', function($scope) {
      $scope.visitorTimeout = 0;
    }
   
-  // Setting
+   // Setting
 	$scope.setExcellant = 0;
     // Number of sets mistakes that result in oppenent score
     $scope.setFault = 0;
@@ -71,12 +71,16 @@ volleyballApp.controller('VolleyballController', ['$scope', function($scope) {
     $scope.servingAce = 0;
     $scope.servingAttempt = 0;
     $scope.servingFault = 0;
+    $scope.servingJump = 0;
+    $scope.servingFloat = 0;
     
   	$scope.resetServer = function() {
   		$scope.servingAce = 0;
     	$scope.servingAttempt = 0;
     	$scope.servingFault = 0;
-  	
+		$scope.servingJump = 0;
+		$scope.servingFloat = 0;
+    
   	}
   
   

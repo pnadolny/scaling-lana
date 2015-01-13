@@ -27,9 +27,12 @@
 		border-radius: 5px;
 		
     }
-	.scoreDigit {
-		padding-left: 150px; font-size: 850%;
+	.link-digit {
+		padding-left: 50px; font-size: 850%;
 	
+	}
+	.btn-score {
+		margin: 0px;
 	}
 	
    
@@ -59,17 +62,14 @@
 			    <div class="thumbnail shadow">
 					<p>Home</p>
 			        <div class="scoreThumb">
-			  	    	<a class="scoreDigit" ng-click="homeScore = homeScore +1">{{homeScore}}</a>
+			  	    	<a class="link-digit" ng-click="homeScore = homeScore +1">{{homeScore}}</a>
 		        	    <a role="button" class="btn btn-danger" style="float:right" ng-click="homeScore = homeScore -1">Subtract</a>
 			        </div>
-				  	
-				  	<div class="caption">
-					<p>
-		        		<a role="button" class="btn btn-success" ng-click="homeSubs = homeSubs + 1">Subs {{homeSubs}}</a>
-						<a role="button" class="btn btn-success" ng-click="homeTimeout = homeTimeout + 1">Timeout {{homeTimeout}}</a>
-						<a role="button" class="btn btn-primary" ng-click="resetHome();">Reset</a>
-		        	</p>
-		      		</div>
+				 		<a role="button" class="btn btn-success btn-score" ng-click="homeSubs = homeSubs + 1">Substitions {{homeSubs}}</a>
+						<a role="button" class="btn btn-info btn-score" ng-click="homeTimeout = homeTimeout + 1">Time-outs {{homeTimeout}}</a>
+						<a class="btn btn-danger" role="button btn-score" ng-click="homeOverlap = homeOverlap + 1">Overlap {{homeOverlap}}</a>
+						<a role="button" class="btn btn-primary btn-score" ng-click="resetHome();">Reset</a>
+		        
    			  </div><!--/.thumbnail -->
     	  </div> <!--/.col -->
 
@@ -81,18 +81,17 @@
  				<p>Visitor <a style="float: right" ng-click="hideVisitor = true">Hide</a></p>
 
 			  <div class="scoreThumb">
-			  	   	<a class="scoreDigit" ng-click="visitorScore = visitorScore +1">{{visitorScore}}</a>
+			  	   	<a class="link-digit" ng-click="visitorScore = visitorScore +1">{{visitorScore}}</a>
 			  	   	<a role="button" class="btn btn-danger" style="float:right" ng-click="visitorScore = visitorScore -1">Subtract</a>
 			  </div>
 			  
-		      <div class="caption">
-		        <p>
-		        	<a class="btn btn-success" role="button" ng-click="visitorSubs = visitorSubs + 1">Subs {{visitorSubs}}</a>
-					<a class="btn btn-success" role="button" ng-click="visitorTimeout = visitorTimeout + 1">Timeout {{visitorTimeout}}</a>
-					<a role="button" class="btn btn-primary" ng-click="resetVisitor();">Reset</a>
-		        </p>
-		      </div>
-
+		        	<a class="btn btn-success btn-score" role="button" ng-click="visitorSubs = visitorSubs + 1">Substitions {{visitorSubs}}</a>
+					<a class="btn btn-info btn-score" role="button" ng-click="visitorTimeout = visitorTimeout + 1">Time-outs {{visitorTimeout}}</a>
+					<a class="btn btn-danger btn-score" role="button" ng-click="visitorOverlap = visitorOverlap + 1">Overlap {{visitorOverlap}}</a>
+					
+					<a role="button" class="btn btn-primary btn-score" ng-click="resetVisitor();">Reset</a>
+		        
+		     
 		    </div>
 		  </div>
 		  </div> 
@@ -104,23 +103,18 @@
    <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail shadow">
 		      
-		      	<p>Setting <a style="float: right" ng-click="hideSetting = true">Hide</a></p>
+		      	<p>Setter <a style="float: right" ng-click="hideSetting = true">Hide</a></p>
 		      
 			  
 			  <div class="scoreThumb">
-			  	   	<a class="scoreDigit" ng-click="setExcellant = setExcellant +1">{{setExcellant}}</a>
+			  	   	<a class="link-digit" ng-click="setExcellant = setExcellant +1">{{setExcellant}}</a>
 			  	   	<a class="btn btn-danger" role="button" style="float:right" ng-click="setExcellant = setExcellant -1">Subtract</a>
 			  </div>
-			  
-		      	<div class="caption">
-			      	<p>
-			        <a class="btn btn-danger" role="button" ng-click="setFault = setFault + 1">Fault {{setFault}}</a>
-			        <a class="btn btn-success" role="button" ng-click="setKill = setKill + 1">Kill {{setKill}}</a>
-					<a class="btn btn-warning" role="button" ng-click="setStill = setStill + 1">Still {{setStill}}</a>
-			  		<a class="btn btn-primary" role="button" ng-click="resetSetting();">Reset</a>
-			        
-			        </p>
-		      	</div>
+			        <a class="btn btn-danger btn-score" role="button" ng-click="setFault = setFault + 1">Fault {{setFault}}</a>
+			        <a class="btn btn-success btn-score" role="button" ng-click="setKill = setKill + 1">Dump {{setKill}}</a>
+					<a class="btn btn-warning btn-score" role="button" ng-click="setStill = setStill + 1">Still {{setStill}}</a>
+			  		<a class="btn btn-primary btn-score" role="button" ng-click="resetSetting();">Reset</a>
+			 
 		    </div>
 		  </div>
 		
@@ -131,19 +125,17 @@
 		
   	      <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail shadow">
-			 <p>Serve <a style="float: right" ng-click="hideServing = true">Hide</a></p>
+			 <p>Server <a style="float: right" ng-click="hideServing = true">Hide</a></p>
 			  <div class="scoreThumb">
-			  	   	<a class="scoreDigit" ng-click="servingAttempt = servingAttempt +1">{{servingAttempt}}</a>
+			  	   	<a class="link-digit" ng-click="servingAttempt = servingAttempt +1">{{servingAttempt}}</a>
 			  	   	<a class="btn btn-danger" role="button" style="float:right" ng-click="servingAttempt = servingAttempt -1">Subtract</a>
 			  </div>
-		      <div class="caption">
-		      	<p>
-		      	<a class="btn btn-success" role="button" ng-click="servingAce = servingAce +1">Ace {{servingAce}}</a>
-		        <a class="btn btn-danger" role="button" ng-click="servingFault = servingFault + 1">Fault {{servingFault}}</a>
-		        <a class="btn btn-primary" role="button" ng-click="resetServer();">Reset</a>
+		      	<a class="btn btn-success btn-score" role="button" ng-click="servingAce = servingAce +1">Ace {{servingAce}}</a>
+		        <a class="btn btn-success btn-score" role="button" ng-click="servingFloat = servingFloat +1">Float {{servingFloat}}</a>
+		        <a class="btn btn-success btn-score" role="button" ng-click="servingJump = servingJump +1">Jump {{servingJump}}</a>
 		        
-		        </p>
-		      </div>
+				<a class="btn btn-danger btn-score" role="button" ng-click="servingFault = servingFault + 1">Fault {{servingFault}}</a>
+		        <a class="btn btn-primary btn-score" role="button" ng-click="resetServer();">Reset</a>
 		    </div>
 		  </div>
 		</div>	
