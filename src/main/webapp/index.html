@@ -34,8 +34,7 @@
 	.btn-score {
 		margin: 0px;
 	}
-	
-   
+	p {font-weight:bold;}
 		
     </style>
 </head>
@@ -61,16 +60,15 @@
 			
 					<div class="scoreThumb">
 			  	    	<a class="link-digit" ng-click="nextSet()">{{currentSet}}</a>
-		        	    <a class="btn btn-danger" style="float:right" ng-click="previousSet();">Subtract</a>
+		        	    <a class="btn btn-danger" ng-show="currentSet !=1;" style="float:right" ng-click="previousSet();">Previous</a>
 			        </div>
-					<a class="btn btn-primary btn-score" ng-click="resetAll();">Clear the set</a> 
+					<a class="btn btn-primary btn-score" ng-click="resetAll();">Clear set</a> 
 		        	
 			</div>
 			
 	
 		  </div>
 	
-		<div class="row" ng-repeat="set in data">
 
 		      
 		  <div class="col-sm-6 col-md-4">
@@ -78,7 +76,7 @@
 					<p>Home</p>
 			        <div class="scoreThumb">
 			  	    	<a class="link-digit" ng-click="set.homeScore = set.homeScore +1">{{set.homeScore}}</a>
-		        	    <a role="button" class="btn btn-danger" style="float:right" ng-click="set.homeScore = set.homeScore -1">Subtract</a>
+		        	    <a role="button" class="btn btn-danger" ng-show="set.homeScore!=0;" style="float:right" ng-click="set.homeScore = set.homeScore -1">Subtract</a>
 			        </div>
 				 		<a role="button" class="btn btn-success btn-score" ng-click="set.homeSubs = set.homeSubs + 1">Substitions {{set.homeSubs}}</a>
 						<a role="button" class="btn btn-info btn-score" ng-click="set.homeTimeout = set.homeTimeout + 1">Time-outs {{set.homeTimeout}}</a>
@@ -102,7 +100,7 @@
 				
 			  <div class="scoreThumb">
 			  	   	<a class="link-digit" ng-click="set.visitorScore = set.visitorScore +1">{{set.visitorScore}}</a>
-			  	   	<a role="button" class="btn btn-danger" style="float:right" ng-click="set.visitorScore = set.visitorScore -1">Subtract</a>
+			  	   	<a role="button" class="btn btn-danger" ng-show="set.visitorScore!=0;" style="float:right" ng-click="set.visitorScore = set.visitorScore -1">Subtract</a>
 			  </div>
 			  
 		        	<a class="btn btn-success btn-score" role="button" ng-click="set.visitorSubs = set.visitorSubs + 1">Substitions {{set.visitorSubs}}</a>
@@ -131,7 +129,7 @@
 			
     		<div class="scoreThumb">
 			  	   	<a class="link-digit" ng-click="set.servingAttempt = set.servingAttempt +1">{{set.servingAttempt}}</a>
-			  	   	<a class="btn btn-danger" role="button" style="float:right" ng-click="set.servingAttempt = set.servingAttempt -1">Subtract</a>
+			  	   	<a class="btn btn-danger" role="button" ng-show="set.servingAttempt!=0;" style="float:right" ng-click="set.servingAttempt = set.servingAttempt -1">Subtract</a>
 			  </div>
 		      	<a class="btn btn-success btn-score" role="button" ng-click="set.servingAce = set.servingAce +1">Ace {{set.servingAce}}</a>
 		        <a class="btn btn-success btn-score" role="button" ng-click="set.servingFloat = set.servingFloat +1">Float {{set.servingFloat}}</a>
@@ -157,7 +155,7 @@
 			  
 			  <div class="scoreThumb">
 			  	   	<a class="link-digit" ng-click="set.setExcellant = set.setExcellant +1">{{set.setExcellant}}</a>
-			  	   	<a class="btn btn-danger" role="button" style="float:right" ng-click="set.setExcellant = set.setExcellant -1">Subtract</a>
+			  	   	<a class="btn btn-danger" role="button" ng-show="set.setExcellant!=0;" style="float:right" ng-click="set.setExcellant = set.setExcellant -1">Subtract</a>
 			  </div>
 			        <a class="btn btn-danger btn-score" role="button" ng-click="set.setFault = set.setFault + 1">Fault {{set.setFault}}</a>
 			        <a class="btn btn-success btn-score" role="button" ng-click="set.setKill = set.setKill + 1">Dump {{set.setKill}}</a>
@@ -171,7 +169,6 @@
 		
 		
 	
-	</div> <!-- ng repeat-->
 
 
 <!-- <a class="btn btn-success" style="margin: 10px;" href="https://github.com/pnadolny/scaling-lana">View source on Git Hub</a> -->
