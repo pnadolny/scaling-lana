@@ -5,12 +5,39 @@ var volleyballApp = angular.module('volleyballApp',[]);
 
 volleyballApp.controller('VolleyballController', ['$scope', '$log', function($scope,$log) {
   
-	$scope.currentSet = 0;
+	$scope.currentSet = 1;
 	$scope.data = [];
+	$scope.set = {};
 	
 	$scope.data.push({'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0});	
     
 	$scope.set = $scope.data[$scope.currentSet];	
+	
+	$scope.nextSet = function() {
+	
+		if (angular.isUndefined($scope.data[$scope.currentSet])) {
+			$scope.data.push({'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0});	
+        }                    
+		
+	   $scope.currentSet = $scope.currentSet +1;
+	   
+	   
+	   $log.info('JSON data: ' + angular.toJson($scope.data));
+	}
+	$scope.previousSet = function() {
+	   if ($scope.currentSet ==1) {
+		 return;
+	   }
+	   $scope.currentSet = $scope.currentSet -1;
+	}
+	
+	$scope.setSet = function() {
+		$scope.set = $scope.data[$scope.currentSet];
+	}
+	
+	
+	$scope.$watch( 'currentSet', $scope.setSet );
+	
 	
 	$scope.resetHome = function(index) {
 		var set = $scope.data[index];
@@ -46,11 +73,11 @@ volleyballApp.controller('VolleyballController', ['$scope', '$log', function($sc
 		$scope.data[index] = set;
     }
 	
-	$scope.resetAll = function(index) {
-		$scope.resetServer(index);
-		$scope.resetSetter(index);
-		$scope.resetHome(index);
-		$scope.resetVisitor(index);
+	$scope.resetAll = function() {
+		$scope.resetServer($scope.currentSet-1);
+		$scope.resetSetter($scope.currentSet-1);
+		$scope.resetHome($scope.currentSet-1);
+		$scope.resetVisitor($scope.currentSet-1);
 	}
 	
   

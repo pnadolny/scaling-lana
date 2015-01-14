@@ -28,7 +28,7 @@
 		
     }
 	.link-digit {
-		padding-left: 50px; font-size: 850%;
+		padding-left: 50px; font-size: 850%;font-weight:bold;
 	
 	}
 	.btn-score {
@@ -54,6 +54,22 @@
 
     <div ng-controller="VolleyballController">
 
+		  <div class="col-sm-6 col-md-4">
+		  
+		    <div class="thumbnail shadow">
+					<p>Set</p>
+			
+					<div class="scoreThumb">
+			  	    	<a class="link-digit" ng-click="nextSet()">{{currentSet}}</a>
+		        	    <a class="btn btn-danger" style="float:right" ng-click="previousSet();">Subtract</a>
+			        </div>
+					<a class="btn btn-primary btn-score" ng-click="resetAll();">Clear the set</a> 
+		        	
+			</div>
+			
+	
+		  </div>
+	
 		<div class="row" ng-repeat="set in data">
 
 		      
@@ -73,12 +89,17 @@
     	  </div> <!--/.col -->
 
 
-         <div ng-show="hideVisitor == false ">
  
 		    <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail shadow">
- 				<p>Visitor <a style="float: right" ng-click="hideVisitor = true">Hide</a></p>
-
+ 				<p>Visitor
+				    <a style="float: right" ng-show= " hideVisitor == false" ng-click="hideVisitor = true">Hide</a>
+					<a style="float: right" ng-show= " hideVisitor == true" ng-click="hideVisitor = false">Show</a>
+				
+				</p>
+         <div ng-show="hideVisitor == false ">
+ 
+				
 			  <div class="scoreThumb">
 			  	   	<a class="link-digit" ng-click="set.visitorScore = set.visitorScore +1">{{set.visitorScore}}</a>
 			  	   	<a role="button" class="btn btn-danger" style="float:right" ng-click="set.visitorScore = set.visitorScore -1">Subtract</a>
@@ -97,13 +118,42 @@
 		  
   
  
-         <div ng-show="hideSetting == false ">
-		 
-   <div class="col-sm-6 col-md-4">
+ 		 
+  	      <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail shadow">
+			 <p>Server 
+			 	    <a style="float: right" ng-show= " hideServing == false" ng-click="hideServing = true">Hide</a>
+					<a style="float: right" ng-show= " hideServing == true" ng-click="hideServing = false">Show</a>
+	
+			 </p>
+	
+			<div ng-show="hideServing == false ">
+			
+    		<div class="scoreThumb">
+			  	   	<a class="link-digit" ng-click="set.servingAttempt = set.servingAttempt +1">{{set.servingAttempt}}</a>
+			  	   	<a class="btn btn-danger" role="button" style="float:right" ng-click="set.servingAttempt = set.servingAttempt -1">Subtract</a>
+			  </div>
+		      	<a class="btn btn-success btn-score" role="button" ng-click="set.servingAce = set.servingAce +1">Ace {{set.servingAce}}</a>
+		        <a class="btn btn-success btn-score" role="button" ng-click="set.servingFloat = set.servingFloat +1">Float {{set.servingFloat}}</a>
+		        <a class="btn btn-success btn-score" role="button" ng-click="set.servingJump = set.servingJump +1">Jump {{set.servingJump}}</a>
+		        
+				<a class="btn btn-danger btn-score" role="button" ng-click="set.servingFault = set.servingFault + 1">Fault {{set.servingFault}}</a>
+		        <a class="btn btn-primary btn-score" role="button" ng-click="resetServer($index);">Reset</a>
+		    </div>
+		  </div>
+		</div>	
+
+
+       <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail shadow">
 		      
-		      	<p>Setter <a style="float: right" ng-click="hideSetting = true">Hide</a></p>
+		      	<p>Setter 
+					<a style="float: right" ng-show= " hideSetting == false" ng-click="hideSetting = true">Hide</a>
+					<a style="float: right" ng-show= " hideSetting == true" ng-click="hideSetting = false">Show</a>
+				
+				</p>
 		      
+        <div ng-show="hideSetting == false ">
 			  
 			  <div class="scoreThumb">
 			  	   	<a class="link-digit" ng-click="set.setExcellant = set.setExcellant +1">{{set.setExcellant}}</a>
@@ -118,32 +168,11 @@
 		  </div>
 		
 		</div>
-
-
-		<div ng-show="hideServing == false ">
 		
-  	      <div class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-			 <p>Server <a style="float: right" ng-click="hideServing = true">Hide</a></p>
-			  <div class="scoreThumb">
-			  	   	<a class="link-digit" ng-click="set.servingAttempt = set.servingAttempt +1">{{set.servingAttempt}}</a>
-			  	   	<a class="btn btn-danger" role="button" style="float:right" ng-click="set.servingAttempt = set.servingAttempt -1">Subtract</a>
-			  </div>
-		      	<a class="btn btn-success btn-score" role="button" ng-click="set.servingAce = set.servingAce +1">Ace {{set.servingAce}}</a>
-		        <a class="btn btn-success btn-score" role="button" ng-click="set.servingFloat = set.servingFloat +1">Float {{set.servingFloat}}</a>
-		        <a class="btn btn-success btn-score" role="button" ng-click="set.servingJump = set.servingJump +1">Jump {{set.servingJump}}</a>
-		        
-				<a class="btn btn-danger btn-score" role="button" ng-click="set.servingFault = set.servingFault + 1">Fault {{set.servingFault}}</a>
-		        <a class="btn btn-primary btn-score" role="button" ng-click="resetServer($index);">Reset</a>
-		    </div>
-		  </div>
-		</div>	
- 
+		
 	
-	
-	</div>
+	</div> <!-- ng repeat-->
 
-<a class="btn btn-success" style="margin: 10px;" role="button" ng-click="resetAll($index);">Reset all</a> 
 
 <!-- <a class="btn btn-success" style="margin: 10px;" href="https://github.com/pnadolny/scaling-lana">View source on Git Hub</a> -->
  
