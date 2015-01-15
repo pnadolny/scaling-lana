@@ -68,8 +68,8 @@
 			  	    	<a class="link-digit" ng-click="nextSet()">{{currentSet}}</a>
 		        	    <a class="btn btn-danger" ng-show="currentSet !=1;" style="float:right" ng-click="previousSet();">Previous</a>
 			        </div>
-		            <a class="btn btn-primary btn-score" ng-click="save();">Save</a> 
-		 	        <a class="btn btn-primary btn-score" ng-click="resetAll();">Clear set</a> 
+		            <a ng-show="storageSupport" class="btn btn-primary btn-score" ng-click="save();">Save</a> 
+		 	        <a class="btn btn-primary btn-score" ng-click="resetAll();">Reset</a> 
 		        	
 			</div>
 			

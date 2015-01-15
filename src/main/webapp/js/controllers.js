@@ -4,16 +4,28 @@
 var volleyballAppControllers = angular.module('volleyballControllers',[]);
 
 
-volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', function($scope,$log) {
+volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', function($scope,$log,Storage) {
 
 	$scope.currentSet = 1;
-	$scope.data = [];
+	$scope.data = Storage.loadObject('data');
+	
 	$scope.set = {};
 	$scope.hideVisitor =false;
 	$scope.hideServing =false;
     $scope.hideSetting =false;
-  	$scope.data.push({'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0});	
-    $scope.set = $scope.data[$scope.currentSet];	
+	
+	$scope.storageSupport = Storage.supported();
+
+	$log.info('Storage supported: ' + Storage.supported());
+  	
+	if (angular.isUndefined($scope.data[$scope.currentSet])) {
+			$log.info('Storage supported...but no data..adding a set');
+  	
+			$scope.data.push({'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0});	
+     }
+	
+	
+	$scope.set = $scope.data[$scope.currentSet];	
 	
 	$scope.nextSet = function() {
 		if (angular.isUndefined($scope.data[$scope.currentSet])) {
@@ -32,6 +44,10 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', f
 	}
 	$scope.$watch( 'currentSet', $scope.setSet );
 	
+	$scope.save = function() {
+		$log.info('Saving to localstorage');
+		Storage.saveObject($scope.data,'data');
+    }
 	
 	
 	
@@ -73,6 +89,8 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', f
 		$scope.resetSetter();
 		$scope.resetHome();
 		$scope.resetVisitor();
+		Storage.clear();
+		
 	}
 	
   
