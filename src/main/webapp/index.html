@@ -4,6 +4,9 @@
 <head>
 	<title>Volleyball Score Cards</title>
 	
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Expires" CONTENT="-1">
+
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/hotkeys.min.css" />
@@ -30,8 +33,10 @@
 	
 	}
 	.btn-score {
-		margin: 0px;
 	}
+	.counter {
+	}
+	
 	p {font-weight:bold;}
 		
     </style>
@@ -63,7 +68,8 @@
 			  	    	<a class="link-digit" ng-click="nextSet()">{{currentSet}}</a>
 		        	    <a class="btn btn-danger" ng-show="currentSet !=1;" style="float:right" ng-click="previousSet();">Previous</a>
 			        </div>
-					<a class="btn btn-primary btn-score" ng-click="resetAll();">Clear set</a> 
+		            <a class="btn btn-primary btn-score" ng-click="save();">Save</a> 
+		 	        <a class="btn btn-primary btn-score" ng-click="resetAll();">Clear set</a> 
 		        	
 			</div>
 			
@@ -79,10 +85,17 @@
 			  	    	<a class="link-digit" ng-click="set.homeScore = set.homeScore +1">{{set.homeScore}}</a>
 		        	    <a role="button" class="btn btn-danger" ng-show="set.homeScore!=0;" style="float:right" ng-click="set.homeScore = set.homeScore -1">Subtract</a>
 			        </div>
-				 		<a role="button" class="btn btn-success btn-score" ng-click="set.homeSubs = set.homeSubs + 1">Substitions {{set.homeSubs}}</a>
-						<a role="button" class="btn btn-info btn-score" ng-click="set.homeTimeout = set.homeTimeout + 1">Time-outs {{set.homeTimeout}}</a>
-						<a class="btn btn-danger" role="button btn-score" ng-click="set.homeOverlap = set.homeOverlap + 1">Overlap {{set.homeOverlap}}</a>
-						<a role="button" class="btn btn-primary btn-score" ng-click="resetHome($index);">Reset</a>
+					
+						<a role="button" class="btn btn-success btn-score" ng-click="set.homeSubs = set.homeSubs + 1">
+						Subs&nbsp;&nbsp;<span class="badge">{{set.homeSubs}}</span>
+						</a>	
+						<a role="button" class="btn btn-success btn-score" ng-click="set.homeTimeout = set.homeTimeout + 1">
+						Time-outs&nbsp;&nbsp;<span class="badge">{{set.homeTimeout}}</span>
+						</a>	
+						<a role="button" class="btn btn-danger btn-score" ng-click="set.homeOverlap = set.homeOverlap + 1">
+						Overlap&nbsp;&nbsp;<span class="badge">{{set.homeOverlap}}</span>
+						</a>	
+						<a role="button" class="btn btn-primary btn-score" ng-click="resetHome();">Reset</a>
 		        
    			  </div><!--/.thumbnail -->
     	  </div> <!--/.col -->
@@ -104,12 +117,19 @@
 			  	   	<a role="button" class="btn btn-danger" ng-show="set.visitorScore!=0;" style="float:right" ng-click="set.visitorScore = set.visitorScore -1">Subtract</a>
 			  </div>
 			  
-		        	<a class="btn btn-success btn-score" role="button" ng-click="set.visitorSubs = set.visitorSubs + 1">Substitions {{set.visitorSubs}}</a>
-					<a class="btn btn-info btn-score" role="button" ng-click="set.visitorTimeout = set.visitorTimeout + 1">Time-outs {{set.visitorTimeout}}</a>
-					<a class="btn btn-danger btn-score" role="button" ng-click="set.visitorOverlap = set.visitorOverlap + 1">Overlap {{set.visitorOverlap}}</a>
-					
-					<a role="button" class="btn btn-primary btn-score" ng-click="resetVisitor($index);">Reset</a>
+						<a role="button" class="btn btn-success btn-score" ng-click="set.visitorSubs = set.visitorSubs + 1">
+						Subs&nbsp;&nbsp;<span class="badge">{{set.visitorSubs}}</span>
+						</a>	
+						<a role="button" class="btn btn-success btn-score" ng-click="set.visitorTimeout = set.visitorTimeout + 1">
+						Time-outs&nbsp;&nbsp;<span class="badge">{{set.visitorTimeout}}</span>
+						</a>	
+						<a role="button" class="btn btn-danger btn-score" ng-click="set.visitorOverlap = set.visitorOverlap + 1">
+						Overlap&nbsp;&nbsp;<span class="badge">{{set.visitorOverlap}}</span>
+						</a>	
+						<a role="button" class="btn btn-primary btn-score" ng-click="resetVisitor();">Reset</a>
 		        
+			  
+			  
 		     
 		    </div>
 		  </div>
@@ -132,12 +152,23 @@
 			  	   	<a class="link-digit" ng-click="set.servingAttempt = set.servingAttempt +1">{{set.servingAttempt}}</a>
 			  	   	<a class="btn btn-danger" role="button" ng-show="set.servingAttempt!=0;" style="float:right" ng-click="set.servingAttempt = set.servingAttempt -1">Subtract</a>
 			  </div>
-		      	<a class="btn btn-success btn-score" role="button" ng-click="set.servingAce = set.servingAce +1">Ace {{set.servingAce}}</a>
-		        <a class="btn btn-success btn-score" role="button" ng-click="set.servingFloat = set.servingFloat +1">Float {{set.servingFloat}}</a>
-		        <a class="btn btn-success btn-score" role="button" ng-click="set.servingJump = set.servingJump +1">Jump {{set.servingJump}}</a>
+			  
+			  		<a role="button" class="btn btn-success btn-score" ng-click="set.servingAce = set.servingAce + 1">
+						Ace&nbsp;&nbsp;<span class="badge">{{set.servingAce}}</span>
+						</a>	
+						<a role="button" class="btn btn-success btn-score" ng-click="set.servingFloat = set.servingFloat + 1">
+						Float&nbsp;&nbsp;<span class="badge">{{set.servingFloat}}</span>
+						</a>	
+						<a role="button" class="btn btn-success btn-score" ng-click="set.servingJump = set.servingJump + 1">
+						Jump&nbsp;&nbsp;<span class="badge">{{set.servingJump}}</span>
+						</a>	
+						<a role="button" class="btn btn-danger btn-score" ng-click="set.servingFault = set.servingFault + 1">
+						Fault&nbsp;&nbsp;<span class="badge">{{set.servingFault}}</span>
+						</a>	
+				
+						<a role="button" class="btn btn-primary btn-score" ng-click="resetServer();">Reset</a>
 		        
-				<a class="btn btn-danger btn-score" role="button" ng-click="set.servingFault = set.servingFault + 1">Fault {{set.servingFault}}</a>
-		        <a class="btn btn-primary btn-score" role="button" ng-click="resetServer($index);">Reset</a>
+			  
 		    </div>
 		  </div>
 		</div>	
@@ -158,10 +189,20 @@
 			  	   	<a class="link-digit" ng-click="set.setExcellant = set.setExcellant +1">{{set.setExcellant}}</a>
 			  	   	<a class="btn btn-danger" role="button" ng-show="set.setExcellant!=0;" style="float:right" ng-click="set.setExcellant = set.setExcellant -1">Subtract</a>
 			  </div>
-			        <a class="btn btn-danger btn-score" role="button" ng-click="set.setFault = set.setFault + 1">Fault {{set.setFault}}</a>
-			        <a class="btn btn-success btn-score" role="button" ng-click="set.setKill = set.setKill + 1">Dump {{set.setKill}}</a>
-					<a class="btn btn-warning btn-score" role="button" ng-click="set.setStill = set.setStill + 1">Still {{set.setStill}}</a>
-			  		<a class="btn btn-primary btn-score" role="button" ng-click="resetSetter($index);">Reset</a>
+			  
+			    		<a role="button" class="btn btn-danger btn-score" ng-click="set.setFault = set.setFault + 1">
+						Fault&nbsp;&nbsp;<span class="badge">{{set.setFault}}</span>
+						</a>	
+			
+						<a role="button" class="btn btn-success btn-score" ng-click="set.setKill = set.setKill + 1">
+						Dump&nbsp;&nbsp;<span class="badge">{{set.setKill}}</span>
+						</a>	
+			
+						<a role="button" class="btn btn-warning btn-score" ng-click="set.setStill = set.setStill + 1">
+						Still&nbsp;&nbsp;<span class="badge">{{set.setStill}}</span>
+						</a>	
+			
+						<a class="btn btn-primary btn-score" role="button" ng-click="resetSetter($index);">Reset</a>
 			 
 		    </div>
 		  </div>
@@ -181,6 +222,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-resource.min.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+
     <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
     
     
