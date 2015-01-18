@@ -6,7 +6,7 @@ var volleyballAppControllers = angular.module('volleyballControllers',[]);
 
 volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', function($scope,$log,Storage) {
 
-    var defaultSet = {'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0}
+    var defaultSet = {'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0,'passExcellant':0}
 	$scope.currentSet = 1;
 	
 	$scope.data = Storage.loadObject('data');
@@ -16,6 +16,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 	$scope.hideVisitor =false;
 	$scope.hideServing =false;
     $scope.hideSetting =false;
+	$scope.hideDefense= false;
 	
 	$scope.storageSupport = Storage.supported();
 
@@ -23,8 +24,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
   	
 	if (angular.isUndefined($scope.data[$scope.currentSet])) {
 			$log.info('Storage supported...but no data..adding a set');
-  	
-			$scope.data.push(defaultSet);	
+  		$scope.data.push(defaultSet);	
      }
 	
 	
@@ -32,7 +32,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 	
 	$scope.nextSet = function() {
 		if (angular.isUndefined($scope.data[$scope.currentSet])) {
-			$scope.data.push({'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0});	
+			$scope.data.push(defaultSet);	
         }                    
 	   $scope.currentSet = $scope.currentSet +1;
 	}
@@ -97,30 +97,30 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 		set.servingJump =0;
 		set.servingFault =0;
     }
+
+	$scope.resetDefense = function() {
+		var set = $scope.data[$scope.currentSet-1];
+		set.passExcellant = 0;
+		set.passDig =0;
+		set.passFault =0;
+		set.passPancake =0;
+    }
+
 	
 	$scope.resetAll = function() {
 		Storage.clear();
-		
-	     for (var i = 0; i < $scope.data.length; i++) {
-   		 $scope.currentSet  = i +1;
+		for (var i = 0; i < $scope.data.length; i++) {
+			$scope.currentSet  = i +1;
 			$scope.resetServer();
-		   $scope.resetSetter();
-		   $scope.resetVisitor();
-		   $scope.resetHome();
-		   
+			$scope.resetSetter();
+			$scope.resetVisitor();
+			$scope.resetHome();
+			$scope.resetDefense();
 		 }
-   
 		$scope.data.splice(0, $scope.data.length);
-	    
-	    
 		$scope.data.push(defaultSet);	
 	    $scope.currentSet  = 1;
-		
 	}
-	
-  
-	
-  
 }]);
 
 

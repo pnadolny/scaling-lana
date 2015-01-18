@@ -1,2 +1,5 @@
 target/*
 
+target/maven-archiver/pom.properties
+target/myvolleyballscore-1.0-SNAPSHOT.war
+target/maven-archiver/pom.properties
