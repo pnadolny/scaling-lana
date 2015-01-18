@@ -6,7 +6,7 @@ var volleyballAppControllers = angular.module('volleyballControllers',[]);
 
 volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', function($scope,$log,Storage) {
 
-    var defaultSet = {'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0,'passExcellant':0}
+    var defaultSet = {'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0,'passExcellant':0,'osExcellant':0,'rsExcellant':0}
 	$scope.currentSet = 1;
 	
 	$scope.data = Storage.loadObject('data');
@@ -17,6 +17,9 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 	$scope.hideServing =false;
     $scope.hideSetting =false;
 	$scope.hideDefense= false;
+	$scope.hideOutside= false;
+	$scope.hideRightside= false;
+	
 	
 	$scope.storageSupport = Storage.supported();
 
@@ -106,7 +109,22 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 		set.passPancake =0;
     }
 
-	
+	$scope.resetOutside = function() {
+		var set = $scope.data[$scope.currentSet-1];
+		set.osExcellant = 0;
+		set.osSpike =0;
+		set.osFault =0;
+		
+    }
+
+	$scope.resetRightside = function() {
+		var set = $scope.data[$scope.currentSet-1];
+		set.rsExcellant = 0;
+		set.rsSpike =0;
+		set.rsFault =0;
+		
+    }
+
 	$scope.resetAll = function() {
 		Storage.clear();
 		for (var i = 0; i < $scope.data.length; i++) {
@@ -115,7 +133,9 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 			$scope.resetSetter();
 			$scope.resetVisitor();
 			$scope.resetHome();
-			$scope.resetDefense();
+			$scope.resetOutside();
+			$scope.resetRightside();
+			
 		 }
 		$scope.data.splice(0, $scope.data.length);
 		$scope.data.push(defaultSet);	

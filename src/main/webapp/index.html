@@ -246,6 +246,83 @@
 		</div>
 	
 
+	
+	
+	
+	
+	
+	
+	   <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail shadow">
+		      
+		      	<p>Outside
+					<a style="float: right" ng-show= " hideOutside == false" ng-click="hideOutside = true">Hide</a>
+					<a style="float: right" ng-show= " hideOutside == true" ng-click="hideOutside = false">Show</a>
+				
+				</p>
+		      
+        <div ng-show="hideOutside == false ">
+			  <div class="scoreThumb">
+			  	   	<a class="link-digit" ng-click="set.osExcellant = set.soExcellant +1">{{set.osExcellant}}</a>
+			  	   	<a class="btn btn-danger" role="button" ng-show="set.osExcellant!=0;" style="float:right"
+					ng-click="set.osExcellant = set.osExcellant -1">Subtract</a>
+			  </div>
+						<a role="button" class="btn btn-success btn-score" ng-click="set.osSpike = set.osSpike + 1">
+						Spike&nbsp;&nbsp;<span class="badge">{{set.osSpike}}</span>
+						</a>	
+			
+						<a role="button" class="btn btn-danger btn-score" ng-click="set.osFault = set.osFault + 1">
+						Fault&nbsp;&nbsp;<span class="badge">{{set.osFault}}</span>
+						</a>	
+			
+			
+						<a class="btn btn-primary btn-score" role="button" ng-click="resetOutside();">Reset</a>
+		    </div>
+		  </div>
+		
+		
+		</div>
+	
+	
+	
+	
+	
+	<div class="col-sm-6 col-md-4">
+		    <div class="thumbnail shadow">
+		      
+		      	<p>Rightside
+					<a style="float: right" ng-show= " hideRightside == false" ng-click="hideRightside = true">Hide</a>
+					<a style="float: right" ng-show= " hideRightside == true" ng-click="hideRightside = false">Show</a>
+				
+				</p>
+		      
+        <div ng-show="hideRightside == false ">
+			  <div class="scoreThumb">
+			  	   	<a class="link-digit" ng-click="set.rsExcellant = set.rsExcellant +1">{{set.rsExcellant}}</a>
+			  	   	<a class="btn btn-danger" role="button" ng-show="set.rsExcellant!=0;" style="float:right"
+					ng-click="set.rsExcellant = set.rsExcellant -1">Subtract</a>
+			  </div>
+						<a role="button" class="btn btn-success btn-score" ng-click="set.rsSpike = set.rsSpike + 1">
+						Spike&nbsp;&nbsp;<span class="badge">{{set.rsSpike}}</span>
+						</a>	
+			
+						<a role="button" class="btn btn-danger btn-score" ng-click="set.rsFault = set.rsFault + 1">
+						Fault&nbsp;&nbsp;<span class="badge">{{set.rsFault}}</span>
+						</a>	
+			
+			
+						<a class="btn btn-primary btn-score" role="button" ng-click="resetRightside();">Reset</a>
+		    </div>
+		  </div>
+		
+		
+		</div>
+	
+	
+	
+	
+	
+	
 
 <!-- <a class="btn btn-success" style="margin: 10px;" href="https://github.com/pnadolny/scaling-lana">View source on Git Hub</a> -->
  
