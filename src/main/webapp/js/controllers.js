@@ -126,20 +126,22 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     }
 
 	$scope.resetAll = function() {
-		Storage.clear();
-		for (var i = 0; i < $scope.data.length; i++) {
-			$scope.currentSet  = i +1;
+		
+		
 			$scope.resetServer();
 			$scope.resetSetter();
 			$scope.resetVisitor();
 			$scope.resetHome();
 			$scope.resetOutside();
 			$scope.resetRightside();
-			
-		 }
+			$scope.resetDefense();
 		$scope.data.splice(0, $scope.data.length);
-		$scope.data.push(defaultSet);	
+	
+	$scope.data.push(defaultSet);	     
 	    $scope.currentSet  = 1;
+		
+			
+	
 	}
 }]);
 
