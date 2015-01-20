@@ -2,59 +2,57 @@
 <html lang="en" xmlns:ng="https://angularjs.org" ng-app="volleyballApp">
 
 <head>
-	<title>Volleyball Score Cards</title>
-	
-	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-	<META HTTP-EQUIV="Expires" CONTENT="-1">
+    <title>Volleyball Score Cards</title>
+
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
 
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	
-	
+
+
     <style>
-	
-	[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-		display: none !important;
-	}
-    .shadow {
-    	-webkit-box-shadow: 9px 10px 5px 0px rgba(0,0,0,0.75);
-		-moz-box-shadow: 9px 10px 5px 0px rgba(0,0,0,0.75);
-		box-shadow: 9px 10px 5px 0px rgba(0,0,0,0.75);
-    }
-    
-	.scoreThumb {
-    	height: 150px;
-		border: 1px solid;
-		border-radius: 5px;
-		
-    }
-	.link-digit {
-		padding-left: 50px; font-size: 850%;font-weight:bold;
-	
-	}
-	.btn-score {
-		margin-top: 5px;
-	}
-	.btn-subtract {
-		float:right;
-		margin-top: 5px;
-		margin-right: 5px;
-		
-		
-	}
-	
-	.counter {
-	}
-	
-	p {font-weight:bold;}
-		
+        [ng\:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+            display: none !important;
+        }
+        .shadow {
+            -webkit-box-shadow: 9px 10px 5px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 9px 10px 5px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 9px 10px 5px 0px rgba(0, 0, 0, 0.75);
+        }
+        .scoreThumb {
+            height: 150px;
+            border: 1px solid;
+            border-radius: 5px;
+        }
+        .link-digit {
+            padding-left: 50px;
+            font-size: 850%;
+            font-weight: bold;
+        }
+        .btn-score {
+            margin-top: 5px;
+        }
+        .btn-subtract {
+            float: right;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+        .counter {} p {
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body style="padding-top:10px">
 
-<!--
+    <!--
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -63,323 +61,307 @@
         </div>
       </nav>
 	  -->
-	  
+
 
     <div ng-controller="VolleyballController">
 
-		<div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-					<p>Set</p>
-					<div class="scoreThumb">
-			  	    	<a class="link-digit" ng-click="currentSet = currentSet + 1;">{{currentSet+1}}</a>
-		        	    <a class="btn btn-danger btn-subtract" ng-show="currentSet !=0;" ng-click="currentSet = currentSet -1;">Previous</a>
-			        </div>
-					
-					<a class="btn btn-danger btn-score" ng-click="erase();">Erase</a> 
-					<a class="btn btn-success btn-score" ng-click="save();">Save</a> 
-					<a class="btn btn-primary btn-score" ng-click="resetAll();">Reset</a> 
-			</div>
-		 </div>
-	
- 
-		<div ng-repeat="set in match | offset:currentSet | limitTo:1 "> 
-		
+        <div ng-cloak class="col-sm-6 col-md-4">
+            <div class="thumbnail shadow">
+                <p>Set</p>
+                <div class="scoreThumb">
+                    <a class="link-digit" ng-click="next();">{{currentSet+1}}</a>
+                    <a class="btn btn-danger btn-subtract" ng-show="currentSet !=0;" ng-click="currentSet = currentSet -1;">Previous</a>
+                </div>
 
-		  <div ng-cloak class="col-sm-6 col-md-4">
-			    <div class="thumbnail shadow">
-					<p>Home</p>
-			        <div class="scoreThumb">
-			  	    	<a class="link-digit" ng-click="set.homeScore = set.homeScore +1">{{set.homeScore}}</a>
-		        	    <a role="button" class="btn btn-danger btn-subtract" ng-show="set.homeScore!=0;" ng-click="set.homeScore = set.homeScore -1">Subtract</a>
-			        </div>
-					
-						<a role="button" class="btn btn-success btn-score" ng-click="set.homeSubs = set.homeSubs + 1">
+                <a class="btn btn-danger btn-score" ng-show="storageSupport" ng-click="erase();">New Match</a>
+            </div>
+        </div>
+
+
+        <div ng-repeat="set in match | offset:currentSet | limitTo:1 ">
+
+
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+                    <p>Home</p>
+                    <div class="scoreThumb">
+                        <a class="link-digit" ng-click="set.homeScore = set.homeScore +1">{{set.homeScore}}</a>
+                        <a role="button" class="btn btn-danger btn-subtract" ng-show="set.homeScore!=0;" ng-click="set.homeScore = set.homeScore -1">Subtract</a>
+                    </div>
+
+                    <a role="button" class="btn btn-success btn-score" ng-click="set.homeSubs = set.homeSubs + 1">
 						Subs&nbsp;&nbsp;<span class="badge">{{set.homeSubs}}</span>
-						</a>	
-						<a role="button" class="btn btn-success btn-score" ng-click="set.homeTimeout = set.homeTimeout + 1">
+						</a>
+                    <a role="button" class="btn btn-success btn-score" ng-click="set.homeTimeout = set.homeTimeout + 1">
 						Time-outs&nbsp;&nbsp;<span class="badge">{{set.homeTimeout}}</span>
-						</a>	
-						<a role="button" class="btn btn-danger btn-score" ng-click="set.homeOverlap = set.homeOverlap + 1">
+						</a>
+                    <a role="button" class="btn btn-danger btn-score" ng-click="set.homeOverlap = set.homeOverlap + 1">
 						Overlap&nbsp;&nbsp;<span class="badge">{{set.homeOverlap}}</span>
-						</a>	
-						<a role="button" class="btn btn-primary btn-score" ng-click="resetHome();">Reset</a>
-		        
-   			  </div><!--/.thumbnail -->
-    	  </div> <!--/.col -->
+						</a>
+                    <a role="button" class="btn btn-primary btn-score" ng-click="resetHome();">Reset</a>
+
+                </div>
+                <!--/.thumbnail -->
+            </div>
+            <!--/.col -->
 
 
- 
-		    <div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
- 				<p>Visitor
-				    <a style="float: right" ng-show= " hideVisitor == false" ng-click="hideVisitor = true">Hide</a>
-					<a style="float: right" ng-show= " hideVisitor == true" ng-click="hideVisitor = false">Show</a>
-				
-				</p>
-         <div ng-show="hideVisitor == false ">
- 
-				
-			  <div class="scoreThumb">
-			  	   	<a class="link-digit" ng-click="set.visitorScore = set.visitorScore +1">{{set.visitorScore}}</a>
-			  	   	<a role="button" class="btn btn-danger btn-subtract" ng-show="set.visitorScore!=0;" ng-click="set.visitorScore = set.visitorScore -1">Subtract</a>
-			  </div>
-			  
-						<a role="button" class="btn btn-success btn-score" ng-click="set.visitorSubs = set.visitorSubs + 1">
+
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+                    <p>Visitor
+                        <a style="float: right" ng-show=" hideVisitor == false" ng-click="hideVisitor = true">Hide</a>
+                        <a style="float: right" ng-show=" hideVisitor == true" ng-click="hideVisitor = false">Show</a>
+
+                    </p>
+                    <div ng-show="hideVisitor == false ">
+
+
+                        <div class="scoreThumb">
+                            <a class="link-digit" ng-click="set.visitorScore = set.visitorScore +1">{{set.visitorScore}}</a>
+                            <a role="button" class="btn btn-danger btn-subtract" ng-show="set.visitorScore!=0;" ng-click="set.visitorScore = set.visitorScore -1">Subtract</a>
+                        </div>
+
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.visitorSubs = set.visitorSubs + 1">
 						Subs&nbsp;&nbsp;<span class="badge">{{set.visitorSubs}}</span>
-						</a>	
-						<a role="button" class="btn btn-success btn-score" ng-click="set.visitorTimeout = set.visitorTimeout + 1">
+						</a>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.visitorTimeout = set.visitorTimeout + 1">
 						Time-outs&nbsp;&nbsp;<span class="badge">{{set.visitorTimeout}}</span>
-						</a>	
-						<a role="button" class="btn btn-danger btn-score" ng-click="set.visitorOverlap = set.visitorOverlap + 1">
+						</a>
+                        <a role="button" class="btn btn-danger btn-score" ng-click="set.visitorOverlap = set.visitorOverlap + 1">
 						Overlap&nbsp;&nbsp;<span class="badge">{{set.visitorOverlap}}</span>
-						</a>	
-						<a role="button" class="btn btn-primary btn-score" ng-click="resetVisitor();">Reset</a>
-		        
-			  
-			  
-		     
-		    </div>
-		  </div>
-		  </div> 
-		  
-  
- 
- 		 
-  	      <div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-			 <p>Server 
-			 	    <a style="float: right" ng-show= " hideServing == false" ng-click="hideServing = true">Hide</a>
-					<a style="float: right" ng-show= " hideServing == true" ng-click="hideServing = false">Show</a>
-	
-			 </p>
-	
-			<div ng-show="hideServing == false ">
-			
-    		<div class="scoreThumb">
-			  	   	<a class="link-digit" ng-click="set.servingAttempt = set.servingAttempt +1">{{set.servingAttempt}}</a>
-			  	   	<a class="btn btn-danger btn-subtract" role="button" ng-show="set.servingAttempt!=0;" ng-click="set.servingAttempt = set.servingAttempt -1">Subtract</a>
-			  </div>
-			  
-			  		<a role="button" class="btn btn-success btn-score" ng-click="set.servingAce = set.servingAce + 1">
+						</a>
+                        <a role="button" class="btn btn-primary btn-score" ng-click="resetVisitor();">Reset</a>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+                    <p>Server
+                        <a style="float: right" ng-show=" hideServing == false" ng-click="hideServing = true">Hide</a>
+                        <a style="float: right" ng-show=" hideServing == true" ng-click="hideServing = false">Show</a>
+
+                    </p>
+
+                    <div ng-show="hideServing == false ">
+
+                        <div class="scoreThumb">
+                            <a class="link-digit" ng-click="set.servingAttempt = set.servingAttempt +1">{{set.servingAttempt}}</a>
+                            <a class="btn btn-danger btn-subtract" role="button" ng-show="set.servingAttempt!=0;" ng-click="set.servingAttempt = set.servingAttempt -1">Subtract</a>
+                        </div>
+
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.servingAce = set.servingAce + 1">
 						Ace&nbsp;&nbsp;<span class="badge">{{set.servingAce}}</span>
-						</a>	
-						<a role="button" class="btn btn-success btn-score" ng-click="set.servingFloat = set.servingFloat + 1">
+						</a>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.servingFloat = set.servingFloat + 1">
 						Float&nbsp;&nbsp;<span class="badge">{{set.servingFloat}}</span>
-						</a>	
-						<a role="button" class="btn btn-success btn-score" ng-click="set.servingJump = set.servingJump + 1">
+						</a>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.servingJump = set.servingJump + 1">
 						Jump&nbsp;&nbsp;<span class="badge">{{set.servingJump}}</span>
-						</a>	
-						<a role="button" class="btn btn-danger btn-score" ng-click="set.servingFault = set.servingFault + 1">
+						</a>
+                        <a role="button" class="btn btn-danger btn-score" ng-click="set.servingFault = set.servingFault + 1">
 						Fault&nbsp;&nbsp;<span class="badge">{{set.servingFault}}</span>
-						</a>	
-				
-						<a role="button" class="btn btn-primary btn-score" ng-click="resetServer();">Reset</a>
-		        
-			  
-		    </div>
-		  </div>
-		</div>	
+						</a>
+
+                        <a role="button" class="btn btn-primary btn-score" ng-click="resetServer();">Reset</a>
 
 
-       <div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-		      
-		      	<p>Setter 
-					<a style="float: right" ng-show= " hideSetting == false" ng-click="hideSetting = true">Hide</a>
-					<a style="float: right" ng-show= " hideSetting == true" ng-click="hideSetting = false">Show</a>
-				
-				</p>
-		      
-        <div ng-show="hideSetting == false ">
-			  <div class="scoreThumb">
-			  	   	<a class="link-digit" ng-click="set.setExcellant = set.setExcellant +1">{{set.setExcellant}}</a>
-			  	   	<a class="btn btn-danger btn-subtract" role="button" ng-show="set.setExcellant!=0;" ng-click="set.setExcellant = set.setExcellant -1">Subtract</a>
-			  </div>
-						<a role="button" class="btn btn-success btn-score" ng-click="set.setKill = set.setKill + 1">
+                    </div>
+                </div>
+            </div>
+
+
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+
+                    <p>Setter
+                        <a style="float: right" ng-show=" hideSetting == false" ng-click="hideSetting = true">Hide</a>
+                        <a style="float: right" ng-show=" hideSetting == true" ng-click="hideSetting = false">Show</a>
+
+                    </p>
+
+                    <div ng-show="hideSetting == false ">
+                        <div class="scoreThumb">
+                            <a class="link-digit" ng-click="set.setExcellant = set.setExcellant +1">{{set.setExcellant}}</a>
+                            <a class="btn btn-danger btn-subtract" role="button" ng-show="set.setExcellant!=0;" ng-click="set.setExcellant = set.setExcellant -1">Subtract</a>
+                        </div>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.setKill = set.setKill + 1">
 						Dump&nbsp;&nbsp;<span class="badge">{{set.setKill}}</span>
-						</a>	
-			
-						<a role="button" class="btn btn-warning btn-score" ng-click="set.setStill = set.setStill + 1">
+						</a>
+
+                        <a role="button" class="btn btn-warning btn-score" ng-click="set.setStill = set.setStill + 1">
 						Still&nbsp;&nbsp;<span class="badge">{{set.setStill}}</span>
-						</a>	
-	    
-						<a role="button" class="btn btn-danger btn-score" ng-click="set.setFault = set.setFault + 1">
+						</a>
+
+                        <a role="button" class="btn btn-danger btn-score" ng-click="set.setFault = set.setFault + 1">
 						Fault&nbsp;&nbsp;<span class="badge">{{set.setFault}}</span>
-						</a>	
-		
-						<a class="btn btn-primary btn-score" role="button" ng-click="resetSetter();">Reset</a>
-		    </div>
-		  </div>
-		
-		
-		</div>
-	
-		
-		
-		
-		
-       <div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-		      
-		      	<p>Defensive Specialist
-					<a style="float: right" ng-show= " hideDefense == false" ng-click="hideDefense = true">Hide</a>
-					<a style="float: right" ng-show= " hideDefense == true" ng-click="hideDefense = false">Show</a>
-				
-				</p>
-		      
-        <div ng-show="hideDefense == false ">
-			  <div class="scoreThumb">
-			  	   	<a class="link-digit" ng-click="set.passExcellant = set.passExcellant +1">{{set.passExcellant}}</a>
-			  	   	<a class="btn btn-danger btn-subtract" role="button" ng-show="set.passExcellant!=0;" ng-click="set.passExcellant = set.passExcellant -1">Subtract</a>
-			  </div>
-						<a role="button" class="btn btn-success btn-score" ng-click="set.passDig = set.passDig + 1">
+						</a>
+
+                        <a class="btn btn-primary btn-score" role="button" ng-click="resetSetter();">Reset</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+
+                    <p>Defensive Specialist
+                        <a style="float: right" ng-show=" hideDefense == false" ng-click="hideDefense = true">Hide</a>
+                        <a style="float: right" ng-show=" hideDefense == true" ng-click="hideDefense = false">Show</a>
+
+                    </p>
+
+                    <div ng-show="hideDefense == false ">
+                        <div class="scoreThumb">
+                            <a class="link-digit" ng-click="set.passExcellant = set.passExcellant +1">{{set.passExcellant}}</a>
+                            <a class="btn btn-danger btn-subtract" role="button" ng-show="set.passExcellant!=0;" ng-click="set.passExcellant = set.passExcellant -1">Subtract</a>
+                        </div>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.passDig = set.passDig + 1">
 						Dig&nbsp;&nbsp;<span class="badge">{{set.passDig}}</span>
-						</a>	
-			
-						<a role="button" class="btn btn-success btn-score" ng-click="set.passPancake = set.passPancake + 1">
+						</a>
+
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.passPancake = set.passPancake + 1">
 						Pancake&nbsp;&nbsp;<span class="badge">{{set.passPancake}}</span>
-						</a>	
-			
-			
-			<a role="button" class="btn btn-danger btn-score" ng-click="set.passFault = set.passFault + 1">
+						</a>
+
+
+                        <a role="button" class="btn btn-danger btn-score" ng-click="set.passFault = set.passFault + 1">
 						Fault&nbsp;&nbsp;<span class="badge">{{set.passFault}}</span>
-						</a>	
-			
-						<a class="btn btn-primary btn-score" role="button" ng-click="resetDefense();">Reset</a>
-		    </div>
-		  </div>
-		
-		
-		</div>
-	
+						</a>
 
-	
-	
-	
-	
-	
-	
-	   <div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-		      
-		      	<p>Outside
-					<a style="float: right" ng-show= " hideOutside == false" ng-click="hideOutside = true">Hide</a>
-					<a style="float: right" ng-show= " hideOutside == true" ng-click="hideOutside = false">Show</a>
-				
-				</p>
-		      
-        <div ng-show="hideOutside == false ">
-			  <div class="scoreThumb">
-			  	   	<a class="link-digit" ng-click="set.osExcellant = set.osExcellant +1">{{set.osExcellant}}</a>
-			  	   	<a class="btn btn-danger btn-subtract" role="button" ng-show="set.osExcellant!=0;" 
-					ng-click="set.osExcellant = set.osExcellant -1">Subtract</a>
-			  </div>
-						<a role="button" class="btn btn-success btn-score" ng-click="set.osSpike = set.osSpike + 1">
+                        <a class="btn btn-primary btn-score" role="button" ng-click="resetDefense();">Reset</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+
+                    <p>Outside
+                        <a style="float: right" ng-show=" hideOutside == false" ng-click="hideOutside = true">Hide</a>
+                        <a style="float: right" ng-show=" hideOutside == true" ng-click="hideOutside = false">Show</a>
+
+                    </p>
+
+                    <div ng-show="hideOutside == false ">
+                        <div class="scoreThumb">
+                            <a class="link-digit" ng-click="set.osExcellant = set.osExcellant +1">{{set.osExcellant}}</a>
+                            <a class="btn btn-danger btn-subtract" role="button" ng-show="set.osExcellant!=0;" ng-click="set.osExcellant = set.osExcellant -1">Subtract</a>
+                        </div>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.osSpike = set.osSpike + 1">
 						Spike&nbsp;&nbsp;<span class="badge">{{set.osSpike}}</span>
-						</a>	
-			
-						<a role="button" class="btn btn-danger btn-score" ng-click="set.osFault = set.osFault + 1">
+						</a>
+
+                        <a role="button" class="btn btn-danger btn-score" ng-click="set.osFault = set.osFault + 1">
 						Fault&nbsp;&nbsp;<span class="badge">{{set.osFault}}</span>
-						</a>	
-			
-			
-						<a class="btn btn-primary btn-score" role="button" ng-click="resetOutside();">Reset</a>
-		    </div>
-		  </div>
-		
-		
-		</div>
-	
-	
-	
-	
-	
-	<div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-		      
-		      	<p>Rightside
-					<a style="float: right" ng-show= " hideRightside == false" ng-click="hideRightside = true">Hide</a>
-					<a style="float: right" ng-show= " hideRightside == true" ng-click="hideRightside = false">Show</a>
-				
-				</p>
-		      
-        <div ng-show="hideRightside == false ">
-			  <div class="scoreThumb">
-			  	   	<a class="link-digit" ng-click="set.rsExcellant = set.rsExcellant +1">{{set.rsExcellant}}</a>
-			  	   	<a class="btn btn-danger btn-subtract" role="button" ng-show="set.rsExcellant!=0;" 
-					ng-click="set.rsExcellant = set.rsExcellant -1">Subtract</a>
-			  </div>
-						<a role="button" class="btn btn-success btn-score" ng-click="set.rsSpike = set.rsSpike + 1">
+						</a>
+
+
+                        <a class="btn btn-primary btn-score" role="button" ng-click="resetOutside();">Reset</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+
+                    <p>Rightside
+                        <a style="float: right" ng-show=" hideRightside == false" ng-click="hideRightside = true">Hide</a>
+                        <a style="float: right" ng-show=" hideRightside == true" ng-click="hideRightside = false">Show</a>
+
+                    </p>
+
+                    <div ng-show="hideRightside == false ">
+                        <div class="scoreThumb">
+                            <a class="link-digit" ng-click="set.rsExcellant = set.rsExcellant +1">{{set.rsExcellant}}</a>
+                            <a class="btn btn-danger btn-subtract" role="button" ng-show="set.rsExcellant!=0;" ng-click="set.rsExcellant = set.rsExcellant -1">Subtract</a>
+                        </div>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.rsSpike = set.rsSpike + 1">
 						Spike&nbsp;&nbsp;<span class="badge">{{set.rsSpike}}</span>
-						</a>	
-			
-						<a role="button" class="btn btn-danger btn-score" ng-click="set.rsFault = set.rsFault + 1">
+						</a>
+
+                        <a role="button" class="btn btn-danger btn-score" ng-click="set.rsFault = set.rsFault + 1">
 						Fault&nbsp;&nbsp;<span class="badge">{{set.rsFault}}</span>
-						</a>	
-			
-			
-						<a class="btn btn-primary btn-score" role="button" ng-click="resetRightside();">Reset</a>
-		    </div>
-		  </div>
-		
-		</div>
-	
-	
+						</a>
+
+
+                        <a class="btn btn-primary btn-score" role="button" ng-click="resetRightside();">Reset</a>
+                    </div>
+                </div>
+
+            </div>
 
 
 
-	   <div ng-cloak class="col-sm-6 col-md-4">
-		    <div class="thumbnail shadow">
-		      
-		      	<p>About
-				</p>
-		      
-        <div ng-show="hideOutside == false ">
-			  <div class="scoreThumb">
-			  	   
-						<p class="callout-detail" style="font-weight:normal;">Click or Touch the cards to bump the score. Use this app to keep score of the set and also score a player your following.  The scores will auto save to 
-						this device only (if local storage is supported). 
-							The application running on Google's app engine. The technology stack includes Angular JS and Bootstrap <p>
-
-				   </div>
-					
-			  		<a class="btn btn-success btn-score" 	href="https://github.com/pnadolny/scaling-lana">View on Git	Hub</a>
-				
-		    </div>
-		  </div>
-		
-		
-		</div>
-	
-	
-	
-	
-	</div> <!-- repeat -->
-
-<!-- <a class="btn btn-success" style="margin: 10px;" href="https://github.com/pnadolny/scaling-lana">View source on Git Hub</a> -->
- 
-	
-	
- </div>       
 
 
-			
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
 
- 
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+                    <p>About
+                    </p>
+
+                    <div ng-show="hideOutside == false ">
+                        <div class="scoreThumb">
+
+                            <p class="callout-detail" style="font-weight:normal;">Click or Touch the cards to bump the score. Use this app to keep score of the set and also score a player your following. The scores will auto save to this device only (if local storage is supported). The application running on Google's app engine. The technology stack includes Angular JS and Bootstrap
+                                <p>
+
+                        </div>
+
+                        <a class="btn btn-success btn-score" href="https://github.com/pnadolny/scaling-lana">View on Git	Hub</a>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+        <!-- repeat -->
+
+        <!-- <a class="btn btn-success" style="margin: 10px;" href="https://github.com/pnadolny/scaling-lana">View source on Git Hub</a> -->
+
+
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-resource.min.js"></script>
-    
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     <script src="js/filters.js"></script>
-    
-    <script src="js/ui-bootstrap-tpls-0.10.0.min.js"></script>
-    
-    
-    
-	
-	
+    <script src="js/ui-bootstrap-tpls-0.10.0.min.js"/></script>
     
 </body>
 
