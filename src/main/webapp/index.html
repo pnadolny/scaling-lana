@@ -52,7 +52,7 @@
     </style>
 </head>
 
-<body margin-top:10px">
+<body style="padding-top:10px">
 
 <!--
       <nav class="navbar navbar-default" role="navigation">
@@ -79,8 +79,12 @@
 			  	    	<a class="link-digit" ng-click="nextSet()">{{currentSet}}</a>
 		        	    <a class="btn btn-danger btn-subtract" ng-show="currentSet !=1;" ng-click="previousSet();">Previous</a>
 			        </div>
-		 	        <a class="btn btn-danger btn-score" ng-click="resetAll();">Reset All</a> 
-		        	
+					
+					<a class="btn btn-danger btn-score" ng-click="erase();">Erase</a> 
+					<a class="btn btn-success btn-score" ng-click="save();">Save</a> 
+					<a class="btn btn-primary btn-score" ng-click="resetAll();">Reset</a> 
+					
+		 	        
 			</div>
 			
 	

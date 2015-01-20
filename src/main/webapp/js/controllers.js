@@ -1,150 +1,139 @@
 'use strict';
 
 
-var volleyballAppControllers = angular.module('volleyballControllers',[]);
+var volleyballAppControllers = angular.module('volleyballControllers', []);
 
 
-volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', function($scope,$log,Storage) {
+volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', function($scope, $log, Storage) {
 
-    var defaultSet = {'homeScore':0,'visitorScore':0, 'setExcellant':0,'servingAttempt':0,'passExcellant':0,'osExcellant':0,'rsExcellant':0}
-	$scope.currentSet = 1;
-	
-	$scope.data = Storage.loadObject('data');
-	
-	
-	$scope.set = {};
-	$scope.hideVisitor =false;
-	$scope.hideServing =false;
-    $scope.hideSetting =false;
-	$scope.hideDefense= false;
-	$scope.hideOutside= false;
-	$scope.hideRightside= false;
-	
-	
-	$scope.storageSupport = Storage.supported();
-
-	$log.info('Storage supported: ' + Storage.supported());
-  	
-	if (angular.isUndefined($scope.data[$scope.currentSet])) {
-			$log.info('Storage supported...but no data..adding a set');
-  		$scope.data.push(defaultSet);	
-     }
-	
-	
-	$scope.set = $scope.data[$scope.currentSet];	
-	
-	$scope.nextSet = function() {
-		if (angular.isUndefined($scope.data[$scope.currentSet])) {
-			$scope.data.push(defaultSet);	
-        }                    
-	   $scope.currentSet = $scope.currentSet +1;
-	}
-
-	$scope.previousSet = function() {
-	   $scope.currentSet = $scope.currentSet -1;
-	}
-	
-	$scope.setSet = function() {
-		$scope.set = $scope.data[$scope.currentSet-1];
-		$log.info('JSON data: ' + angular.toJson($scope.set));
-	}
-	$scope.$watch( 'currentSet', $scope.setSet );
-	
-	
-	
-	$scope.save = function() {
-		$log.info('Saving to localstorage');
-		Storage.saveObject($scope.data,'data');
+    var defaultSet = {
+        'homeScore': 0,
+        'visitorScore': 0,
+        'setExcellant': 0,
+        'servingAttempt': 0,
+        'passExcellant': 0,
+        'osExcellant': 0,
+        'rsExcellant': 0
     }
-	
-	$scope.$watch(
-	        		function () {return $scope.data;},
-	             	function(newValue, oldValue) {
-						$scope.save();
-	        		},true
-	       );
+    $scope.currentSet = 1;
 
-	
-	$scope.$watch( 'data', $scope.save );
-	
-	
-	$scope.resetHome = function() {
-		var set = $scope.data[$scope.currentSet-1];
-		set.homeScore= 0;
-		set.homeTimeout =0;
-		set.homeSubs = 0;
-		set.homeOverlap=0;
-		
-    }
-	$scope.resetVisitor = function() {
-		var set = $scope.data[$scope.currentSet-1];
-		set.visitorScore = 0;
-		set.visitorSubs =0;
-		set.visitorTimeout =0;
-		set.visitorOverlap =0;
+    $scope.data = Storage.loadObject('data');
+
+
+    $scope.set = {};
+    $scope.hideVisitor = false;
+    $scope.hideServing = false;
+    $scope.hideSetting = false;
+    $scope.hideDefense = false;
+    $scope.hideOutside = false;
+    $scope.hideRightside = false;
+
+
+    $scope.storageSupport = Storage.supported();
+
+    $log.info('Storage supported: ' + Storage.supported());
+
+    if (angular.isUndefined($scope.data[$scope.currentSet])) {
+        $log.info('Storage supported...but no data..adding a set');
+        $scope.data.push(defaultSet);
     }
 
-	$scope.resetSetter = function() {
-		var set = $scope.data[$scope.currentSet-1];
-		set.setExcellant = 0;
-		set.setFault =0;
-		set.setKill =0;
-		set.setStill =0;
+
+    $scope.set = $scope.data[$scope.currentSet];
+
+    $scope.nextSet = function() {
+        if (angular.isUndefined($scope.data[$scope.currentSet])) {
+            $scope.data.push(defaultSet);
+        }
+        $scope.currentSet = $scope.currentSet + 1;
     }
 
-	$scope.resetServer = function() {
-		var set = $scope.data[$scope.currentSet-1];
-		set.servingAttempt = 0;
-		set.servingAce =0;
-		set.servingFloat =0;
-		set.servingJump =0;
-		set.servingFault =0;
+    $scope.previousSet = function() {
+        $scope.currentSet = $scope.currentSet - 1;
     }
 
-	$scope.resetDefense = function() {
-		var set = $scope.data[$scope.currentSet-1];
-		set.passExcellant = 0;
-		set.passDig =0;
-		set.passFault =0;
-		set.passPancake =0;
+    $scope.setSet = function() {
+        $scope.set = $scope.data[$scope.currentSet - 1];
+        $log.info('JSON data: ' + angular.toJson($scope.set));
     }
 
-	$scope.resetOutside = function() {
-		var set = $scope.data[$scope.currentSet-1];
-		set.osExcellant = 0;
-		set.osSpike =0;
-		set.osFault =0;
-		
+    $scope.$watch('currentSet', $scope.setSet);
+
+    $scope.save = function() {
+        $log.info('Saving to localstorage');
+        Storage.saveObject($scope.data, 'data');
+    }
+    $scope.erase = function() {
+        Storage.clear();
     }
 
-	$scope.resetRightside = function() {
-		var set = $scope.data[$scope.currentSet-1];
-		set.rsExcellant = 0;
-		set.rsSpike =0;
-		set.rsFault =0;
-		
+    $scope.resetHome = function() {
+        var set = $scope.data[$scope.currentSet - 1];
+        set.homeScore = 0;
+        set.homeTimeout = 0;
+        set.homeSubs = 0;
+        set.homeOverlap = 0;
+
+    }
+    $scope.resetVisitor = function() {
+        var set = $scope.data[$scope.currentSet - 1];
+        set.visitorScore = 0;
+        set.visitorSubs = 0;
+        set.visitorTimeout = 0;
+        set.visitorOverlap = 0;
     }
 
-	$scope.resetAll = function() {
-		
-		
-			$scope.resetServer();
-			$scope.resetSetter();
-			$scope.resetVisitor();
-			$scope.resetHome();
-			$scope.resetOutside();
-			$scope.resetRightside();
-			$scope.resetDefense();
-		$scope.data.splice(0, $scope.data.length);
-	
-	$scope.data.push(defaultSet);	     
-	    $scope.currentSet  = 1;
-		
-			
-	
-	}
+    $scope.resetSetter = function() {
+        var set = $scope.data[$scope.currentSet - 1];
+        set.setExcellant = 0;
+        set.setFault = 0;
+        set.setKill = 0;
+        set.setStill = 0;
+    }
+
+    $scope.resetServer = function() {
+        var set = $scope.data[$scope.currentSet - 1];
+        set.servingAttempt = 0;
+        set.servingAce = 0;
+        set.servingFloat = 0;
+        set.servingJump = 0;
+        set.servingFault = 0;
+    }
+
+    $scope.resetDefense = function() {
+        var set = $scope.data[$scope.currentSet - 1];
+        set.passExcellant = 0;
+        set.passDig = 0;
+        set.passFault = 0;
+        set.passPancake = 0;
+    }
+
+    $scope.resetOutside = function() {
+        var set = $scope.data[$scope.currentSet - 1];
+        set.osExcellant = 0;
+        set.osSpike = 0;
+        set.osFault = 0;
+
+    }
+
+    $scope.resetRightside = function() {
+        var set = $scope.data[$scope.currentSet - 1];
+        set.rsExcellant = 0;
+        set.rsSpike = 0;
+        set.rsFault = 0;
+
+    }
+
+    $scope.resetAll = function() {
+        $scope.resetServer();
+        $scope.resetSetter();
+        $scope.resetVisitor();
+        $scope.resetHome();
+        $scope.resetOutside();
+        $scope.resetRightside();
+        $scope.resetDefense();
+        $scope.data.splice(0, $scope.data.length);
+        $scope.data.push(defaultSet);
+        $scope.currentSet = 1;
+    }
 }]);
-
-
-
-
