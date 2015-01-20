@@ -6,6 +6,13 @@ var volleyballAppControllers = angular.module('volleyballControllers', []);
 
 volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', function($scope, $log, Storage) {
 
+    $scope.hideVisitor = false;
+    $scope.hideServing = false;
+    $scope.hideSetting = false;
+    $scope.hideDefense = false;
+    $scope.hideOutside = false;
+    $scope.hideRightside = false;
+	
     var defaultSet = {
         'homeScore': 0,
         'visitorScore': 0,
@@ -15,60 +22,59 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
         'osExcellant': 0,
         'rsExcellant': 0
     }
-    $scope.currentSet = 1;
-
-    $scope.data = Storage.loadObject('data');
-
-
-    $scope.set = {};
-    $scope.hideVisitor = false;
-    $scope.hideServing = false;
-    $scope.hideSetting = false;
-    $scope.hideDefense = false;
-    $scope.hideOutside = false;
-    $scope.hideRightside = false;
-
+	 
+	$scope.match = [];
+	
+	$scope.currentSet = 0;
+	
+	
+	//Storage.loadObject('data');
 
     $scope.storageSupport = Storage.supported();
 
     $log.info('Storage supported: ' + Storage.supported());
-
-    if (angular.isUndefined($scope.data[$scope.currentSet])) {
-        $log.info('Storage supported...but no data..adding a set');
-        $scope.data.push(defaultSet);
-    }
-
-
-    $scope.set = $scope.data[$scope.currentSet];
-
-    $scope.nextSet = function() {
-        if (angular.isUndefined($scope.data[$scope.currentSet])) {
-            $scope.data.push(defaultSet);
-        }
-        $scope.currentSet = $scope.currentSet + 1;
-    }
-
-    $scope.previousSet = function() {
-        $scope.currentSet = $scope.currentSet - 1;
-    }
-
-    $scope.setSet = function() {
-        $scope.set = $scope.data[$scope.currentSet - 1];
-        $log.info('JSON data: ' + angular.toJson($scope.set));
-    }
-
-    $scope.$watch('currentSet', $scope.setSet);
-
+	
+	$scope.compose = function() {
+	
+		var set = {
+			'homeScore': 0,
+			'visitorScore': 0,
+			'setExcellant': 0,
+			'servingAttempt': 0,
+			'passExcellant': 0,
+			'osExcellant': 0,
+			'rsExcellant': 0
+		}
+	
+		$scope.match.push(set);
+	}
+	$scope.size = function() {
+		return $scope.match.length;
+	}
+	
+	
+	$scope.$watch('currentSet',
+		function(newValue,oldValue) {
+			$log.info('Watch occurred');
+			if (angular.isUndefined($scope.match[newValue])) {
+					$scope.compose();
+			
+			}
+		
+			
+		}	);
+	
     $scope.save = function() {
         $log.info('Saving to localstorage');
-        Storage.saveObject($scope.data, 'data');
+        Storage.saveObject($scope.match, 'data');
     }
     $scope.erase = function() {
         Storage.clear();
+		$scope.resetAll();
     }
 
     $scope.resetHome = function() {
-        var set = $scope.data[$scope.currentSet - 1];
+        var set = $scope.match[$scope.currentSet - 1];
         set.homeScore = 0;
         set.homeTimeout = 0;
         set.homeSubs = 0;
@@ -76,7 +82,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 
     }
     $scope.resetVisitor = function() {
-        var set = $scope.data[$scope.currentSet - 1];
+        var set = $scope.match[$scope.currentSet - 1];
         set.visitorScore = 0;
         set.visitorSubs = 0;
         set.visitorTimeout = 0;
@@ -84,7 +90,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     }
 
     $scope.resetSetter = function() {
-        var set = $scope.data[$scope.currentSet - 1];
+        var set = $scope.match[$scope.currentSet - 1];
         set.setExcellant = 0;
         set.setFault = 0;
         set.setKill = 0;
@@ -92,7 +98,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     }
 
     $scope.resetServer = function() {
-        var set = $scope.data[$scope.currentSet - 1];
+        var set = $scope.match[$scope.currentSet - 1];
         set.servingAttempt = 0;
         set.servingAce = 0;
         set.servingFloat = 0;
@@ -101,7 +107,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     }
 
     $scope.resetDefense = function() {
-        var set = $scope.data[$scope.currentSet - 1];
+        var set = $scope.match[$scope.currentSet - 1];
         set.passExcellant = 0;
         set.passDig = 0;
         set.passFault = 0;
@@ -109,7 +115,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     }
 
     $scope.resetOutside = function() {
-        var set = $scope.data[$scope.currentSet - 1];
+        var set = $scope.match[$scope.currentSet - 1];
         set.osExcellant = 0;
         set.osSpike = 0;
         set.osFault = 0;
@@ -117,7 +123,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     }
 
     $scope.resetRightside = function() {
-        var set = $scope.data[$scope.currentSet - 1];
+        var set = $scope.match[$scope.currentSet - 1];
         set.rsExcellant = 0;
         set.rsSpike = 0;
         set.rsFault = 0;
@@ -132,8 +138,8 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
         $scope.resetOutside();
         $scope.resetRightside();
         $scope.resetDefense();
-        $scope.data.splice(0, $scope.data.length);
-        $scope.data.push(defaultSet);
+        $scope.match.splice(0, $scope.match.length);
+        $scope.match.push(defaultSet);
         $scope.currentSet = 1;
     }
 }]);
