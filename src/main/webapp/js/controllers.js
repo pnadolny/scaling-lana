@@ -12,20 +12,21 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     $scope.hideDefense = false;
     $scope.hideOutside = false;
     $scope.hideRightside = false;
-    $scope.match = [];
+    $scope.match = Storage.loadObject('match');
     $scope.currentSet = 0;
-
-
-    
+	
+	
     $scope.storageSupport = Storage.supported();
-	$log.info('Storage supported: ' + Storage.supported());
+	if ($scope.storageSupport) {
+		
+		$scope.currentSet = Storage.loadObject('currentSet');
 
-	/*
-	if ($scope.storageSupport()) {
-		$scope.match = Storage.loadObject('match');
-    
-	}
-	*/
+		$scope.$watch('match',	function(newValue,oldValue) {
+				$scope.save();
+			},true
+		
+		);
+	};
     
     $scope.compose = function() {
 
@@ -51,6 +52,7 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     
     $scope.save = function() {
         $log.info('Saving to localstorage');
+		Storage.saveObject($scope.currentSet, 'currentSet');
         Storage.saveObject($scope.match, 'match');
     }
     $scope.erase = function() {
