@@ -1,4 +1,3 @@
-'use strict';
 
 
 var volleyballAppControllers = angular.module('volleyballControllers', []);
@@ -12,6 +11,8 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     $scope.hideDefense = false;
     $scope.hideOutside = false;
     $scope.hideRightside = false;
+	$scope.hideMiddle = false;
+	
     $scope.match = Storage.loadObject('match');
     $scope.currentSet = 0;
 	
@@ -37,7 +38,8 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
             'servingAttempt': 0,
             'passExcellant': 0,
             'osExcellant': 0,
-            'rsExcellant': 0
+            'rsExcellant': 0,
+			'middleExcellant': 0
         }
 
         $scope.match.push(set);
@@ -112,6 +114,15 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 
     }
 
+    $scope.resetMiddle = function() {
+        var set = $scope.match[$scope.currentSet];
+        set.middleExcellant = 0;
+        set.middleSpike = 0;
+        set.middleFault = 0;
+		set.middleBlock = 0;
+    }
+
+	
     $scope.resetRightside = function() {
         var set = $scope.match[$scope.currentSet];
         set.rsExcellant = 0;

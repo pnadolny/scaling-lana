@@ -248,6 +248,44 @@
 
 
 
+            <div ng-cloak class="col-sm-6 col-md-4">
+                <div class="thumbnail shadow">
+
+                    <p>Middle
+                        <a style="float: right" ng-show=" hideMiddle == false" ng-click="hideMiddle = true">Hide</a>
+                        <a style="float: right" ng-show=" hideMiddle == true" ng-click="hideMiddle = false">Show</a>
+
+                    </p>
+
+                    <div ng-show="hideMiddle == false ">
+                        <div class="scoreThumb">
+                            <a class="link-digit" ng-click="set.middleExcellant = set.middleExcellant +1">{{set.middleExcellant}}</a>
+                            <a class="btn btn-danger btn-subtract" role="button" 
+							ng-show="set.middleExcellant!=0;" ng-click="set.middleExcellant = set.middleExcellant -1">
+							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							Subtract</a>
+                        </div>
+                        <a role="button" class="btn btn-success btn-score" ng-click="set.middleSpike = set.middleSpike + 1">
+						Spike&nbsp;&nbsp;<span class="badge">{{set.middleSpike}}</span>
+						</a>
+
+						<a role="button" class="btn btn-danger btn-score" ng-click="set.middleBlock = set.middleBlock + 1">
+						Block&nbsp;&nbsp;<span class="badge">{{set.middleBlock}}</span>
+						</a>
+
+                        <a role="button" class="btn btn-danger btn-score" ng-click="set.middleFault = set.middleFault + 1">
+						Fault&nbsp;&nbsp;<span class="badge">{{set.middleFault}}</span>
+						</a>
+
+
+                        <a class="btn btn-primary btn-score" role="button" ng-click="resetMiddle();">Reset</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
 
 
             <div ng-cloak class="col-sm-6 col-md-4">
