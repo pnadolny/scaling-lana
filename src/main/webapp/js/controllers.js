@@ -3,7 +3,7 @@
 var volleyballAppControllers = angular.module('volleyballControllers', []);
 
 
-volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', function($scope, $log, Storage) {
+volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', 'Storage', 'vibrator',function($scope, $log, Storage,vibrator) {
 
     $scope.hideVisitor = false;
     $scope.hideServing = false;
@@ -13,8 +13,12 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
     $scope.hideRightside = false;
 	$scope.hideMiddle = false;
 	
+	$scope.vibrate = false;
+	
     $scope.match = Storage.loadObject('match');
     $scope.currentSet = 0;
+	
+	$scope.vibrateSupport = vibrator.isSupported();
 	
 	
     $scope.storageSupport = Storage.supported();
@@ -23,6 +27,10 @@ volleyballAppControllers.controller('VolleyballController', ['$scope', '$log', '
 		$scope.currentSet = Storage.loadObject('currentSet');
 
 		$scope.$watch('match',	function(newValue,oldValue) {
+				if (vibrator.isSupported() && $scope.vibrate) {
+					vibrator.vibrate(100);
+				}
+				
 				$scope.save();
 			},true
 		
