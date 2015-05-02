@@ -9,7 +9,7 @@
     <artifactId>volleyballscorecards</artifactId>
 
     <properties>
-        <appengine.app.version>1</appengine.app.version>
+        <appengine.app.version>2</appengine.app.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <appengine.target.version>1.9.17</appengine.target.version>
     </properties>
@@ -31,10 +31,10 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
-    
+
     <dependencies>
         <!-- Compile/runtime dependencies -->
-		
+
 	 <dependency>
 		<groupId>com.google.code.gson</groupId>
 		<artifactId>gson</artifactId>
@@ -76,7 +76,7 @@
         <!-- for hot reload of the web application -->
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
         <plugins>
-        <!-- 
+        <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>

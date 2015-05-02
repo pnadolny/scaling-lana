@@ -1,9 +1,11 @@
+'use strict';
 
 
 var volleyballAppControllers = angular.module('volleyballControllers', []);
 
 
-volleyballAppControllers.controller('VolleyballController', function($scope, $log, vibrator, $firebaseArray,$firebaseObject) {
+volleyballAppControllers.controller('VolleyballController',
+		function($scope, $log, vibrator, $firebaseArray,$firebaseObject) {
 
 
 	var refRoot = new Firebase("https://luminous-heat-7529.firebaseio.com/currentSet");
@@ -33,7 +35,7 @@ volleyballAppControllers.controller('VolleyballController', function($scope, $lo
 					vibrator.vibrate(100);
 				}
 
-	//			$scope.match.$save($scope.match[$scope.currentSet.currentSet]);
+				$scope.match.$save($scope.match[$scope.currentSet.currentSet]);
 
 			},true
 
@@ -41,9 +43,7 @@ volleyballAppControllers.controller('VolleyballController', function($scope, $lo
 
     $scope.compose = function() {
 
-			$scope.currentSet = $scope.currentSet || 0;
-
-		    var set = {
+	    	var set = {
             'homeScore': 0,
             'visitorScore': 0,
             'setExcellant': 0,
@@ -59,18 +59,17 @@ volleyballAppControllers.controller('VolleyballController', function($scope, $lo
 
     $scope.next = function() {
 
-    //    if (angular.isUndefined($scope.currentSet)) {
-    //           $scope.compose();
-    //     }
+        if (angular.isUndefined($scope.match[$scope.currentSet.currentSet+1])) {
+               $scope.compose();
+         }
 	 			$scope.currentSet.currentSet =($scope.currentSet.currentSet || 0) +1;
     }
 
     $scope.erase = function() {
 
 				$scope.match.$remove(0,$scope.match.length);
-				//$scope.match.splice(0, $scope.match.length);
 				$scope.compose();
-        $scope.match.currentSet =0;
+        $scope.currentSet.currentSet =0;
 
     }
 
