@@ -1,4 +1,4 @@
 'use strict';
 
-angular.module("volleyballApp", ['volleyballControllers','volleyballServices','volleyballFilters','ui.bootstrap','angular-vibrator']);
-
+// Register modules for the app
+angular.module("volleyballApp", ['volleyballControllers','volleyballServices','volleyballFilters','ui.bootstrap','angular-vibrator','firebase']);
