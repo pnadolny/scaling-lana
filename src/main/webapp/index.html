@@ -9,7 +9,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 
 
     <style>
@@ -24,169 +26,75 @@
         .x-ng-cloak {
             display: none !important;
         }
-        .shadow {
-            -webkit-box-shadow: 9px 10px 5px 0px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 9px 10px 5px 0px rgba(0, 0, 0, 0.75);
-            box-shadow: 9px 10px 5px 0px rgba(0, 0, 0, 0.75);
-        }
-        .scoreThumb {
-            height: 150px;
-            border: 1px solid;
-            border-radius: 5px;
-        }
         .link-digit {
             padding-left: 50px;
             font-size: 850%;
             font-weight: bold;
 			      color: #0B0B0B;
         }
-        .btn-score {
-            margin-top: 5px;
-        }
-        .btn-subtract {
-            float: right;
-            margin-top: 5px;
-            margin-right: 5px;
-        }
-        .counter {} p {
-            font-weight: bold;
-        }
 
 
     </style>
 </head>
 
-<body>
+<body ng-cloak>
 
-  <div ng-controller="VolleyballController">
-
-
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
+  <div layout="column" ng-controller="VolleyballController" layout-fill>
 
 
+    <md-toolbar layout="row">
+         <h1 class="md-toolbar-tools" layout-align-gt-sm="center">Score-laborate</h1>
+     </md-toolbar>
 
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Score-laborate</a>
+     <div layout="row">
+          <md-button class="md-raised" ng-click="compose()">
+                 New Game
+          </md-button>
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
-        <ul class="nav navbar-nav navbar-right">
+      <div ng-repeat="set in match">
 
-          <li>
-          <a role="button" class="nav navbar-nav navbar-right btn"
-           ng-click="compose()">
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              <md-card>
+                        <md-card-content>
+                            <h2>Game {{$index+1}}</h2>
 
-          New Game</a>
-          </li>
+                            <md-grid-list md-cols-sm="2" md-cols-md="2" md-row-height-gt-md="1:1"
 
+                            md-row-height="1:1" md-gutter-gt-sm="8px" md-cols-gt-md="2" md-gutter="12px">
 
-          <!--<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Actions<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a ng-click="compose()">New Game</a></li>
-              <li class="divider"></li>
-              <li><a href="https://github.com/pnadolny/scaling-lana">View on GitHub</a></li>
+                            <md-grid-tile md-rowspan="1" md-colspan="1">
+                                <md-grid-tile-header>
+                                    <h3>Visitor</h3>
+                                </md-grid-tile-header>
+                                    <a class="link-digit" ng-click="set.visitorScore = set.visitorScore + 1">{{set.visitorScore}}</a>
+                                <md-button class="md-default-theme md-accent md-fab md-fab-bottom-left"
+                                ng-click="set.visitorScore = set.visitorScore -1;" ng-show="set.visitorScore>0">-</md-button>
+                            </md-grid-tile>
 
-            </ul>
-          </li>-->
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-
-
-        <div ng-repeat="set in match">
-
-
-            <div ng-cloak class="col-sm-6 col-md-4">
-                <div class="thumbnail shadow">
-                    <p>Home<span style="float: right">Game {{$index+1}}</span></p>
+                                <md-grid-tile  md-rowspan="1" md-colspan="1">
+                                    <md-grid-tile-header>
+                                        <h3>Home</h3>
+                                    </md-grid-tile-header>
+                                    <a class="link-digit" ng-click="set.homeScore = set.homeScore +1;">{{set.homeScore}}</a>
+                                    <md-button class="md-default-theme md-accent md-fab md-fab-bottom-left"
+                                      ng-click="set.homeScore = set.homeScore-1;" ng-show="set.homeScore>0">-</md-button>
+                                </md-grid-tile>
 
 
-                    <div class="scoreThumb">
-                        <a class="link-digit" ng-click="set.homeScore = set.homeScore +1;">{{set.homeScore}}</a>
+                            </md-grid-list>
 
-						<a role="button" class="btn btn-danger btn-subtract" ng-show="set.homeScore!=0;"
-            ng-click="set.homeScore = set.homeScore -1">
+                            <div layout="row" layout-align="start center">
+                                <md-button class="md-raised md-warn" style="margin: 5px;" ng-click="match.$remove(set)">Delete Game</md-button>
 
-						<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                          </div>
 
-
-						Subtract</a>
-
-
-                    </div>
-
-                    <a role="button" class="btn btn-success btn-score" ng-click="set.homeSubs = set.homeSubs + 1">
-						Subs&nbsp;&nbsp;<span class="badge">{{set.homeSubs}}</span>
-						</a>
-                    <a role="button" class="btn btn-success btn-score" ng-click="set.homeTimeout = set.homeTimeout + 1">
-						TO&nbsp;&nbsp;<span class="badge">{{set.homeTimeout}}</span>
-						</a>
-                    <a role="button" class="btn btn-primary btn-score"
-                    ng-click="set.homeSubs =0;set.homeScore=0;set.homeTimeout=0;">
-                    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                    Reset</a>
-
-                    <a role="button" class="btn btn-primary btn-score btn-danger"
-                    style="float: right" ng-click="match.$remove(set);">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-
-                    Delete</a>
-
-
-                </div>
-                <!--/.thumbnail -->
-            </div>
-            <!--/.col -->
+                        </md-card-content>
+                </md-card>
 
 
 
-            <div ng-cloak class="col-sm-6 col-md-4">
-                <div class="thumbnail shadow">
-                    <p>Visitor
-                        <span style="float: right">Game {{$index+1}}</span>
-                    </p>
-                    <div>
-
-
-                        <div class="scoreThumb">
-                            <a class="link-digit" ng-click="set.visitorScore = set.visitorScore +1">{{set.visitorScore}}</a>
-                            <a role="button" class="btn btn-danger btn-subtract" ng-show="set.visitorScore!=0;"
-							ng-click="set.visitorScore = set.visitorScore -1">
-							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Subtract</a>
-                        </div>
-
-                        <a role="button" class="btn btn-success btn-score" ng-click="set.visitorSubs = set.visitorSubs + 1">
-						Subs&nbsp;&nbsp;<span class="badge">{{set.visitorSubs}}</span>
-						</a>
-                        <a role="button" class="btn btn-success btn-score" ng-click="set.visitorTimeout = set.visitorTimeout + 1">
-						TO&nbsp;&nbsp;<span class="badge">{{set.visitorTimeout}}</span>
-						</a>
-                        <a role="button" class="btn btn-primary btn-score"
-                        ng-click="set.visitorScore=0;set.visitorSubs=0;set.visitorTimeout=0;">
-
-                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                        Reset</a>
-
-
-
-
-                    </div>
-                </div>
-            </div>
 
 
         </div>
@@ -194,23 +102,6 @@
 
 
 
-                <div ng-cloak class="col-sm-6 col-md-4">
-                    <div class="thumbnail shadow">
-                        <p>About</p>
-
-                        <div class="scoreThumb">
-
-                            <p class="callout-detail" style="font-weight:normal; padding: 5px;">
-                              Collaborate in realtime to score games. Click or Touch the digit on the cards to bump the score.
-                              Share the link and they will see this score too
-                              in realtime! The technology stack includes Angular JS, Firebase and Bootstrap.
-                              Choose Actions...New Game to start.
-                            <p>
-
-                        </div>
-
-                    </div>
-                </div>
 
 
 
@@ -219,6 +110,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-route.min.js"></script>
 
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
@@ -226,12 +120,12 @@
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 
+    <!-- Material -->
+    <script src="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js"></script>
+
+
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/ui-bootstrap-tpls-0.10.0.min.js"/></script>
-
 </body>
 
 </html>
