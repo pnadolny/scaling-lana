@@ -1,4 +1,4 @@
 'use strict';
 
 // Register modules for the app
-angular.module("volleyballApp", ['volleyballControllers','volleyballServices','volleyballFilters','ui.bootstrap','firebase']);
+angular.module("volleyballApp", ['volleyballControllers','ngMaterial','firebase']);
