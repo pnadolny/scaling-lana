@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('volleyballControllers', []).controller('VolleyballController',
-		function($scope, $log, $firebaseArray,$mdDialog) {
+		function($scope, $log, $firebaseArray,$mdDialog,$mdToast) {
 
   var ref = new Firebase("https://luminous-heat-7529.firebaseio.com/matches");
   $scope.match =  $firebaseArray(ref);
@@ -19,8 +19,15 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 			var confirm = $mdDialog.confirm().title('Would you like to delete game?').ok('Do it!').cancel('Cancel').targetEvent(ev);
 			$mdDialog.show(confirm).then(function() {
 				$scope.match.$remove(set);
+				$scope.showSimpleToast('Game deleted');
 			}, function() {});
 	}
 
-
+		$scope.showSimpleToast = function(message) {
+		    $mdToast.show(
+		      $mdToast.simple()
+		        .content(message)
+		        .hideDelay(3000)
+		    );
+		  };
 });
