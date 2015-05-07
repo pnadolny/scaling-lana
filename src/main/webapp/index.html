@@ -47,9 +47,9 @@
      </md-toolbar>
 
      <div layout="row">
-          <md-button class="md-raised" ng-click="compose()">
-                 New Game
-          </md-button>
+         <md-button class="md-raised md-primary" ng-click="compose()" style="margin: 5px;">
+                New Game
+         </md-button>
       </div>
 
 
@@ -58,7 +58,15 @@
 
               <md-card>
                         <md-card-content>
-                            <h2>Game {{$index+1}}</h2>
+
+                          <div layout-gt-sm="row">
+                              <h2 class="md-title">Game {{$index+1}}</h2>
+
+                            <md-input-container flex>
+                                    <label>Description</label>
+                                    <input ng-model="set.description" ng-model-options="{updateOn: 'blur'}" type="text"/>
+                            </md-input-container>
+                          </div>
 
                             <md-grid-list md-cols-sm="2" md-cols-md="2" md-row-height-gt-md="1:1"
 
@@ -66,7 +74,7 @@
 
                             <md-grid-tile md-rowspan="1" md-colspan="1">
                                 <md-grid-tile-header>
-                                    <h3>Visitor</h3>
+                                    <h3> Visitor</h3>
                                 </md-grid-tile-header>
                                     <a class="link-digit" ng-click="set.visitorScore = set.visitorScore + 1">{{set.visitorScore}}</a>
                                 <md-button class="md-default-theme md-accent md-fab md-fab-bottom-left"
@@ -85,10 +93,12 @@
 
                             </md-grid-list>
 
+                            <md-divider></md-divider>
                             <div layout="row" layout-align="start center">
-                                <md-button class="md-raised md-warn" style="margin: 5px;" ng-click="match.$remove(set)">Delete Game</md-button>
-
-                          </div>
+                              <md-button class="md-raised md-warn" style="margin: 5px;"
+                                ng-click="delete($event,set);">Delete
+                              </md-button>
+                           </div>
 
                         </md-card-content>
                 </md-card>
