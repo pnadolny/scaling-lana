@@ -4,15 +4,25 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 		function($scope, $log, $firebaseArray,$mdDialog,$mdToast) {
 
   var ref = new Firebase("https://luminous-heat-7529.firebaseio.com/matches");
-  $scope.match =  $firebaseArray(ref);
 	$scope.$watch('match',	function(newValue,oldValue) {
+
+				if (angular.isUndefined($scope.match)) {
+					return;
+				}
+
+				$log.info(angular.toJson(newValue, true));
 				for (var x = 0; x < $scope.match.length; x++) {
 					$scope.match.$save($scope.match[x]);
 		    }
 			},true
 	);
+
+
+	$scope.userName =null;
+	$scope.authenticated =false;
+
   $scope.compose = function() {
-      $scope.match.$add({'homeScore': 0,'visitorScore': 0});
+      $scope.match.$add({'homeScore': 0,'visitorScore': 0,'author': $scope.userName});
   }
 
 	$scope.delete = function(ev, set) {
@@ -30,4 +40,23 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 		        .hideDelay(3000)
 		    );
 		  };
+
+		$scope.signIn = function(){
+
+			ref.authWithOAuthPopup("google", function(error, authData) {
+  		if (error) {
+				$log.info("Login Failed!", error);
+  		} else {
+				$scope.match =  $firebaseArray(ref);
+
+				$scope.userName = authData.google.displayName;
+				$scope.authenticated =true;
+				$log.info("Authenticated successfully with payload:", authData);
+
+  		}
+			});
+
+
+		}
+
 });
