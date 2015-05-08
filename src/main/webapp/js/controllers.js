@@ -22,7 +22,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 	$scope.authenticated =false;
 
   $scope.compose = function() {
-      $scope.match.$add({'homeScore': 0,'visitorScore': 0,'author': $scope.userName});
+      $scope.match.$add({'homeScore': 0,'visitorScore': 0,'author': $scope.userName, 'status':'1'});
   }
 
 	$scope.delete = function(ev, set) {
