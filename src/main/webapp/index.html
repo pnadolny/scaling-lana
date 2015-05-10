@@ -41,7 +41,7 @@
 
   <div layout="column" ng-controller="VolleyballController" layout-fill>
 
-    <md-toolbar md-scroll-shrink>
+    <md-toolbar>
 
         <div class="md-toolbar-tools">
           <span>Score-laborate</span>
@@ -56,8 +56,9 @@
           <span ng-bind="userName"></span>
 
           <md-button class="md-raised md-primary md-hue-1" ng-show="!authenticated" ng-click="signIn()">
-                 Google Sign In
+                 Sign In with Google
           </md-button>
+
 
         </div>
 
@@ -65,17 +66,33 @@
 
 
 
-     <md-content ng-show="!authenticated">
+     <md-content>
          <md-card>
            <md-card-content>
              <h2 class="md-title">About Score-laborate</h2>
              <p>
-               Score-laborate is a collabarative scoring system.  Create a game and start scoring.
-               Any updates are instantly shared across all devices web or mobile.
+               This application is a prototype.
+             </p>
+             <p>
+               Score-laborate is a collabarative scoring network in which scorekeepers create
+               and score games and followers get instant realtime updates. Play the role of a
+               scorekeeper, follower, or both.
+               View live realtime scores and get any updates by the scorekeeper instantly.
+               Any updates by any user are instantly shared across all devices web or mobile.
                No pulling data, no manual refreshing, etc.
              </p>
+             <p>
+               This application is built on top of Firebase.  A realtime app platform.
+            </p>
+            <p>
+              Sign in to create games, or just follow the action.
+            </p>
            </md-card-content>
+
          </md-card>
+
+
+
      </md-content>
 
 
@@ -89,9 +106,8 @@
 
                             <md-input-container flex>
                                     <label>Description</label>
-                                    <input ng-model="set.description" ng-model-options="{updateOn: 'blur'}" type="text"/>
-
-
+                                    <input ng-model="set.description" ng-model-options="{updateOn: 'blur'}"
+                                    ng-readonly="!authenticated" type="text"/>
                             </md-input-container>
 
 
@@ -100,7 +116,7 @@
                                     <input ng-model="set.author" type="text" ng-readonly="true"/>
                             </md-input-container>
 
-                            <md-select placeholder="Sport" ng-model="set.sport">
+                            <md-select placeholder="Sport" ng-disabled="!authenticated" ng-model="set.sport">
                                 <md-option value="1">Volleyball</md-option>
                                 <md-option value="2">Soccer</md-option>
                                 <md-option value="3">Football</md-option>
@@ -108,7 +124,7 @@
 
                             </md-select>
 
-                            <md-select placeholder="Status" ng-model="set.status">
+                            <md-select placeholder="Status" ng-disabled="!authenticated" ng-model="set.status">
                                 <md-option value="1">In Progress</md-option>
                                 <md-option value="2">Final</md-option>
                             </md-select>
@@ -117,16 +133,24 @@
                           </div>
 
 
-                          <md-grid-list ng-show="!set.collapsed" md-cols-sm="2" md-cols-md="2" md-row-height-gt-md="1:1"
+                          <md-grid-list
+                          md-cols-sm="1"
+                          md-gutter-gt-sm="8px"
 
-                            md-row-height="1:1" md-gutter-gt-sm="8px" md-cols-gt-md="2" md-gutter="12px">
+                          md-cols-md="2"
+                          md-row-height-gt-md="1:1"
+
+                          md-row-height="1:1"
+                          md-cols-gt-md="2"
+                          md-gutter="12px">
 
                             <md-grid-tile md-rowspan="1" md-colspan="1">
                                 <md-grid-tile-header>
                                     <h3> Visitor</h3>
                                 </md-grid-tile-header>
-                                    <a class="link-digit" ng-click="set.visitorScore = set.visitorScore + 1">{{set.visitorScore}}</a>
-                                <md-button class="md-default-theme md-accent md-fab md-fab-bottom-left"
+                                    <span ng-show="!authenticated" class="link-digit">{{set.visitorScore}}</span>
+                                    <a ng-show="authenticated" class="link-digit" ng-click="set.visitorScore = set.visitorScore + 1">{{set.visitorScore}}</a>
+                                <md-button ng-disabled="!authenticated" class="md-default-theme md-accent md-fab md-fab-bottom-left"
                                 ng-click="set.visitorScore = set.visitorScore -1;" ng-show="set.visitorScore>0">-</md-button>
                             </md-grid-tile>
 
@@ -134,8 +158,10 @@
                                     <md-grid-tile-header>
                                         <h3>Home</h3>
                                     </md-grid-tile-header>
-                                    <a class="link-digit" ng-click="set.homeScore = set.homeScore +1;">{{set.homeScore}}</a>
-                                    <md-button class="md-default-theme md-accent md-fab md-fab-bottom-left"
+                                    <span ng-show="!authenticated" class="link-digit">{{set.homeScore}}</span>
+
+                                    <a class="link-digit" ng-show="authenticated" ng-click="set.homeScore = set.homeScore +1;">{{set.homeScore}}</a>
+                                    <md-button ng-disabled="!authenticated" class="md-default-theme md-accent md-fab md-fab-bottom-left"
                                       ng-click="set.homeScore = set.homeScore-1;" ng-show="set.homeScore>0">-</md-button>
                                 </md-grid-tile>
 
@@ -143,19 +169,16 @@
                             </md-grid-list>
 
 
-
-                            <md-divider></md-divider>
-                            <div layout="row" layout-align="start center">
-                              <md-button class="md-raised md-warn" style="margin: 5px;"
-                                ng-click="delete($event,set);">Delete
-                              </md-button>
-                           </div>
-
-
-
-
-
                         </md-card-content>
+
+
+                        <div class="md-actions" layout="row" layout-align="end center">
+                          <md-button class="md-raised md-warn" ng-disabled="!authenticated" style="margin: 5px;"
+                            ng-click="delete($event,set);">Delete
+                          </md-button>
+                        </div>
+
+
                 </md-card>
 
 

@@ -14,13 +14,15 @@
         <handler file="/dos_api_denial.html" error-code="dos_api_denial"/>
         <handler file="/timeout.html" error-code="timeout"/>
     </static-error-handlers>
-	
+
 	<static-files>
 	    <include path="/*.html" />
-		 
+
 		<include path="/**.js" />
 		<include path="/**.css" />
 		<include path="/**.jpg" />
-    </static-files> 
-	 	 
+		<include path="/**.png" />
+
+    </static-files>
+
 </appengine-web-app>
