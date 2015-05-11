@@ -42,19 +42,14 @@
   <div layout="column" ng-controller="VolleyballController" layout-fill>
 
     <md-toolbar>
-
-        <div class="md-toolbar-tools">
+      <div class="md-toolbar-tools">
           <span>Wynik</span>
-
-          <span flex></span>
+    <span flex></span>
 
 
 
           <span ng-bind="userName"></span>
 
-          <md-button class="md-raised md-primary md-hue-1" ng-show="!authenticated" ng-click="signIn()">
-                 Sign In with Google
-          </md-button>
 
 
         </div>
@@ -63,33 +58,29 @@
 
 
 
-     <md-content>
-         <md-card>
-           <md-card-content>
-             <h2 class="md-title">About Wynik (prototype)</h2>
-             <p>
-               Wynik (score in polish) is a collabarative scoring network in which scorekeepers create
-               games and score and followers get instant realtime updates. Play the role of a
-               scorekeeper, follower, or both. Any updates by any user are instantly shared across all devices web or mobile.
-               No pulling data, no manual refreshing, etc.   Sign in to create games, or remain anyonymous and just follow.
-             </p>
+     <div layout="column" layout-align="center center"  style="margin-bottom: 25px;">
+          <p style="font-size: 50px;
+          font-weight:200;">
+            Wynik
+          </p>
+          <p style="font-size: 15px;
+          font-weight:200;">
+            Collabarative Volleyball Scoring
+          </p>
+          <md-button class="md-raised md-primary md-hue-1" ng-show="!authenticated" ng-click="signIn()">
+                 Sign In with Google
+          </md-button>
+          <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="authenticated" ng-click="compose()">
+                 New Game
+          </md-button>
 
+        </div>
 
-             <div class="md-actions" layout="row" layout-align="end center">
-               <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="authenticated" ng-click="compose()">
-                      New Game
-               </md-button>
-             </div>
-
-
-           </md-card-content>
-         </md-card>
-     </md-content>
 
 
       <div ng-repeat="set in match">
 
-              <md-card ng-click="alert('xxx');">
+              <md-card>
                         <md-card-content>
 
                           <div layout-gt-sm="row">
@@ -104,12 +95,6 @@
                                     <label>Author</label>
                                     <input ng-model="set.author" type="text" ng-readonly="true"/>
                             </md-input-container>
-                            <md-select placeholder="Sport" ng-disabled="!authenticated" ng-model="set.sport">
-                                <md-option value="1">Volleyball</md-option>
-                                <md-option value="2">Soccer</md-option>
-                                <md-option value="3">Football</md-option>
-                                <md-option value="4">Basketball</md-option>
-                            </md-select>
 
                             <md-select placeholder="Status" ng-disabled="!authenticated" ng-model="set.status">
                                 <md-option value="1">In Progress</md-option>
@@ -132,7 +117,7 @@
                           md-cols-gt-md="2"
                           md-gutter="12px">
 
-                            <md-grid-tile id="{{index}}">
+                            <md-grid-tile>
                                 <md-grid-tile-header>
                                     <h3>Visitor</h3>
                                 </md-grid-tile-header>
