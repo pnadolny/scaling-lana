@@ -47,16 +47,9 @@
     <md-toolbar>
       <div class="md-toolbar-tools">
           <span>Wynik</span>
-    <span flex></span>
-
-
-
+          <span flex></span>
           <span ng-bind="userName"></span>
-
-
-
         </div>
-
      </md-toolbar>
 
 
@@ -80,10 +73,17 @@
         </div>
 
 
+        <md-divider></md-divider>
 
       <div ng-repeat="set in match">
 
               <md-card>
+                <div class="md-actions" layout="row" layout-align="space-between center">
+                    <span style="font-size: 15px;font-weight:200;" ng-show="set.status ==2">Final</span>
+                    <span style="font-size: 15px;font-weight:200;" ng-show="set.status ==1">In progress</span>
+                    <span style="font-size: 15px;font-weight:200;">{{set.date | date:'medium'}}</span>
+                 </div>
+
                         <md-card-content>
 
                           <div layout-gt-sm="row">
@@ -91,35 +91,29 @@
 
 
                               <md-input-container flex>
-                                <label>Date</label>
-                                <input ng-model="set.date | date:'medium'"
-                                ng-readonly="true" type="text"/>
-                              </md-input-container>
-
-                              <md-input-container flex>
-                                      <label>Team Home</label>
+                                      <label>Home</label>
                                       <input ng-model="set.teamHome" ng-model-options="{updateOn: 'blur'}"
                                       ng-readonly="!authenticated" type="text"/>
                               </md-input-container>
 
                               <md-input-container flex>
-                                      <label>Team Visitor</label>
+                                      <label>Visitor</label>
                                       <input ng-model="set.teamVisitor" ng-model-options="{updateOn: 'blur'}"
                                       ng-readonly="!authenticated" type="text"/>
                               </md-input-container>
 
 
                             <md-input-container flex>
-                                    <label>Author</label>
+                                    <label>Scorekeeper</label>
                                     <input ng-model="set.author" type="text" ng-readonly="true"/>
                             </md-input-container>
 
-                            <md-select placeholder="Status" ng-disabled="!authenticated" ng-model="set.status">
+                            <md-select ng-show="authenticated" placeholder="Status" ng-disabled="!authenticated" ng-model="set.status">
                                 <md-option value="1">In Progress</md-option>
                                 <md-option value="2">Final</md-option>
                             </md-select>
 
-                            <md-input-container flex>
+                            <md-input-container flex ng-show="authenticated">
                                     <label>Description</label>
                                     <input ng-model="set.description" ng-model-options="{updateOn: 'blur'}"
                                     ng-readonly="!authenticated" type="text"/>
@@ -154,7 +148,7 @@
                                 ng-show="set.visitorScore>0">-</md-button>
                             </md-grid-tile>
 
-                            <md-grid-tile id={{index}} >
+                            <md-grid-tile>
                                     <md-grid-tile-header>
                                         <h3 ng-bind="set.teamHome"></h3>
                                     </md-grid-tile-header>
@@ -170,7 +164,7 @@
 
 
 
-                        <div class="md-actions" layout="row" layout-align="end center">
+                        <div ng-show="authenticated" class="md-actions" layout="row" layout-align="end center">
 
                           <md-button class="md-raised md-warn" ng-disabled="!authenticated" style="margin: 5px;"
                             ng-click="delete($event,set);">Delete
