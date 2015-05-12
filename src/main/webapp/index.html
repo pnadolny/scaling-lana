@@ -2,7 +2,7 @@
 <html lang="en" xmlns:ng="https://angularjs.org" ng-app="volleyballApp">
 
 <head>
-    <title>Scorelaborate</title>
+    <title>Wynik</title>
 
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <META HTTP-EQUIV="Expires" CONTENT="-1">
@@ -68,7 +68,7 @@
           </p>
           <p style="font-size: 15px;
           font-weight:200;">
-            Collabarative Volleyball Scoring
+            Wynik is a polish noun for result. Sign in to scorekeep or just follow.
           </p>
           <md-button class="md-raised md-primary md-hue-1" ng-show="!authenticated" ng-click="signIn()">
                  Sign In with Google
@@ -89,6 +89,12 @@
                           <div layout-gt-sm="row">
                               <h2 class="md-title">{{set.homeScore}}-{{set.visitorScore}}</h2>
 
+
+                              <md-input-container flex>
+                                <label>Date</label>
+                                <input ng-model="set.date | date:'medium'"
+                                ng-readonly="true" type="text"/>
+                              </md-input-container>
 
                               <md-input-container flex>
                                       <label>Team Home</label>
