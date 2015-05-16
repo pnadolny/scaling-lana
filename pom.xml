@@ -5,13 +5,13 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    <groupId>com.appspot.volleyballscorecards</groupId>
-    <artifactId>volleyballscorecards</artifactId>
+    <groupId>com.appspot.wynik</groupId>
+    <artifactId>wynik</artifactId>
 
     <properties>
         <appengine.app.version>2</appengine.app.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <appengine.target.version>1.9.17</appengine.target.version>
+	    <appengine.target.version>1.9.19</appengine.target.version>
     </properties>
 
     <prerequisites>
@@ -124,7 +124,7 @@
             </plugin>
         </plugins>
     </build>
-    <name>Volleyball Scorecards</name>
+    <name>Wynik</name>
     <description></description>
     <inceptionYear>2015</inceptionYear>
     <scm>

@@ -36,6 +36,11 @@
           color: #000;
           font-size: 850%;
         }
+        .scorecard-label {
+          padding: 10px;
+          font-size: 15px;
+          font-weight:200;
+        }
 
     </style>
 </head>
@@ -46,10 +51,10 @@
 
     <md-toolbar>
       <div class="md-toolbar-tools">
-          <span>Wynik</span>
+          <span style="font-weight:200">Wynik</span>
           <span flex></span>
-          <span ng-bind="userName"></span>
-        </div>
+          <span style="font-weight:200" ng-bind="authenticatedDisplayName"></span>
+      </div>
      </md-toolbar>
 
 
@@ -61,14 +66,27 @@
           </p>
           <p style="font-size: 15px;
           font-weight:200;">
-            Wynik is a polish noun for result. Sign in to scorekeep or just follow.
+            Wynik....polish for score.
           </p>
-          <md-button class="md-raised md-primary md-hue-1" ng-show="!authenticated" ng-click="signIn()">
-                 Sign In with Google
-          </md-button>
-          <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="authenticated" ng-click="compose()">
-                 New Game
-          </md-button>
+
+          <div layout="row">
+
+            <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="!authenticated" ng-click="signIn('google')">
+                   Sign In with Google
+            </md-button>
+            <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="!authenticated" ng-click="signIn('twitter')">
+                   Sign In with Twitter
+            </md-button>
+            <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="authenticated" ng-click="compose()">
+                   New Game
+            </md-button>
+
+          </div>
+
+          <p ng-show="!authenticated" style="font-size: 15px;
+          font-weight:200;">
+            Sign in to create games and scorekeep. Or, follow anonymously then.
+          </p>
 
         </div>
 
@@ -79,9 +97,11 @@
 
               <md-card>
                 <div class="md-actions" layout="row" layout-align="space-between center">
-                    <span style="font-size: 15px;font-weight:200;" ng-show="set.status ==2">Final</span>
-                    <span style="font-size: 15px;font-weight:200;" ng-show="set.status ==1">In progress</span>
-                    <span style="font-size: 15px;font-weight:200;">{{set.date | date:'medium'}}</span>
+                    <span class="scorecard-label" ng-show="set.status ==2">Final</span>
+                    <span class="scorecard-label" ng-show="set.status ==1">In progress</span>
+                    <span class="scorecard-label" ng-show="set.status ==0">Pending</span>
+
+                    <span class="scorecard-label">{{set.date | date:'medium'}}</span>
                  </div>
 
                         <md-card-content>
@@ -109,6 +129,7 @@
                             </md-input-container>
 
                             <md-select ng-show="authenticated" placeholder="Status" ng-disabled="!authenticated" ng-model="set.status">
+                                <md-option value="0">Pending</md-option>
                                 <md-option value="1">In Progress</md-option>
                                 <md-option value="2">Final</md-option>
                             </md-select>
@@ -166,11 +187,12 @@
 
                         <div ng-show="authenticated" class="md-actions" layout="row" layout-align="end center">
 
-                          <md-button class="md-raised md-warn" ng-disabled="!authenticated" style="margin: 5px;"
+                          <md-button class="md-raised md-warn"
+                            ng-disabled="!authenticated || set.author !== authenticatedDisplayName" style="margin: 5px;"
                             ng-click="delete($event,set);">Delete
                           </md-button>
-                          <md-button class="md-primary md-raised" style="margin: 5px;"
-                            ng-click="set.showScore = !set.showScore;">Open/Close
+                          <md-button class="md-primary md-raised" ng-disabled="!authenticated || set.author !== authenticatedDisplayName" style="margin: 5px;"
+                            ng-click="set.showScore = !set.showScore;">Open/Close Scoreboard
                           </md-button>
                         </div>
 

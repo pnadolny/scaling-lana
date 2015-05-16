@@ -3,11 +3,13 @@
 angular.module('volleyballControllers', []).controller('VolleyballController',
 		function($scope, $log, $firebaseArray,$mdDialog,$mdToast) {
 
+	$scope.authenticatedDisplayName =null;
+	$scope.authenticated =false;
+
   var ref = new Firebase("https://luminous-heat-7529.firebaseio.com/matches");
 	$scope.match =  $firebaseArray(ref);
 
 	$scope.$watch('match',	function(newValue,oldValue) {
-
 
 				if (angular.isUndefined($scope.match)) {
 					return;
@@ -16,8 +18,6 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 				if (!$scope.authenticated) {
 					return;
 				}
-
-
 				$log.info(angular.toJson(newValue, true));
 				for (var x = 0; x < $scope.match.length; x++) {
 					$scope.match.$save($scope.match[x]);
@@ -26,8 +26,6 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 	);
 
 
-	$scope.userName =null;
-	$scope.authenticated =false;
 
   $scope.compose = function() {
       $scope.match.$add({'homeScore': 0,'visitorScore': 0,'author': $scope.userName, 'status':'1', 'date': Date.now()});
@@ -49,17 +47,21 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 		    );
 		  };
 
-		$scope.signIn = function(){
+		$scope.signIn = function(provider){
 
 			$scope.authenticated =false;
 
-			ref.authWithOAuthPopup("google", function(error, authData) {
+			ref.authWithOAuthPopup(provider, function(error, authData) {
   		if (error) {
 				$log.info("Login Failed!", error);
   		} else {
 
+				if (provider ==='google') {
+					$scope.authenticatedDisplayName = authData.google.displayName;
+				} else {
+					$scope.authenticatedDisplayName = authData.twitter.displayName;
+				}
 
-				$scope.userName = authData.google.displayName;
 				$scope.authenticated =true;
 				$log.info("Authenticated successfully with payload:", authData);
 
