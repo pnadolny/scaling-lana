@@ -69,23 +69,21 @@
             Wynik....polish for score.
           </p>
 
-          <div layout="row">
 
-            <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="!authenticated" ng-click="signIn('google')">
+            <md-button class="md-raised md-primary md-hue-1" style="margin: 5px;" ng-show="!authenticated" ng-click="signIn('google')">
                    Sign In with Google
             </md-button>
-            <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="!authenticated" ng-click="signIn('twitter')">
+            <md-button class="md-raised md-primary md-hue-1" style="margin: 5px;" ng-show="!authenticated" ng-click="signIn('twitter')">
                    Sign In with Twitter
             </md-button>
-            <md-button class="md-raised md-primary md-hue-1" style="margin-right: 5px;" ng-show="authenticated" ng-click="compose()">
+            <md-button class="md-raised md-primary md-hue-1" ng-show="authenticated" ng-click="compose()">
                    New Game
             </md-button>
 
-          </div>
 
           <p ng-show="!authenticated" style="font-size: 15px;
           font-weight:200;">
-            Sign in to create games and scorekeep. Or, follow anonymously then.
+            Sign in to score games. Or, just follow anonymously.
           </p>
 
         </div>
@@ -112,14 +110,14 @@
 
                               <md-input-container flex>
                                       <label>Home</label>
-                                      <input ng-model="set.teamHome" ng-model-options="{updateOn: 'blur'}"
-                                      ng-readonly="!authenticated" type="text"/>
+                                      <input ng-model="set.teamHome" ng-change="match.$save(set)"  ng-model-options="{updateOn: 'blur'}"
+                                      ng-readonly="!authenticated  || set.author !== authenticatedDisplayName" type="text"/>
                               </md-input-container>
 
                               <md-input-container flex>
                                       <label>Visitor</label>
-                                      <input ng-model="set.teamVisitor" ng-model-options="{updateOn: 'blur'}"
-                                      ng-readonly="!authenticated" type="text"/>
+                                      <input ng-model="set.teamVisitor" ng-change="match.$save(set)"  ng-model-options="{updateOn: 'blur'}"
+                                      ng-readonly="!authenticated  || set.author !== authenticatedDisplayName" type="text"/>
                               </md-input-container>
 
 
@@ -128,16 +126,19 @@
                                     <input ng-model="set.author" type="text" ng-readonly="true"/>
                             </md-input-container>
 
-                            <md-select ng-show="authenticated" placeholder="Status" ng-disabled="!authenticated" ng-model="set.status">
+                            <md-select ng-show="authenticated"
+                            placeholder="Status" ng-change="match.$save(set)"
+                            ng-disabled="!authenticated  || set.author !== authenticatedDisplayName" ng-model="set.status">
                                 <md-option value="0">Pending</md-option>
                                 <md-option value="1">In Progress</md-option>
                                 <md-option value="2">Final</md-option>
                             </md-select>
 
-                            <md-input-container flex ng-show="authenticated">
+                            <md-input-container flex  ng-show="authenticated">
                                     <label>Description</label>
-                                    <input ng-model="set.description" ng-model-options="{updateOn: 'blur'}"
-                                    ng-readonly="!authenticated" type="text"/>
+                                    <input ng-model="set.description"
+                                    ng-change="match.$save(set)" ng-model-options="{updateOn: 'blur'}"
+                                    ng-readonly="!authenticated  || set.author !== authenticatedDisplayName" type="text"/>
                             </md-input-container>
 
 
@@ -161,11 +162,12 @@
                                     <h3 ng-bind="set.teamVisitor"></h3>
                                 </md-grid-tile-header>
                                 <span ng-show="!authenticated" class="link-digit">{{set.visitorScore}}</span>
-                                    <a ng-show="authenticated" class="link-digit" ng-click="set.visitorScore = set.visitorScore + 1">{{set.visitorScore}}</a>
+                                <a ng-show="authenticated" class="link-digit"
+                                ng-click="set.visitorScore = set.visitorScore + 1; match.$save(set);">{{set.visitorScore}}</a>
 
                                 <md-button ng-disabled="!authenticated"
                                 class="md-default-theme md-accent md-fab md-fab-bottom-left"
-                                ng-click="set.visitorScore = set.visitorScore -1;"
+                                ng-click="set.visitorScore = set.visitorScore -1; match.$save(set);"
                                 ng-show="set.visitorScore>0">-</md-button>
                             </md-grid-tile>
 
@@ -173,11 +175,14 @@
                                     <md-grid-tile-header>
                                         <h3 ng-bind="set.teamHome"></h3>
                                     </md-grid-tile-header>
-                                    <span ng-show="!authenticated" class="link-digit">{{set.homeScore}}</span>
+                                    <span ng-show="!authenticated"
+                                    class="link-digit">{{set.homeScore}}</span>
 
-                                    <a class="link-digit" ng-show="authenticated" ng-click="set.homeScore = set.homeScore +1;">{{set.homeScore}}</a>
-                                    <md-button ng-disabled="!authenticated" class="md-default-theme md-accent md-fab md-fab-bottom-left"
-                                      ng-click="set.homeScore = set.homeScore-1;" ng-show="set.homeScore>0">-</md-button>
+                                    <a class="link-digit" ng-show="authenticated"
+                                    ng-click="set.homeScore = set.homeScore +1; match.$save(set);">{{set.homeScore}}</a>
+                                    <md-button
+                                      ng-disabled="!authenticated" class="md-default-theme md-accent md-fab md-fab-bottom-left"
+                                      ng-click="set.homeScore = set.homeScore-1;match.$save(set);" ng-show="set.homeScore>0">-</md-button>
                                 </md-grid-tile>
                             </md-grid-list>
 

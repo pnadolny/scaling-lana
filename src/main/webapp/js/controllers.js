@@ -9,23 +9,6 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
   var ref = new Firebase("https://luminous-heat-7529.firebaseio.com/matches");
 	$scope.match =  $firebaseArray(ref);
 
-	$scope.$watch('match',	function(newValue,oldValue) {
-
-				if (angular.isUndefined($scope.match)) {
-					return;
-				}
-
-				if (!$scope.authenticated) {
-					return;
-				}
-				$log.info(angular.toJson(newValue, true));
-				for (var x = 0; x < $scope.match.length; x++) {
-					$scope.match.$save($scope.match[x]);
-		    }
-			},true
-	);
-
-
 
   $scope.compose = function() {
       $scope.match.$add({'homeScore': 0,'visitorScore': 0,'author': $scope.userName, 'status':'1', 'date': Date.now()});
