@@ -54,6 +54,10 @@
           <span style="font-weight:200">Wynik</span>
           <span flex></span>
           <span style="font-weight:200" ng-bind="authenticatedDisplayName"></span>
+          <md-button class="md-raised md-primary md-hue-1" style="margin-left: 5px;" ng-show="authenticated" ng-click="signOut()">
+                 Sign out
+          </md-button>
+
       </div>
      </md-toolbar>
 
@@ -94,7 +98,7 @@
       <div ng-repeat="set in match">
 
               <md-card>
-                <div class="md-actions" layout="row" layout-align="space-between center">
+                <div class="md-actions" style="background: rgba(0,0,0,.18)" layout="row" layout-align="space-between center">
                     <span class="scorecard-label" ng-show="set.status ==2">Final</span>
                     <span class="scorecard-label" ng-show="set.status ==1">In progress</span>
                     <span class="scorecard-label" ng-show="set.status ==0">Pending</span>
@@ -193,10 +197,11 @@
                         <div ng-show="authenticated" class="md-actions" layout="row" layout-align="end center">
 
                           <md-button class="md-raised md-warn"
-                            ng-disabled="!authenticated || set.author !== authenticatedDisplayName" style="margin: 5px;"
+                            ng-disabled="!authenticated || set.uid !== authData.uid" style="margin: 5px;"
                             ng-click="delete($event,set);">Delete
                           </md-button>
-                          <md-button class="md-primary md-raised" ng-disabled="!authenticated || set.author !== authenticatedDisplayName" style="margin: 5px;"
+                          <md-button class="md-primary md-raised" ng-disabled="!authenticated ||
+                          set.uid !== authData.uid" style="margin: 5px;"
                             ng-click="set.showScore = !set.showScore;">Open/Close Scoreboard
                           </md-button>
                         </div>
