@@ -49,7 +49,7 @@
 
   <div layout="column" ng-controller="VolleyballController" layout-fill>
 
-    <md-toolbar>
+    <md-toolbar style="background: #045E9E;">
       <div class="md-toolbar-tools">
           <span style="font-weight:200">Wynik</span>
           <span flex></span>
@@ -63,13 +63,13 @@
 
 
 
-     <div layout="column" layout-align="center center"  style="margin-bottom: 25px;">
+     <div layout="column" layout-align="center center"  style="margin-bottom: 25px; background: linear-gradient(169deg,#045e9e 40%,#73c2fb 100%);">
           <p style="font-size: 50px;
-          font-weight:200;">
+          font-weight:200;color: white;">
             Wynik
           </p>
           <p style="font-size: 15px;
-          font-weight:200;">
+          font-weight:200;color: white;">
             Wynik....polish for score.
           </p>
 
@@ -80,14 +80,14 @@
             <md-button class="md-raised md-primary md-hue-1" style="margin: 5px;" ng-show="!authenticated" ng-click="signIn('twitter')">
                    Sign In with Twitter
             </md-button>
-            <md-button class="md-raised md-primary md-hue-1" ng-show="authenticated" ng-click="compose()">
+            <md-button class="md-raised md-primary md-hue-1" style="margin: 15px;" ng-show="authenticated" ng-click="compose()">
                    New Game
             </md-button>
 
 
-          <p ng-show="!authenticated" style="font-size: 15px;
+          <p ng-show="!authenticated" style="color: white; font-size: 15px;
           font-weight:200;">
-            Sign in to score games. Or, just follow anonymously.
+            Sign in to score games.
           </p>
 
         </div>
@@ -98,7 +98,7 @@
       <div ng-repeat="set in match">
 
               <md-card>
-                <div class="md-actions" style="background: rgba(0,0,0,.18)" layout="row" layout-align="space-between center">
+                <div class="md-actions" style="color: white; background: rgba(96, 176, 235, 1);" layout="row" layout-align="space-between center">
                     <span class="scorecard-label" ng-show="set.status ==2">Final</span>
                     <span class="scorecard-label" ng-show="set.status ==1">In progress</span>
                     <span class="scorecard-label" ng-show="set.status ==0">Pending</span>
@@ -162,7 +162,7 @@
                           md-gutter="12px">
 
                             <md-grid-tile>
-                                <md-grid-tile-header>
+                                <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
                                     <h3 ng-bind="set.teamVisitor"></h3>
                                 </md-grid-tile-header>
                                 <span ng-show="!authenticated" class="link-digit">{{set.visitorScore}}</span>
@@ -176,7 +176,7 @@
                             </md-grid-tile>
 
                             <md-grid-tile>
-                                    <md-grid-tile-header>
+                                    <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
                                         <h3 ng-bind="set.teamHome"></h3>
                                     </md-grid-tile-header>
                                     <span ng-show="!authenticated"
@@ -202,7 +202,7 @@
                           </md-button>
                           <md-button class="md-primary md-raised" ng-disabled="!authenticated ||
                           set.uid !== authData.uid" style="margin: 5px;"
-                            ng-click="set.showScore = !set.showScore;">Open/Close Scoreboard
+                            ng-click="set.showScore = !set.showScore;">Scoreboard
                           </md-button>
                         </div>
 
