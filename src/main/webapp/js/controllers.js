@@ -54,6 +54,18 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 			'uid':$scope.authData.uid});
   }
 
+	$scope.count = function(status) {
+			var i = 0;
+			angular.forEach($scope.match, function(value, key) {
+			angular.forEach(value, function(value, key) {
+						if (angular.equals(key,'status') && angular.equals(value,status)) {
+							 i++;
+						}
+					});
+			});
+			return i;
+	}
+
 	$scope.delete = function(ev, set) {
 			var confirm = $mdDialog.confirm().title('Would you like to delete game?').ok('Do it!').cancel('Cancel').targetEvent(ev);
 			$mdDialog.show(confirm).then(function() {

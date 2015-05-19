@@ -40,7 +40,29 @@
           padding: 10px;
           font-size: 15px;
           font-weight:200;
+          text-transform: uppercase;
         }
+        .analyticsBubble {
+          display: inline-block;
+          background-color: #e7e8ef;
+          color: #51585e;
+          min-width: 150px;
+          border-radius: 3px;
+          margin: 0 20px 20px 0;
+          padding: 20px;
+          border: 1px solid #c8ccd8;
+        }
+        .analyticsBubble .value {
+            font-size: 18px;
+            margin: 0;
+            color: #0f97f9;
+        }
+        .analyticsBubble .title {
+            display: block;
+            margin: 0 0 10px 0;
+            font-size: 12px;
+            text-transform: uppercase;
+          }
 
     </style>
 </head>
@@ -93,7 +115,28 @@
         </div>
 
 
+
+
+
+        <div  layout="row" layout-align="center center" >
+          <div class="analyticsBubble">
+              <span class="title">Pending</span>
+              <span class="value">{{count('0')}}</span>
+          </div>
+          <div class="analyticsBubble">
+              <span class="title">In Progress</span>
+              <span class="value">{{count('1')}}</span>
+          </div>
+          <div class="analyticsBubble">
+              <span class="title">Final</span>
+              <span class="value">{{count('2')}}</span>
+          </div>
+
+        </div>
+
         <md-divider></md-divider>
+
+
 
       <div ng-repeat="set in match">
 
