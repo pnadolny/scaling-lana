@@ -1,0 +1,54 @@
+.link-digit {
+    padding-left: 50px;
+    font-size: 850%;
+    font-weight: bold;
+    color: #0B0B0B;
+}
+
+figcaption {
+    color: #000;
+    font-size: 850%;
+}
+
+.md-actions-header {
+  color: white; background: rgba(96, 176, 235, 1);
+}
+.md-actions-header .label {
+    padding: 5px;
+    font-size: 15px;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+.analyticsBubble {
+    display: inline-block;
+    background-color: #e7e8ef;
+    color: #51585e;
+    border-radius: 3px;
+    margin: 0 10px 10px 0;
+    padding: 10px;
+    border: 1px solid #c8ccd8;
+}
+
+.analyticsBubble .value {
+    font-size: 18px;
+    margin: 0;
+    color: #0f97f9;
+}
+
+.analyticsBubble .title {
+    display: block;
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.md-button {
+  margin: 5px;
+}
+.md-toolbar-tools {
+  background: #045E9E;
+}
+.md-toolbar-tools .label {
+  font-weight:200
+}

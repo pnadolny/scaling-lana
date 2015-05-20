@@ -12,6 +12,9 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
         };
 
 
+        $scope.statuses = [{'key':'0','description':'Pending'},
+        {'key':'1','description':'In Progress'},
+        {'key':'2','description':'Final'}];
 
         $scope.authenticatedDisplayName = null;
         $scope.authenticated = false;
