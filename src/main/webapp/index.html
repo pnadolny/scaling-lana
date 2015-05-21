@@ -164,10 +164,13 @@
                     </div>
 
 
-
-                    <md-grid-list ng-show="set.showScore" md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
+                     <md-grid-list  ng-show="set.showScore" md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
 
                         <md-grid-tile>
+
+                          <div ng-show="set.timeout" class="overlay">
+                           </div>
+
                             <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
                                 <h3 ng-bind="set.teamVisitor"></h3>
                             </md-grid-tile-header>
@@ -181,8 +184,12 @@
                         </md-grid-tile>
 
                         <md-grid-tile>
+
+                          <div ng-show="set.timeout" class="overlay">
+                           </div>
+
                             <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
-                                <h3 ng-bind="set.teamHome"></h3>
+                              <h3 ng-bind="set.teamHome"></h3>
                             </md-grid-tile-header>
                             <span ng-show="!authenticated" class="link-digit">{{set.homeScore}}</span>
 
@@ -191,7 +198,9 @@
                             class="md-default-theme md-accent md-fab md-fab-bottom-left"
                             ng-click="set.homeScore = set.homeScore-1;match.$save(set);"
                             ng-show="set.homeScore>0">-</md-button>
-                        </md-grid-tile>
+
+
+                          </md-grid-tile>
                     </md-grid-list>
 
 
@@ -199,6 +208,12 @@
 
 
                     <div ng-show="authenticated" class="md-actions" layout="row" layout-align="end center">
+
+                      <md-switch
+                        ng-model="set.timeout"
+                        ng-change="match.$save(set);"
+                        aria-label="Timeout">Timeout
+                      </md-switch>
 
                         <md-button class="md-raised md-warn"
                            ng-disabled="!authenticated || set.uid !== authData.uid"

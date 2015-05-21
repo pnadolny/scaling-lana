@@ -5,6 +5,25 @@
     color: #0B0B0B;
 }
 
+
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+.overlay .timeout {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  color: aliceblue;
+  transform: translateX(-50%) translateY(-50%);font-size: 850%;
+  
+}
+
 figcaption {
     color: #000;
     font-size: 850%;

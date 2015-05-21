@@ -17,6 +17,7 @@
 
 	<static-files>
 	    <include path="/*.html" />
+			<include path="/**.svg" />
 
 		<include path="/**.js" />
 		<include path="/**.css" />
