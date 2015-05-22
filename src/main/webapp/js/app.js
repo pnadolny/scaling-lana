@@ -6,10 +6,13 @@ angular
 .config(function($routeProvider) {
   $routeProvider
    .when('/scoreboard', {
-   templateUrl: 'scoreboard.html'
+   templateUrl: 'templates/scoreboard.html'
+  })
+  .when('/landing', {
+    templateUrl: 'templates/landing.html'
   })
   .otherwise({
-      redirectTo: 'index.html'
+      redirectTo: '/landing'
   });
 
 });

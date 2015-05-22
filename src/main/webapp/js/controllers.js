@@ -1,7 +1,15 @@
 'use strict';
 
 angular.module('volleyballControllers', []).controller('VolleyballController',
-    function($scope, $log, $firebaseArray, $mdDialog, $mdToast) {
+    function($scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$mdUtil) {
+
+
+
+         $scope.toggleSidenav = function(menuId) {
+              $mdSidenav("left").toggle().then(function(){
+                   $log.debug("toggle is done");
+               });
+          };
 
         $scope.showSimpleToast = function(message) {
             $mdToast.show(
@@ -27,6 +35,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 
         $scope.match = $firebaseArray(ref);
 
+      
 
         // Create a callback which logs the current auth state
         function authDataCallback(authData) {

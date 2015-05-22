@@ -16,7 +16,7 @@
     </static-error-handlers>
 
 	<static-files>
-	    <include path="/*.html" />
+	    <include path="/**.html" />
 			<include path="/**.svg" />
 
 		<include path="/**.js" />
