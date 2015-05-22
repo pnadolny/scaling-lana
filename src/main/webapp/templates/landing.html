@@ -1,5 +1,6 @@
 
-        <div layout="column" layout-align="center center" style="margin-bottom: 25px; background: linear-gradient(169deg,#045e9e 40%,#73c2fb 100%);">
+        <div layout="column" layout-align="center center"
+         style="margin-bottom: 25px; background: linear-gradient(169deg,#045e9e 40%,#73c2fb 100%);">
             <p style="font-size: 50px;
           font-weight:200;color: white;">
                 Wynik
@@ -24,20 +25,26 @@
                 Sign in to score games.
             </p>
 
-        </div>
+            <div layout="row" layout-align="center center">
+                <div class="analyticsBubble">
+                    <span class="title">Pending</span>
+                    <span class="value">{{count('0')}}</span>
+                </div>
+                <div class="analyticsBubble">
+                    <span class="title">In Progress</span>
+                    <span class="value">{{count('1')}}</span>
+                </div>
+                <div class="analyticsBubble">
+                    <span class="title">Final</span>
+                    <span class="value">{{count('2')}}</span>
+                </div>
 
-        <div layout="row" layout-align="center center">
-            <div class="analyticsBubble">
-                <span class="title">Pending</span>
-                <span class="value">{{count('0')}}</span>
             </div>
-            <div class="analyticsBubble">
-                <span class="title">In Progress</span>
-                <span class="value">{{count('1')}}</span>
-            </div>
-            <div class="analyticsBubble">
-                <span class="title">Final</span>
-                <span class="value">{{count('2')}}</span>
-            </div>
-    
+
+            <md-button class="md-raised md-primary md-hue-1" ng-href="#/scoreboard">
+               View the scoreboard!
+            </md-button>
+
+
+
         </div>
