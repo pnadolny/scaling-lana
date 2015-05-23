@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('volleyballControllers', []).controller('VolleyballController',
-    function($scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$mdUtil) {
+    function($scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav) {
 
 
 
@@ -35,7 +35,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 
         $scope.match = $firebaseArray(ref);
 
-      
+
 
         // Create a callback which logs the current auth state
         function authDataCallback(authData) {

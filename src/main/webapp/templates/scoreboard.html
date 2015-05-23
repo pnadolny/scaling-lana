@@ -1,16 +1,17 @@
 
-        <div layout="row" layout-align="center center">
+        <!--<div layout="row" layout-align="center center">
 
           <md-button class="md-raised md-primary md-hue-1"
               ng-show="authenticated" ng-click="compose()">
               New Game
           </md-button>
 
-        </div>
+        </div> -->
 
 
 
-    
+
+
         <md-divider></md-divider>
 
         <div ng-repeat="set in match">
@@ -162,6 +163,10 @@
 
 
 
-
         </div>
         <!-- repeat -->
+        <md-button class="md-default-theme md-primary md-fab md-fab-top-right"
+          ng-show="authenticated"
+          ng-click="compose()">
+          New
+        </md-button>
