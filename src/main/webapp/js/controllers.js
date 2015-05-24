@@ -58,7 +58,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
             } else {
                 $scope.authenticated = false;
                 $scope.authenticatedDisplayName = null;
-                $scope.showSimpleToast("You are currently logged out.");
+                //$scope.showSimpleToast("You are currently logged out.");
             }
         }
 
@@ -77,6 +77,8 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
                 'date': Date.now(),
                 'uid': $scope.authData.uid
             });
+            $scope.showSimpleToast("New Game created!");
+
         }
 
         $scope.count = function(status) {
@@ -101,7 +103,6 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 
         $scope.signOut = function() {
             ref.unauth();
-
         }
 
 

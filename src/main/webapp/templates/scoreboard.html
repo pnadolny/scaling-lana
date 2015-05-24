@@ -1,4 +1,14 @@
-        <div ng-repeat="set in match">
+
+
+<md-input-container flex>
+    <label>Search</label>
+    <input ng-model="search.$" type="text"/>
+
+</md-input-container>
+
+
+
+        <div ng-repeat="set in match | filter:search:strict">
 
             <md-card>
                 <div class="md-actions md-actions-header"  layout="row" layout-align="space-between center">
@@ -124,6 +134,7 @@
                     layout-align="center center">
 
                       <md-switch
+                        ng-show="set.showScore"
                         ng-model="set.timeout"
                         ng-change="match.$save(set);"
                         aria-label="Timeout">Timeout
@@ -132,7 +143,15 @@
                         <md-button class="md-primary md-raised"
                           ng-disabled="!authenticated ||
                           set.uid !== authData.uid"
-                          ng-click="set.showScore = !set.showScore;match.$save(set);">Scoreboard
+                          ng-click="set.showScore = !set.showScore;match.$save(set);">
+
+                          <span ng-if="set.showScore">
+                              Close Scoreboard
+                          </span>
+                          <span ng-if="!set.showScore">
+                              Open Scoreboard
+                          </span>
+
                         </md-button>
 
                         <md-button class="md-raised md-warn"
@@ -150,13 +169,8 @@
 
                 </md-card-content>
             </md-card>
-
-
-
-
         </div>
 
-        <!-- repeat -->
         <md-button class="md-default-theme md-primary md-fab md-fab-top-right"
           ng-show="authenticated"
           ng-click="compose()">
