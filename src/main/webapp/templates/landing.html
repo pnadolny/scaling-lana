@@ -1,28 +1,38 @@
 
         <div layout="column" layout-align="center center"
          style="padding-bottom: 225px; background: linear-gradient(169deg,#045e9e 40%,#73c2fb 100%);">
-            <p style="font-size: 50px;
-          font-weight:200;color: white;">
+            <p style="font-size: 50px;">
                 Wynik
             </p>
-            <p style="font-size: 15px;
-          font-weight:200;color: white;">
+            <p>
                 Wynik....polish for score.
             </p>
 
+            <md-button class="md-raised" ng-href="#/scoreboard">
+               View the scoreboard!
+            </md-button>
+            <p ng-show="!authenticated">
+                Sign in to score games.
+            </p>
 
-            <md-button class="md-raised md-primary"
+
+
+            <md-button class="md-raised"
+            ng-show="!authenticated" ng-click="signIn('facebook')">
+                Sign In with Facebook
+            </md-button>
+
+            <md-button class="md-raised"
             ng-show="!authenticated" ng-click="signIn('google')">
                 Sign In with Google
             </md-button>
-            <md-button class="md-raised md-primary" ng-show="!authenticated" ng-click="signIn('twitter')">
+            <md-button class="md-raised" ng-show="!authenticated" ng-click="signIn('twitter')">
                 Sign In with Twitter
             </md-button>
 
 
-            <p ng-show="!authenticated" style="color: white; font-size: 15px;
-          font-weight:200;">
-                Sign in to score games.
+            <p>
+                Current scoreboard status:
             </p>
 
             <div layout="row" layout-align="center center">
@@ -40,10 +50,6 @@
                 </div>
 
             </div>
-
-            <md-button class="md-raised md-primary" ng-href="#/scoreboard">
-               View the scoreboard!
-            </md-button>
 
 
 

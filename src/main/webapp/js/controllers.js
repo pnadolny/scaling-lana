@@ -42,10 +42,17 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
             if (authData) {
                 $scope.authenticated = true;
                 $scope.authData = authData;
-                if (authData.provider === 'google') {
-                    $scope.authenticatedDisplayName = authData.google.displayName;
-                } else {
-                    $scope.authenticatedDisplayName = authData.twitter.displayName;
+
+                switch (authData.provider) {
+                    case 'google':
+                        $scope.authenticatedDisplayName = authData.google.displayName;
+                        break;
+                    case 'facebook':
+                        $scope.authenticatedDisplayName = authData.facebook.displayName;
+                        break;
+                    case 'twitter':
+                        $scope.authenticatedDisplayName = authData.twitter.displayName;
+                        break;
                 }
                 $scope.showSimpleToast($scope.authenticatedDisplayName + " is logged in via provider " + authData.provider);
             } else {
@@ -53,6 +60,11 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
                 $scope.authenticatedDisplayName = null;
                 $scope.showSimpleToast("You are currently logged out.");
             }
+        }
+
+        $scope.copy = function(set) {
+            $scope.match.$add(set);
+            $scope.showSimpleToast("Game copied!")
         }
 
 
