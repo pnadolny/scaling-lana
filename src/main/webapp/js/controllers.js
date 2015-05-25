@@ -1,13 +1,5 @@
 'use strict';
 
-
-// To do...
-angular.module('volleyballControllers', []).controller('DetailController',
-    function($scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$routeParams) {
-    }
-);
-
-
 angular.module('volleyballControllers', []).controller('VolleyballController',
     function($scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$routeParams,$location) {
 
@@ -141,13 +133,18 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
             return i;
         }
 
+
         $scope.share = function(ev,set) {
-          var confirm = $mdDialog.confirm().title($location.absUrl() +'/'+ set.guid).ok('Do it!').cancel('Cancel').targetEvent(ev);
-          $mdDialog.show(confirm).then(function() {
-
-          }, function() {});
-
+            $mdDialog.show({
+                controller: ShareController,
+                templateUrl: 'templates/share.html',
+                targetEvent: ev,
+                locals: {
+                    link: $location.absUrl() +'/search/'+ set.guid
+                }
+            }).then(function(answer) {}, function() {});
         }
+
         $scope.delete = function(ev, set) {
             var confirm = $mdDialog.confirm().title('Would you like to delete game?').ok('Do it!').cancel('Cancel').targetEvent(ev);
             $mdDialog.show(confirm).then(function() {
@@ -186,4 +183,20 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
         var guid = function() {
               return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         };
+
+
+
+            function ShareController($scope, $mdDialog, $log, link) {
+                $scope.link=link;
+                $scope.hide = function() {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                    $mdDialog.cancel();
+                };
+                $scope.answer = function(answer) {
+                    $mdDialog.hide(answer);
+                };
+            }
+
     });
