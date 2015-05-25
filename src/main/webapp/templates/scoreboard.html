@@ -135,8 +135,7 @@
 
 
 
-                    <div ng-show="authenticated" class="md-actions" layout="column"
-                    layout-align="center center">
+                    <div ng-show="authenticated" class="md-actions" layout="row" layout-sm="column">
 
                       <md-switch
                         ng-show="set.showScore"
@@ -149,9 +148,7 @@
                           ng-disabled="!authenticated ||
                           set.uid !== authData.uid"
                           ng-click="set.showScore = !set.showScore;match.$save(set);"
-                          aria-label="Show Scoreboard"
-
-                          >
+                          aria-label="Show Scoreboard">
 
                           <span ng-if="set.showScore">
                               Close Scoreboard
@@ -179,8 +176,7 @@
                     </div>
 
 
-                    <div class="md-actions" layout="column"
-                    layout-align="center center">
+                    <div class="md-actions" layout="row" layout-sm="column">
 
                     <md-button ng-show="set.guid!=null"class="md-raised"
                        aria-label="Share"
