@@ -8,6 +8,10 @@ angular
    .when('/scoreboard', {
    templateUrl: 'templates/scoreboard.html'
   })
+  .when('/scoreboard/search/:search', {
+  templateUrl: 'templates/scoreboard.html',
+  controller:'VolleyballController'
+  })
   .when('/landing', {
     templateUrl: 'templates/landing.html'
   })

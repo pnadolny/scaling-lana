@@ -1,20 +1,26 @@
 
-
 <md-input-container flex>
     <label>Search</label>
-    <input ng-model="search.$" type="text"/>
+    <input ng-model="search" type="text"/>
 
 </md-input-container>
 
 
-
         <div ng-repeat="set in match | filter:search:strict">
 
+
             <md-card>
+
+
+
+
                 <div class="md-actions md-actions-header"  layout="row" layout-align="space-between center">
                     <span class="label" ng-show="set.status ==2">Final</span>
                     <span class="label" ng-show="set.status ==1">In progress</span>
                     <span class="label" ng-show="set.status ==0">Pending</span>
+
+                    <span>{{set.$id}}</span>
+
 
                     <!-- <span class="scorecard-label">{{set.date | date:'medium'}}</span> -->
                     <span class="label">{{set.description}}</span>
@@ -101,6 +107,7 @@
                             <a ng-show="authenticated" class="link-digit" ng-click="set.visitorScore = set.visitorScore + 1; match.$save(set);">{{set.visitorScore}}</a>
 
                             <md-button ng-disabled="!authenticated"
+                            aria-label="Subtract"
                             class="md-default-theme md-accent md-fab md-fab-bottom-left"
                             ng-click="set.visitorScore = set.visitorScore -1; match.$save(set);"
                             ng-show="set.visitorScore>0">-</md-button>
@@ -118,6 +125,8 @@
 
                             <a class="link-digit" ng-show="authenticated" ng-click="set.homeScore = set.homeScore +1; match.$save(set);">{{set.homeScore}}</a>
                             <md-button ng-disabled="!authenticated"
+                            aria-label="Subtract"
+
                             class="md-default-theme md-accent md-fab md-fab-bottom-left"
                             ng-click="set.homeScore = set.homeScore-1;match.$save(set);"
                             ng-show="set.homeScore>0">-</md-button>
@@ -143,7 +152,10 @@
                         <md-button class="md-primary md-raised"
                           ng-disabled="!authenticated ||
                           set.uid !== authData.uid"
-                          ng-click="set.showScore = !set.showScore;match.$save(set);">
+                          ng-click="set.showScore = !set.showScore;match.$save(set);"
+                          aria-label="Show Scoreboard"
+
+                          >
 
                           <span ng-if="set.showScore">
                               Close Scoreboard
@@ -155,15 +167,31 @@
                         </md-button>
 
                         <md-button class="md-raised md-warn"
+                          aria-label="Delete"
+
                            ng-disabled="!authenticated || set.uid !== authData.uid"
                            ng-click="delete($event,set);">Delete
                         </md-button>
 
 
                         <md-button class="md-raised"
+                           aria-label="Copy"
+
                            ng-disabled="!authenticated || set.uid !== authData.uid"
                            ng-click="copy(set);">Copy
                         </md-button>
+
+
+
+
+
+                        <md-button class="md-raised"
+                           aria-label="Copy"
+
+                           ng-disabled="!authenticated || set.uid !== authData.uid"
+                           ng-click="share($event,set);">Share
+                        </md-button>
+
 
                     </div>
 
