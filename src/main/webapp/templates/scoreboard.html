@@ -1,59 +1,54 @@
-
 <md-input-container flex>
     <label>Search</label>
     <input ng-model="search" type="text"/>
-
 </md-input-container>
 
 
-        <div ng-repeat="set in match | filter:search:strict">
+        <div ng-repeat="game in games | filter:search:strict">
 
 
             <md-card>
 
-
-
-
                 <div class="md-actions md-actions-header"  layout="row" layout-align="space-between center">
-                    <span class="label" ng-show="set.status ==2">Final</span>
-                    <span class="label" ng-show="set.status ==1">In progress</span>
-                    <span class="label" ng-show="set.status ==0">Pending</span>
-                    <!-- <span class="scorecard-label">{{set.date | date:'medium'}}</span> -->
-                    <span class="label">{{set.description}}</span>
+                    <span class="label" ng-show="game.status ==2">Final</span>
+                    <span class="label" ng-show="game.status ==1">In progress</span>
+                    <span class="label" ng-show="game.status ==0">Pending</span>
+                    <!-- <span class="scorecard-label">{{game.date | date:'medium'}}</span> -->
+                    <span class="label">{{game.description}}</span>
 
                 </div>
 
                 <md-card-content>
 
                     <div layout-gt-sm="row">
-                        <h2 class="md-title">{{set.homeScore}}-{{set.visitorScore}}</h2>
+                        <h2 class="md-title">{{game.homeScore}}-{{game.visitorScore}}</h2>
 
 
                         <md-input-container flex>
                             <label>Home</label>
                             <input
                             maxlength ="25"
-                            ng-model="set.teamHome"
-                            ng-change="match.$save(set)"
+                            ng-model="game.teamHome"
+                            ng-change="games.$save(game)"
                             ng-model-options="{updateOn: 'blur'}"
-                            ng-readonly="!authenticated  || set.author !== authenticatedDisplayName" type="text" />
+                            ng-readonly="!authenticated  || game.author !== authenticatedDisplayName" type="text" />
                         </md-input-container>
 
                         <md-input-container flex>
                             <label>Visitor</label>
                             <input
                             maxlength ="25"
-                            ng-model="set.teamVisitor"
-                            ng-change="match.$save(set)"
+                            ng-model="game.teamVisitor"
+                            ng-change="games.$save(game)"
                             ng-maxlength="25"
                             ng-model-options="{updateOn: 'blur'}"
-                            ng-readonly="!authenticated  || set.author !== authenticatedDisplayName" type="text" />
+                            ng-readonly="!authenticated  || game.author !== authenticatedDisplayName" type="text" />
                         </md-input-container>
 
 
                         <md-input-container flex>
                             <label>Scorekeeper</label>
-                            <input ng-model="set.author" type="text" ng-readonly="true" />
+                            <input ng-model="game.author" type="text" ng-readonly="true" />
                         </md-input-container>
 
 
@@ -61,10 +56,10 @@
                         <md-select
 
                         ng-show="authenticated"
-                        ng-change="match.$save(set)"
+                        ng-change="games.$save(game)"
                         ng-model-options="{updateOn: 'blur'}"
-                        ng-disabled="!authenticated  || set.author !== authenticatedDisplayName"
-                        ng-model="set.status">
+                        ng-disabled="!authenticated  || game.author !== authenticatedDisplayName"
+                        ng-model="game.status">
 
 
                            <md-option ng-value="s.key" ng-repeat="s in statuses">{{ s.description }}</md-option>
@@ -76,10 +71,10 @@
 
                         <md-input-container flex ng-show="authenticated">
                           <label>Description</label>
-                              <input ng-model="set.description"
-                            ng-change="match.$save(set)"
+                              <input ng-model="game.description"
+                            ng-change="games.$save(game)"
                             ng-model-options="{updateOn: 'blur'}"
-                            ng-readonly="!authenticated  || set.author !== authenticatedDisplayName"
+                            ng-readonly="!authenticated  || game.author !== authenticatedDisplayName"
                             type="text"
                             md-maxlength="25" />
 
@@ -89,43 +84,43 @@
                     </div>
 
 
-                     <md-grid-list  ng-show="set.showScore" md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
+                     <md-grid-list  ng-show="game.showScore" md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
 
                         <md-grid-tile>
 
-                          <div ng-show="set.timeout" class="overlay">
+                          <div ng-show="game.timeout" class="overlay">
                            </div>
 
                             <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
-                                <h3 ng-bind="set.teamVisitor"></h3>
+                                <h3 ng-bind="game.teamVisitor"></h3>
                             </md-grid-tile-header>
-                            <span ng-show="!authenticated" class="link-digit">{{set.visitorScore}}</span>
-                            <a ng-show="authenticated" class="link-digit" ng-click="set.visitorScore = set.visitorScore + 1; match.$save(set);">{{set.visitorScore}}</a>
+                            <span ng-show="!authenticated" class="link-digit">{{game.visitorScore}}</span>
+                            <a ng-show="authenticated" class="link-digit" ng-click="game.visitorScore = game.visitorScore + 1; games.$save(game);">{{game.visitorScore}}</a>
 
                             <md-button ng-disabled="!authenticated"
                             aria-label="Subtract"
                             class="md-default-theme md-accent md-fab md-fab-bottom-left"
-                            ng-click="set.visitorScore = set.visitorScore -1; match.$save(set);"
-                            ng-show="set.visitorScore>0">-</md-button>
+                            ng-click="game.visitorScore = game.visitorScore -1; games.$save(game);"
+                            ng-show="game.visitorScore>0">-</md-button>
                         </md-grid-tile>
 
                         <md-grid-tile>
 
-                          <div ng-show="set.timeout" class="overlay">
+                          <div ng-show="game.timeout" class="overlay">
                            </div>
 
                             <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
-                              <h3 ng-bind="set.teamHome"></h3>
+                              <h3 ng-bind="game.teamHome"></h3>
                             </md-grid-tile-header>
-                            <span ng-show="!authenticated" class="link-digit">{{set.homeScore}}</span>
+                            <span ng-show="!authenticated" class="link-digit">{{game.homeScore}}</span>
 
-                            <a class="link-digit" ng-show="authenticated" ng-click="set.homeScore = set.homeScore +1; match.$save(set);">{{set.homeScore}}</a>
+                            <a class="link-digit" ng-show="authenticated" ng-click="game.homeScore = game.homeScore +1; games.$save(game);">{{game.homeScore}}</a>
                             <md-button ng-disabled="!authenticated"
                             aria-label="Subtract"
 
                             class="md-default-theme md-accent md-fab md-fab-bottom-left"
-                            ng-click="set.homeScore = set.homeScore-1;match.$save(set);"
-                            ng-show="set.homeScore>0">-</md-button>
+                            ng-click="game.homeScore = game.homeScore-1;games.$save(game);"
+                            ng-show="game.homeScore>0">-</md-button>
 
 
                           </md-grid-tile>
@@ -135,25 +130,27 @@
 
 
 
-                    <div ng-show="authenticated" class="md-actions" layout="row" layout-sm="column">
+                    <div  class="md-actions"
+                    layout="row" layout-sm="column">
 
                       <md-switch
-                        ng-show="set.showScore"
-                        ng-model="set.timeout"
-                        ng-change="match.$save(set);"
+                        ng-show="game.showScore"
+                        ng-disabled="!authenticated || game.uid !== authData.uid"
+                        ng-model="game.timeout"
+                        ng-change="games.$save(game);"
                         aria-label="Timeout">Timeout
                       </md-switch>
 
                         <md-button class="md-primary md-raised"
                           ng-disabled="!authenticated ||
-                          set.uid !== authData.uid"
-                          ng-click="set.showScore = !set.showScore;match.$save(set);"
+                          game.uid !== authData.uid"
+                          ng-click="game.showScore = !game.showScore;games.$save(game);"
                           aria-label="Show Scoreboard">
 
-                          <span ng-if="set.showScore">
+                          <span ng-if="game.showScore">
                               Close Scoreboard
                           </span>
-                          <span ng-if="!set.showScore">
+                          <span ng-if="!game.showScore">
                               Open Scoreboard
                           </span>
 
@@ -161,29 +158,25 @@
 
                         <md-button class="md-raised md-warn"
                           aria-label="Delete"
-
-                           ng-disabled="!authenticated || set.uid !== authData.uid"
-                           ng-click="delete($event,set);">Delete
+                           ng-disabled="!authenticated || game.uid !== authData.uid"
+                           ng-click="delete($event,game);">Delete
                         </md-button>
 
 
                         <md-button class="md-raised"
                            aria-label="Copy"
-
-                           ng-disabled="!authenticated || set.uid !== authData.uid"
-                           ng-click="copy(set);">Copy
+                           ng-disabled="!authenticated || game.uid !== authData.uid"
+                           ng-click="copy(game);">Copy
                         </md-button>
+
+                        <md-button ng-show="game.guid!=null"class="md-raised"
+                           aria-label="Share"
+                          ng-click="share($event,game);">Share
+                        </md-button>
+
                     </div>
 
 
-                    <div class="md-actions" layout="row" layout-sm="column">
-
-                    <md-button ng-show="set.guid!=null"class="md-raised"
-                       aria-label="Share"
-                      ng-click="share($event,set);">Share
-                    </md-button>
-
-                   </div>
 
                 </md-card-content>
             </md-card>

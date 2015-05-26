@@ -4,7 +4,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
     function($scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$routeParams,$location) {
 
       // Firebase URL
-      var URL = "https://luminous-heat-7529.firebaseio.com/matches";
+      var URL = "https://luminous-heat-7529.firebaseio.com/games";
 
 
       var ref = new Firebase(URL);
@@ -46,22 +46,22 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
         }
 
 
-        $scope.match = $firebaseArray(ref);
+        $scope.games = $firebaseArray(ref);
 
         // Returns a promise which is resolved when the initial object data has been downloaded from Firebase.
-        $scope.match.$loaded().then(function() {
+        $scope.games.$loaded().then(function() {
            $log.debug("Firebase data is loaded.");
         }).catch(function(error) {
             $scope.showSimpleToast(error);
         });
 
-        $scope.match.$watch(function(event) {
+        $scope.games.$watch(function(event) {
             $log.debug(event);
         });
 
 
         $scope.debug = function() {
-          $log.debug(angular.toJson($scope.match));
+          $log.debug(angular.toJson($scope.games));
 
         }
 
@@ -86,7 +86,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
                 $scope.showSimpleToast($scope.authenticatedDisplayName + " is logged in via provider " + authData.provider);
 
                 $scope.authenticated = true;
-                $scope.match = $firebaseArray(ref);
+                $scope.games = $firebaseArray(ref);
 
             } else {
                 $scope.authenticated = false;
@@ -95,16 +95,19 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
             }
         }
 
-        $scope.copy = function(set) {
-            set.guid = guid();
-            $scope.match.$add(set);
+        $scope.copy = function(game) {
+            var copy = angular.copy(game);
+            copy.guid = guid();
+            copy.homeScore = 0;
+            copy.visitorScore = 0;
+            $scope.games.$add(copy);
             $scope.showSimpleToast("Game copied!")
         }
 
 
         $scope.compose = function() {
 
-          $scope.match.$add({
+          $scope.games.$add({
                 'homeScore': 0,
                 'visitorScore': 0,
                 'author': $scope.authenticatedDisplayName,
@@ -123,7 +126,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
 
         $scope.count = function(status) {
             var i = 0;
-            angular.forEach($scope.match, function(value, key) {
+            angular.forEach($scope.games, function(value, key) {
                 angular.forEach(value, function(value, key) {
                     if (angular.equals(key, 'status') && angular.equals(value, status)) {
                         i++;
@@ -134,21 +137,21 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
         }
 
 
-        $scope.share = function(ev,set) {
+        $scope.share = function(ev,game) {
             $mdDialog.show({
                 controller: ShareController,
                 templateUrl: 'templates/share.html',
                 targetEvent: ev,
                 locals: {
-                    link: $location.absUrl() +'/search/'+ set.guid
+                    link: $location.absUrl() +'/search/'+game.guid
                 }
             }).then(function(answer) {}, function() {});
         }
 
-        $scope.delete = function(ev, set) {
+        $scope.delete = function(ev, game) {
             var confirm = $mdDialog.confirm().title('Would you like to delete game?').ok('Do it!').cancel('Cancel').targetEvent(ev);
             $mdDialog.show(confirm).then(function() {
-                $scope.match.$remove(set);
+                $scope.games.$remove(game);
                 $scope.showSimpleToast('Game deleted');
             }, function() {});
         }
