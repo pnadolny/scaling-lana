@@ -111,7 +111,7 @@ angular.module('volleyballControllers', []).controller('VolleyballController',
                 'homeScore': 0,
                 'visitorScore': 0,
                 'author': $scope.authenticatedDisplayName,
-                'status': '1',
+                'status': 'Pending',
                 'date': Date.now(),
                 'guid':guid(),
                 'uid': $scope.authData.uid
