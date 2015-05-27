@@ -136,7 +136,7 @@
                       </md-switch>
 
                         <md-button class="md-primary md-raised"
-                          ng-show="game.uid === authData.uid"
+                          ng-show="authenticated && game.uid === authData.uid"
                           ng-click="game.showScore = !game.showScore;games.$save(game);"
                           aria-label="Show Scoreboard">
 
@@ -151,14 +151,14 @@
 
                         <md-button class="md-raised md-warn"
                           aria-label="Delete"
-                          ng-show="game.uid === authData.uid"
+                          ng-show="authenticated && game.uid === authData.uid"
                           ng-click="delete($event,game);">Delete
                         </md-button>
 
 
                         <md-button class="md-raised"
                            aria-label="Copy"
-                           ng-show="game.uid === authData.uid"
+                           ng-show="authenticated && game.uid === authData.uid"
                            ng-click="copy(game);">Copy
                         </md-button>
 
