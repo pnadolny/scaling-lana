@@ -1,14 +1,14 @@
 scaling-lana
 ============
 
-A Google App Engine web application to keep a score at volleyball games and keep stats on players.
+A web application to share volleyball scores in realtime.
 
 ## Technology stack
 - [Google App Engine][1]
 - [Angular JS][4]
+- [Angular Material][16]
 - [Maven 3.1.0][9]
 - [Firebase][15]
-- [Bootstrap][5]
 
 ## Resources
 - [Angular JS Book][13]
@@ -31,3 +31,4 @@ A Google App Engine web application to keep a score at volleyball games and keep
 [13]: http://www.angularjsbook.com/
 [14]: https://www.codeschool.com/paths/javascript#angular-js
 [15]: https://www.firebase.com
+[16]: https://material.angularjs.org/
