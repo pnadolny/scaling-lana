@@ -12,7 +12,7 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
 
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
     <link rel="stylesheet" href="css/wynik.css">
 
@@ -45,7 +45,7 @@
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <button ng-click="toggleSidenav('left')" hide-gt-sm class="sidebarButton">
-                      <span class="visually-hidden">Menu</span>
+                  <div class="md-ripple-container"></div>
                 </button>
                 <md-button ng-href="#/landing" style="text-transform: none;">
                         Wynik
@@ -60,7 +60,7 @@
       <div layout="row">
           <md-sidenav layout="column"
           class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-           md-is-locked-open="$mdMedia('gt-sm')" layout-fill >
+           md-is-locked-open="$mdMedia('gt-md')" layout-fill >
 
             <md-button ng-click="showLanding()">
                 Home
