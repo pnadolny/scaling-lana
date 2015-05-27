@@ -29,7 +29,7 @@
                             ng-model="game.teamHome"
                             ng-change="games.$save(game)"
                             ng-model-options="{updateOn: 'blur'}"
-                            ng-readonly="!authenticated  || game.author !== authenticatedDisplayName" type="text" />
+                            ng-readonly="!authenticated  || game.uid !== authData.uid" type="text" />
                         </md-input-container>
 
                         <md-input-container flex>
@@ -40,7 +40,7 @@
                             ng-change="games.$save(game)"
                             ng-maxlength="25"
                             ng-model-options="{updateOn: 'blur'}"
-                            ng-readonly="!authenticated  || game.author !== authenticatedDisplayName" type="text" />
+                            ng-readonly="!authenticated  || game.uid !== authData.uid" type="text" />
                         </md-input-container>
 
 
@@ -56,7 +56,7 @@
                         ng-show="authenticated"
                         ng-change="games.$save(game)"
                         ng-model-options="{updateOn: 'blur'}"
-                        ng-disabled="!authenticated  || game.author !== authenticatedDisplayName"
+                        ng-disabled="!authenticated  || game.uid === authData.uid"
                         ng-model="game.status">
 
 
@@ -72,17 +72,15 @@
                               <input ng-model="game.description"
                             ng-change="games.$save(game)"
                             ng-model-options="{updateOn: 'blur'}"
-                            ng-readonly="!authenticated  || game.author !== authenticatedDisplayName"
+                            ng-readonly="!authenticated  || game.uid !== authData.uid"
                             type="text"
-                            md-maxlength="25" />
-
-
+                            md-maxlength="50" />
                         </md-input-container>
 
                     </div>
 
 
-                     <md-grid-list  ng-show="game.showScore && game.uid == authData.uid" md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
+                     <md-grid-list  ng-show="game.showScore && game.uid === authData.uid" md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
 
 
                         <md-grid-tile>
@@ -132,16 +130,14 @@
                     layout="row" layout-sm="column">
 
                       <md-switch
-                        ng-show="game.showScore && game.uid == authData.uid"
-                        ng-disabled="!authenticated || game.uid !== authData.uid"
+                        ng-show="game.showScore && game.uid === authData.uid"
                         ng-model="game.timeout"
                         ng-change="games.$save(game);"
                         aria-label="Timeout">Timeout
                       </md-switch>
 
                         <md-button class="md-primary md-raised"
-                          ng-disabled="!authenticated ||
-                          game.uid !== authData.uid"
+                          ng-show="game.showScore && game.uid === authData.uid"
                           ng-click="game.showScore = !game.showScore;games.$save(game);"
                           aria-label="Show Scoreboard">
 
@@ -156,18 +152,18 @@
 
                         <md-button class="md-raised md-warn"
                           aria-label="Delete"
-                           ng-disabled="!authenticated || game.uid !== authData.uid"
-                           ng-click="delete($event,game);">Delete
+                          ng-show="game.showScore && game.uid === authData.uid"
+                          ng-click="delete($event,game);">Delete
                         </md-button>
 
 
                         <md-button class="md-raised"
                            aria-label="Copy"
-                           ng-disabled="!authenticated || game.uid !== authData.uid"
+                           ng-show="game.showScore && game.uid === authData.uid"
                            ng-click="copy(game);">Copy
                         </md-button>
 
-                        <md-button ng-show="game.guid!=null"class="md-raised"
+                        <md-button class="md-raised"
                            aria-label="Share"
                           ng-click="share($event,game);">Share
                         </md-button>
