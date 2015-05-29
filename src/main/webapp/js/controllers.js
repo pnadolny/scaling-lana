@@ -1,13 +1,9 @@
 'use strict';
 
-angular.module('volleyballControllers', []).controller('VolleyballController',
-    function($scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$routeParams,$location) {
+angular.module('wynik.controllers', []).controller('WynikController',
+    function($rootScope,$scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$routeParams,$location) {
 
-      // Firebase URL
-      var URL = "https://luminous-heat-7529.firebaseio.com/games";
-
-
-      var ref = new Firebase(URL);
+      var ref = new Firebase($rootScope.FBURL);
 
       $scope.search = $routeParams.search;
 
