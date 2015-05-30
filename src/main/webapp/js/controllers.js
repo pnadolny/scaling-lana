@@ -3,6 +3,7 @@
 angular.module('wynik.controllers', []).controller('WynikController',
     function($rootScope,$scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$routeParams,$location) {
 
+
       var ref = new Firebase($rootScope.FBURL);
 
       $scope.search = $routeParams.search;
@@ -163,9 +164,9 @@ angular.module('wynik.controllers', []).controller('WynikController',
             $scope.toggleSidenav();
             ref.unauth();
         }
-        $scope.showLanding = function() {
+        $scope.showHome = function() {
           $scope.toggleSidenav();
-          $location.path('/landing/').replace();
+          $location.path('/home/').replace();
        }
         $scope.showScoreboard = function() {
           $scope.toggleSidenav();

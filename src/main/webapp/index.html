@@ -47,7 +47,7 @@
                 <button ng-click="toggleSidenav('left')" hide-gt-sm class="sidebarButton">
                   <div class="md-ripple-container"></div>
                 </button>
-                <md-button ng-href="#/landing" style="text-transform: none;">
+                <md-button ng-href="#/home" style="text-transform: none;">
                         Wynik
                 </md-button>
                 <span flex></span>
@@ -62,7 +62,7 @@
           class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
            md-is-locked-open="$mdMedia('gt-md')" layout-fill >
 
-            <md-button ng-click="showLanding()">
+            <md-button ng-click="showHome()">
                 Home
             </md-button>
             <md-divider></md-divider>
@@ -106,6 +106,7 @@
     <script src="js/controllers.js"></script>
     <script src="js/config.js"></script>
     <script src="js/routes.js"></script>
+    <script src="js/directives.js"></script>
 </body>
 
 </html>
