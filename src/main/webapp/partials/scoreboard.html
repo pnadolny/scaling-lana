@@ -28,13 +28,6 @@
 
             <md-card>
 
-                <div class="md-actions md-actions-header"  layout="row" layout-align="space-between center">
-                    <span class="label" ng-bind="game.status"></span>
-                    <!-- <span class="scorecard-label">{{game.date | date:'medium'}}</span> -->
-                    <span class="label">{{game.description}}</span>
-
-                </div>
-
                 <md-card-content>
 
                     <div layout-gt-sm="row">
@@ -69,22 +62,8 @@
                         </md-input-container>
 
 
-                      <md-input-container>
-                        <md-select
-
-                        ng-show="authenticated"
-                        ng-change="games.$save(game)"
-                        ng-model-options="{updateOn: 'blur'}"
-                        ng-disabled="!authenticated  || game.uid !== authData.uid"
-                        ng-model="game.status">
 
 
-                           <md-option ng-value="s.description" ng-repeat="s in statuses">{{ s.description }}</md-option>
-
-                        </md-select>
-
-
-                      </md-input-container>
 
                         <md-input-container flex ng-show="authenticated">
                           <label>Description</label>
@@ -146,6 +125,19 @@
 
                     <div  class="md-actions"
                     layout="row" layout-sm="column">
+
+
+
+                      <md-switch
+                      ng-model="game.status" aria-label="Status"
+                      ng-show="game.showScore"
+                      ng-true-value="'Final'"
+                      ng-false-value="'Pending'"
+                      class="md-primary">{{game.status}}
+
+                       </md-switch>
+
+
 
                       <md-switch
                         ng-show="game.showScore && game.uid === authData.uid"

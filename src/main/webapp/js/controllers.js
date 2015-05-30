@@ -136,7 +136,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
         $scope.share = function(ev,game) {
             $mdDialog.show({
                 controller: ShareController,
-                templateUrl: 'templates/share.html',
+                templateUrl: 'partials/share.html',
                 targetEvent: ev,
                 locals: {
                     link: $location.absUrl() +'/search/'+game.guid
