@@ -18,7 +18,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
             $mdToast.show(
                 $mdToast.simple()
                 .content(message)
-                .hideDelay(3000)
+                .hideDelay(5000)
             );
         };
 
@@ -171,6 +171,9 @@ angular.module('wynik.controllers', []).controller('WynikController',
         $scope.showScoreboard = function() {
           $scope.toggleSidenav();
           $location.path('/scoreboard/').replace();
+        }
+        $scope.follow = function(game) {
+          $location.path('/scoreboard/search/'+game.guid).replace();
         }
 
 

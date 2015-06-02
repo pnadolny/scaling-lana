@@ -13,7 +13,7 @@
            <p>{{ game.description }}</p>
            <p>{{ game.status }}</p>
 
-           <md-button class="md-secondary">{{ game.homeScore }}-{{ game.visitorScore }}</md-button>
+           <md-button class="md-secondary" ng-click="follow(game)">{{ game.homeScore }}-{{ game.visitorScore }}</md-button>
         </div>
         <md-divider></md-divider>
   </md-list-item>
