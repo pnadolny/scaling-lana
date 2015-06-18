@@ -12,9 +12,12 @@
            <h3>{{ game.teamVisitor }}</h3>
            <p>{{ game.description }}</p>
            <p>{{ game.status }}</p>
-
-           <md-button class="md-secondary" ng-click="follow(game)">{{ game.homeScore }}-{{ game.visitorScore }}</md-button>
         </div>
+
+        <md-button class="md-primary"
+        ng-click="follow(game)">{{ game.homeScore }}-{{ game.visitorScore }}</md-button>
+
+
         <md-divider></md-divider>
   </md-list-item>
 
