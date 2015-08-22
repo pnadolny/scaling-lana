@@ -97,6 +97,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
             copy.guid = guid();
             copy.homeScore = 0;
             copy.visitorScore = 0;
+            copy.status='Pending';
             $scope.games.$add(copy);
             $scope.showSimpleToast("Game copied!")
         }
