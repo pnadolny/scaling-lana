@@ -6,6 +6,9 @@ angular.module('wynik.routes', ['ngRoute'])
   $routeProvider.when('/scoreboard', {
    templateUrl: 'partials/scoreboard.html'
   })
+  $routeProvider.when('/follow', {
+   templateUrl: 'partials/follow.html'
+  })
   $routeProvider.when('/scoreboard/search/:search', {
     templateUrl: 'partials/scoreboard.html',
     controller:'WynikController'

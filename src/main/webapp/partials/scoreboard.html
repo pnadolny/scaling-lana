@@ -6,7 +6,7 @@
 
 <md-content ng-show="!authenticated">
   <md-list>
-    <md-list-item class="md-3-line" ng-click="followDialog($event, game)" ng-repeat="game in games | filter:search:strict">
+    <md-list-item class="md-3-line" ng-click="showFollow(game)" ng-repeat="game in games | filter:search:strict">
       <h3>{{ game.homeScore }}-{{ game.visitorScore }}</h3>
       <div class="md-list-item-text" ng-class="{'md-offset': $index > -1 }">
         <p>{{ game.teamHome }}</p>

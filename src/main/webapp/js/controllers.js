@@ -6,6 +6,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
       var ref = new Firebase($rootScope.FBURL);
 
+      $scope.followGame = null;
       $scope.search = $routeParams.search;
 
       $scope.toggleSidenav = function(menuId) {
@@ -135,23 +136,6 @@ angular.module('wynik.controllers', []).controller('WynikController',
         }
 
 
-        $scope.followDialog = function(ev,game) {
-
-            $mdDialog.show({
-                parent: angular.element(document.body),
-                controller: FollowController,
-                templateUrl: 'partials/follow.html',
-                targetEvent: ev,
-                resolve: {
-                  game: function() {
-                    return game;
-                  }
-                }
-            }).then(function(answer) {}, function() {});
-        }
-
-
-
         $scope.share = function(ev,game) {
             $mdDialog.show({
                 controller: ShareController,
@@ -186,6 +170,13 @@ angular.module('wynik.controllers', []).controller('WynikController',
           $scope.toggleSidenav();
           $location.path('/home/').replace();
        }
+       $scope.showFollow = function(game) {
+         $scope.toggleSidenav();
+         $scope.followGame = game;
+
+         $location.path('/follow/').replace();
+       }
+
         $scope.showScoreboard = function() {
           $scope.toggleSidenav();
           $location.path('/scoreboard/').replace();
@@ -219,35 +210,6 @@ angular.module('wynik.controllers', []).controller('WynikController',
                     $mdDialog.hide(answer);
                 };
             }
-
-
-            function FollowController($scope, $mdDialog, $log, game, $location) {
-                $scope.game= game;
-
-                $scope.hide = function() {
-                    $mdDialog.hide();
-                };
-                $scope.cancel = function() {
-                    $mdDialog.cancel();
-                };
-                $scope.answer = function(answer) {
-                    $mdDialog.hide(answer);
-                };
-
-                $scope.share = function($event, game) {
-                    var message  = $location.absUrl() +'/search/'+game.guid + '</p>';
-
-                    var alert = $mdDialog.alert({
-                    title: 'Share link',
-                    content: message,
-                    ok: 'Close'});
-                     $mdDialog
-                       .show( alert )
-                       .finally(function() {
-                         alert = undefined;
-                       });
-                     }
-                   }
 
 
 
