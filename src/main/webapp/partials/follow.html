@@ -1,0 +1,28 @@
+<md-dialog flex="66" >
+  <md-dialog-content>
+<md-grid-list md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
+  <md-grid-tile>
+    <div ng-show="game.timeout" class="overlay"></div>
+    <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
+      <h3 ng-bind="game.teamHome"></h3>
+    </md-grid-tile-header>
+    <span class="link-digit">{{game.homeScore}}</a>
+  </md-grid-tile>
+  <md-grid-tile>
+    <div ng-show="game.timeout" class="overlay"></div>
+    <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
+      <h3 ng-bind="game.teamVisitor"></h3>
+    </md-grid-tile-header>
+    <span class="link-digit">{{game.visitorScore}}</span>
+  </md-grid-tile>
+</md-grid-list>
+
+<div class="md-actions" layout="row" layout-sm="column">
+  <md-button class="md-raised" aria-label="Share" ng-click="share($event,game);">Share</md-button>
+    <md-button class="md-raised" aria-label="Close" ng-click="hide();">Close</md-button>
+</div>
+
+
+</md-dialog-content>
+
+</md-dialog>
