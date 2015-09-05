@@ -27,7 +27,7 @@
             <md-list>
                 <md-subheader class="md-no-sticky">{{filteredGames.length}} of {{games.length}} </md-subheader>
                 <md-list-item class="md-3-line" ng-click="showFollow(game)" ng-repeat="game in games | filter:search:strict | orderBy:predicate:reverse as filteredGames  ">
-                    <h3>{{ game.homeScore }}-{{ game.visitorScore }}</h3>
+                    <div class="score-inset"><h3>{{ game.homeScore }}-{{ game.visitorScore }}</h3></div>
                     <div class="md-list-item-text" ng-class="{'md-offset': $index > -1 }">
                         <p>{{ game.teamHome }}</p>
                         <p>{{ game.teamVisitor }}</p>
@@ -35,14 +35,9 @@
                         <p>{{ game.status }}</p>
                     </div>
                     <md-divider></md-divider>
-
-                    <md-icon class="md-secondary" md-font-set="material-icons">open_in_new</md-icon>
                 </md-list-item>
             </md-list>
         </md-content>
-
-
-
         <div ng-show="authenticated" ng-repeat="game in games | filter:search:strict | orderBy:predicate:reverse as filteredGames  ">
             <md-card>
                 <md-card-content>
