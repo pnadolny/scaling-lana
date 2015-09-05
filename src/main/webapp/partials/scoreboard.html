@@ -6,7 +6,8 @@
 
 <md-content ng-show="!authenticated">
   <md-list>
-    <md-list-item class="md-3-line" ng-click="showFollow(game)" ng-repeat="game in games | filter:search:strict">
+    <md-subheader class="md-no-sticky">{{filteredGames.length}} of {{games.length}} </md-subheader>
+    <md-list-item class="md-3-line" ng-click="showFollow(game)" ng-repeat="game in games | filter:search:strict as filteredGames">
       <h3>{{ game.homeScore }}-{{ game.visitorScore }}</h3>
       <div class="md-list-item-text" ng-class="{'md-offset': $index > -1 }">
         <p>{{ game.teamHome }}</p>
