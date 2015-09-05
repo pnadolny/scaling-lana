@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('wynik.controllers', []).controller('WynikController',
-    function($rootScope,$scope, $log, $firebaseArray, $mdDialog, $mdToast,$mdSidenav,$routeParams,$location) {
+    function($rootScope, $scope, $log, $firebaseArray, $mdDialog, $mdToast, $mdSidenav, $routeParams, $location) {
 
 
-      var ref = new Firebase($rootScope.FBURL);
+        var ref = new Firebase($rootScope.FBURL);
 
-      $scope.followGame = null;
-      $scope.search = $routeParams.search;
+        $scope.followGame = null;
+        $scope.search = $routeParams.search;
 
-      $scope.toggleSidenav = function(menuId) {
-            $mdSidenav("left").toggle().then(function(){
-                 $log.debug("toggle is done");
-           });
-      };
+        $scope.toggleSidenav = function(menuId) {
+            $mdSidenav("left").toggle().then(function() {
+                $log.debug("toggle is done");
+            });
+        };
 
         $scope.showSimpleToast = function(message) {
             $mdToast.show(
@@ -24,23 +24,30 @@ angular.module('wynik.controllers', []).controller('WynikController',
         };
 
 
-        $scope.statuses = [{'key':'0','description':'Pending'},
-        {'key':'1','description':'In Progress'},
-        {'key':'2','description':'Final'}];
+        $scope.statuses = [{
+            'key': '0',
+            'description': 'Pending'
+        }, {
+            'key': '1',
+            'description': 'In Progress'
+        }, {
+            'key': '2',
+            'description': 'Final'
+        }];
 
         $scope.authenticatedDisplayName = null;
         $scope.authenticated = false;
         $scope.authData = null;
 
         ref.onAuth(authDataCallback);
-//        ref.getAuth();
+        //        ref.getAuth();
 
         $scope.isAuthenticated = function() {
-             if ($scope.ref.$getAuth()) {
-               return true;
-             } else {
-               return false;
-             }
+            if ($scope.ref.$getAuth()) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
 
@@ -48,7 +55,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
         // Returns a promise which is resolved when the initial object data has been downloaded from Firebase.
         $scope.games.$loaded().then(function() {
-           $log.debug("Firebase data is loaded.");
+            $log.debug("Firebase data is loaded.");
         }).catch(function(error) {
             $scope.showSimpleToast(error);
         });
@@ -59,7 +66,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
 
         $scope.debug = function() {
-          $log.debug(angular.toJson($scope.games));
+            $log.debug(angular.toJson($scope.games));
 
         }
 
@@ -98,7 +105,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
             copy.guid = guid();
             copy.homeScore = 0;
             copy.visitorScore = 0;
-            copy.status='Pending';
+            copy.status = 'Pending';
             $scope.games.$add(copy);
             $scope.showSimpleToast("Game copied!")
         }
@@ -106,18 +113,18 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
         $scope.compose = function() {
 
-          $scope.games.$add({
+            $scope.games.$add({
                 'homeScore': 0,
                 'visitorScore': 0,
                 'author': $scope.authenticatedDisplayName,
                 'status': 'Pending',
                 'date': Date.now(),
-                'guid':guid(),
+                'guid': guid(),
                 'uid': $scope.authData.uid
             }).then(function(ref) {
-              $scope.showSimpleToast("New Game created. "+ref.key());
+                $scope.showSimpleToast("New Game created. " + ref.key());
             }).catch(function(error) {
-              $scope.showSimpleToast(error);
+                $scope.showSimpleToast(error);
             })
 
 
@@ -136,13 +143,13 @@ angular.module('wynik.controllers', []).controller('WynikController',
         }
 
 
-        $scope.share = function(ev,game) {
+        $scope.share = function(ev, game) {
             $mdDialog.show({
                 controller: ShareController,
                 templateUrl: 'partials/share.html',
                 targetEvent: ev,
                 locals: {
-                    link: $location.absUrl() +'/search/'+game.guid
+                    link: $location.absUrl() + '/search/' + game.guid
                 }
             }).then(function(answer) {}, function() {});
         }
@@ -158,8 +165,8 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
 
         $scope.signIn = function(provider) {
-            ref.authWithOAuthRedirect(provider,function(error){
-              $log.info("Authentication failed", error);
+            ref.authWithOAuthRedirect(provider, function(error) {
+                $log.info("Authentication failed", error);
             });
         }
         $scope.signOut = function() {
@@ -167,49 +174,49 @@ angular.module('wynik.controllers', []).controller('WynikController',
             ref.unauth();
         }
         $scope.showHome = function() {
-          $scope.toggleSidenav();
-          $location.path('/home/').replace();
-       }
-       $scope.showFollow = function(game) {
-         $scope.toggleSidenav();
-         $scope.followGame = game;
+            $scope.toggleSidenav();
+            $location.path('/home/').replace();
+        }
+        $scope.showFollow = function(game) {
+            $scope.toggleSidenav();
+            $scope.followGame = game;
 
-         $location.path('/follow/').replace();
-       }
+            $location.path('/follow/').replace();
+        }
 
         $scope.showScoreboard = function() {
-          $scope.toggleSidenav();
-          $location.path('/scoreboard/').replace();
+            $scope.toggleSidenav();
+            $location.path('/scoreboard/').replace();
         }
         $scope.follow = function(game) {
-          $location.path('/scoreboard/search/'+game.guid).replace();
+            $location.path('/scoreboard/search/' + game.guid).replace();
         }
 
 
         // UUID generator
         // Snippet from: http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
-         var s4 = function() {
-             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-         };
+        var s4 = function() {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        };
 
         var guid = function() {
-              return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         };
 
 
 
-            function ShareController($scope, $mdDialog, $log, link) {
-                $scope.link=link;
-                $scope.hide = function() {
-                    $mdDialog.hide();
-                };
-                $scope.cancel = function() {
-                    $mdDialog.cancel();
-                };
-                $scope.answer = function(answer) {
-                    $mdDialog.hide(answer);
-                };
-            }
+        function ShareController($scope, $mdDialog, $log, link) {
+            $scope.link = link;
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+                $mdDialog.hide(answer);
+            };
+        }
 
 
 
