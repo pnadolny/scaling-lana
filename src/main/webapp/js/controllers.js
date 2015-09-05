@@ -3,7 +3,12 @@
 angular.module('wynik.controllers', []).controller('WynikController',
     function($rootScope, $scope, $log, $firebaseArray, $mdDialog, $mdToast, $mdSidenav, $routeParams, $location) {
 
+        $scope.predicate = 'date';
+        $scope.reverse = true;
 
+        $scope.order = function(reverse) {
+              $scope.reverse = reverse;
+        };
         var ref = new Firebase($rootScope.FBURL);
 
         $scope.followGame = null;
@@ -13,6 +18,10 @@ angular.module('wynik.controllers', []).controller('WynikController',
             $mdSidenav("left").toggle().then(function() {
                 $log.debug("toggle is done");
             });
+        };
+
+        $scope.openMenu = function($mdOpenMenu, ev) {
+            $mdOpenMenu(ev);
         };
 
         $scope.showSimpleToast = function(message) {

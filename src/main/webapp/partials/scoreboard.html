@@ -1,21 +1,32 @@
 <md-card>
     <md-card-content>
-
         <div layout="row" layout-align="start center" class="md-card-header">
-
-
             <md-icon md-font-set="material-icons">search</md-icon>
             <md-input-container flex>
                 <label>Search</label>
                 <input ng-model="search" type="text" />
-
             </md-input-container>
+            <span flex></span>
+            <md-menu>
+                <md-button class="md-icon-button" aria-label="Order" ng-click="openMenu($mdOpenMenu, $event)">
+                    <md-icon md-font-set="material-icons">sort</md-icon>
+                    <md-tooltip md-autohide="true">Order</md-tooltip>
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button class="md-button" ng-click="order(true)">Newest</md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                        <md-button class="md-button" ng-click="order(false)">Oldest</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </div>
-
         <md-content ng-show="!authenticated">
             <md-list>
                 <md-subheader class="md-no-sticky">{{filteredGames.length}} of {{games.length}} </md-subheader>
-                <md-list-item class="md-3-line" ng-click="showFollow(game)" ng-repeat="game in games | filter:search:strict as filteredGames">
+                <md-list-item class="md-3-line" ng-click="showFollow(game)" ng-repeat="game in games | filter:search:strict | orderBy:predicate:reverse as filteredGames  ">
                     <h3>{{ game.homeScore }}-{{ game.visitorScore }}</h3>
                     <div class="md-list-item-text" ng-class="{'md-offset': $index > -1 }">
                         <p>{{ game.teamHome }}</p>
@@ -32,28 +43,19 @@
 
 
 
-        <div ng-show="authenticated" ng-repeat="game in games | filter:search:strict">
-
-
+        <div ng-show="authenticated" ng-repeat="game in games | filter:search:strict | orderBy:predicate:reverse as filteredGames  ">
             <md-card>
-
                 <md-card-content>
-
                     <div layout-gt-sm="row">
                         <h2 class="md-title">{{game.homeScore}}-{{game.visitorScore}}</h2>
-
-
                         <md-input-container flex>
                             <label>Home</label>
                             <input maxlength="25" ng-model="game.teamHome" ng-change="games.$save(game)" ng-model-options="{updateOn: 'blur'}" ng-readonly="!authenticated  || game.uid !== authData.uid" type="text" />
                         </md-input-container>
-
                         <md-input-container flex>
                             <label>Visitor</label>
                             <input maxlength="25" ng-model="game.teamVisitor" ng-change="games.$save(game)" ng-maxlength="25" ng-model-options="{updateOn: 'blur'}" ng-readonly="!authenticated  || game.uid !== authData.uid" type="text" />
                         </md-input-container>
-
-
                         <md-input-container flex>
                             <label>Scorekeeper</label>
                             <input ng-model="game.author" type="text" ng-readonly="true" />
@@ -62,46 +64,27 @@
                             <label>Description</label>
                             <input ng-model="game.description" ng-change="games.$save(game)" ng-model-options="{updateOn: 'blur'}" ng-readonly="!authenticated  || game.uid !== authData.uid" type="text" md-maxlength="50" />
                         </md-input-container>
-
                     </div>
-
-
-
                     <md-grid-list ng-show="game.showScore && game.uid === authData.uid" md-cols-sm="1" md-gutter-gt-sm="8px" md-cols-md="2" md-row-height-gt-md="1:1" md-row-height="1:1" md-cols-gt-md="2" md-gutter="12px">
-
-
                         <md-grid-tile>
-
                             <div ng-show="game.timeout" class="overlay"></div>
-
                             <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
                                 <h3 ng-bind="game.teamHome"></h3>
                             </md-grid-tile-header>
                             <span ng-show="!authenticated" class="link-digit">{{game.homeScore}}</span>
-
                             <a class="link-digit" ng-show="authenticated" ng-click="game.homeScore = game.homeScore +1; games.$save(game);">{{game.homeScore}}</a>
                             <md-button ng-disabled="!authenticated" aria-label="Subtract" class="md-default-theme md-accent md-fab md-fab-bottom-left" ng-click="game.homeScore = game.homeScore-1;games.$save(game);" ng-show="game.homeScore>0">-</md-button>
-
-
                         </md-grid-tile>
-
-
                         <md-grid-tile>
                             <div ng-show="game.timeout" class="overlay"></div>
-
                             <md-grid-tile-header style="background: rgba(96, 176, 235, 1);">
                                 <h3 ng-bind="game.teamVisitor"></h3>
                             </md-grid-tile-header>
                             <span ng-show="!authenticated" class="link-digit">{{game.visitorScore}}</span>
                             <a ng-show="authenticated" class="link-digit" ng-click="game.visitorScore = game.visitorScore + 1; games.$save(game);">{{game.visitorScore}}</a>
-
                             <md-button ng-disabled="!authenticated" aria-label="Subtract" class="md-default-theme md-accent md-fab md-fab-bottom-left" ng-click="game.visitorScore = game.visitorScore -1; games.$save(game);" ng-show="game.visitorScore>0">-</md-button>
                         </md-grid-tile>
-
                     </md-grid-list>
-
-
-
                     <div class="md-actions" layout="row" layout-sm="column">
                         <md-switch ng-model="game.status" aria-label="Status" ng-show="game.showScore" ng-true-value="'Final'" ng-false-value="'Pending'" class="md-primary">{{game.status}}
                         </md-switch>
@@ -126,11 +109,7 @@
             </md-card>
         </div>
     </md-card-content>
-
 </md-card>
-
-
 <md-button class="md-default-theme md-primary md-fab md-fab-bottom-right" ng-show="authenticated" ng-click="compose()">
     <md-icon aria-label="Add" md-font-set="material-icons">add</md-icon>
-
 </md-button>
