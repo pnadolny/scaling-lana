@@ -1,8 +1,16 @@
+<md-card>
+<md-card-content>
+
+<div layout="row" layout-align="start center" class="md-card-header">
+
+
+<md-icon md-font-set="material-icons">search</md-icon>
 <md-input-container flex>
   <label>Search</label>
   <input ng-model="search" type="text" />
-</md-input-container>
 
+</md-input-container>
+</div>
 
 <md-content ng-show="!authenticated">
   <md-list>
@@ -117,6 +125,10 @@
     </md-card-content>
   </md-card>
 </div>
+</md-card-content>
+
+</md-card>
+
 
 <md-button class="md-default-theme md-primary md-fab md-fab-bottom-right" ng-show="authenticated" ng-click="compose()">
   <md-icon aria-label="Add" md-font-set="material-icons">add</md-icon>
