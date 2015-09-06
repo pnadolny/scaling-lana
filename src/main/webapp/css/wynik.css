@@ -8,6 +8,12 @@ p {
      font-size: small;
 }
 
+.md-card-header {
+  height: 64px;
+    padding-left: 24px;
+    padding-right: 14px;
+}
+
 .score-inset {
   min-width:50px;
 }

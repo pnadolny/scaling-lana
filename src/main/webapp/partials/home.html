@@ -3,21 +3,16 @@
         Wynik
     </p>
     <img src="/icons/volleyball.png"></img>
-
     <md-button class="md-raised" ng-href="#/scoreboard">
         View the scoreboard!
     </md-button>
     <p ng-show="!authenticated">
         Sign in to score games.
     </p>
-
-
     <div class="md-actions" layout="row" layout-sm="column" layout-md="column">
-
         <md-button class="md-raised" ng-show="!authenticated" ng-click="signIn('facebook')">
             Sign In with Facebook
         </md-button>
-
         <md-button class="md-raised" ng-show="!authenticated" ng-click="signIn('google')">
             Sign In with Google
         </md-button>
@@ -25,11 +20,9 @@
             Sign In with Twitter
         </md-button>
     </div>
-
     <p>
         Current scoreboard status:
     </p>
-
     <div layout="row" layout-align="center center">
         <div class="analyticsBubble">
             <a class="title" href="/#/scoreboard/search/Pending">Pending</a>
@@ -43,15 +36,12 @@
             <a class="title" href="/#/scoreboard/search/Final">Final</a>
             <span class="value">{{count('Final')}}</span>
         </div>
-
     </div>
-
     <div layout="row" layout-align="center center">
         <p>
             Project built with <a href="http://www.firebase.com">Firebase</a> and <a href="http://www.angularjs.org">Angular JS</a> and
             <a href="https://material.angularjs.org/">Angular Material</a> and running on
             <a href="https://cloud.google.com/appengine/">Google's cloud platform</a>
-
         </p>
     </div>
     <div layout="row" layout-align="center center">
@@ -63,8 +53,5 @@
         <p>
             Wynik v<span app-version></span>
         </p>
-
     </div>
-
-
 </div>
