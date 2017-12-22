@@ -197,6 +197,8 @@ angular.module('wynik.controllers', []).controller('WynikController',
             $scope.toggleSidenav();
             $location.path('/scoreboard/').replace();
         }
+
+
         $scope.follow = function(game) {
             $location.path('/scoreboard/search/' + game.guid).replace();
         }
