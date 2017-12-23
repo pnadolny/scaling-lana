@@ -8,12 +8,12 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="pragma" content="no-cache"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
     <link rel="stylesheet" href="css/wynik.css">
 
@@ -26,34 +26,31 @@
         .x-ng-cloak {
             display: none !important;
         }
-
-
-
     </style>
 
 </head>
 
+
 <body layout="row" ng-cloak ng-controller="WynikController">
 
-
-  <md-sidenav layout="column" flex
-  class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-   md-is-locked-open="$mdMedia('gt-md')" layout-fill >
-   <md-toolbar class="md-medium" >
-     <div class="md-toolbar-tools">
-        <span flex></span>
-        <div layout="column" class="md-toolbar-tools-bottom inset">
-          <div>{{authenticatedDisplayName}}</div>
+<md-sidenav layout="column" flex
+            class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-md')" layout-fill>
+    <md-toolbar class="md-medium">
+        <div class="md-toolbar-tools">
+            <span flex></span>
+            <div layout="column" class="md-toolbar-tools-bottom inset">
+                <div>{{authenticatedDisplayName}}</div>
+            </div>
         </div>
-      </div>
-      </md-toolbar>
+    </md-toolbar>
 
     <md-button ng-click="showHome()">
         Home
     </md-button>
     <md-divider></md-divider>
     <md-button ng-click="showScoreboard()">
-       Scoreboard
+        Scoreboard
     </md-button>
     <md-divider></md-divider>
     <md-button ng-show="authenticated" ng-click="signOut();">
@@ -64,46 +61,36 @@
 </md-sidenav>
 
 
-
-  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
-        <md-toolbar layout="row">
-            <div class="md-toolbar-tools">
-                <md-button ng-click="toggleSidenav('left')" class="md-icon-button" hide-gt-sm>
-                  <md-icon aria-label="Menu" md-font-set="material-icons">menu</md-icon>
-                </md-button>
-                <md-button ng-href="#/home" style="text-transform: none;">
-                        Wynik
-                </md-button>
-                <span flex></span>
-            </div>
-        </md-toolbar>
-      <div layout="column" flex style="overflow-y: scroll;">
-            <div id="content" ng-view flex></div>
-          </div>
+<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+    <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+            <md-button ng-click="toggleSidenav('left')" class="md-icon-button" hide-gt-sm>
+                <md-icon aria-label="Menu" md-font-set="material-icons">menu</md-icon>
+            </md-button>
+            <md-button ng-href="#/home" style="text-transform: none;">
+                Wynik
+            </md-button>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <div layout="column" flex style="overflow-y: scroll;">
+        <div id="content" ng-view flex></div>
+    </div>
 </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-resource.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
-
-    <!-- Firebase -->
-    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
-
-    <!-- AngularFire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-
-	
-	
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="js/directives.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-resource.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+<script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/config.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/directives.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 </body>
 
 </html>

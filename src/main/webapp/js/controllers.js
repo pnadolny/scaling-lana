@@ -153,14 +153,23 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
 
         $scope.share = function(ev, game) {
-            $mdDialog.show({
-                controller: ShareController,
-                templateUrl: 'partials/share.html',
-                targetEvent: ev,
-                locals: {
-                    link: $location.absUrl() + '/search/' + game.guid
-                }
-            }).then(function(answer) {}, function() {});
+
+            var confirm = $mdDialog.prompt()
+               .title('Share this following link with your friends.        ')
+                .textContent('Share the link!')
+                .placeholder('Link')
+                .ariaLabel('Link')
+                .initialValue($location.absUrl() + '/search/' + game.guid)
+                .targetEvent(ev)
+                .ok('Okay!');
+
+
+            $mdDialog.show(confirm).then(function(result) {
+
+            }, function() {
+
+            });
+
         }
 
         $scope.delete = function(ev, game) {

@@ -19,12 +19,10 @@ p {
 }
 
 .link-digit {
-    padding-left: 50px;
     font-size: 850%;
     font-weight: bold;
     color: #0B0B0B;
 }
-
 
 .overlay{
   position: absolute;

@@ -17,6 +17,6 @@ angular.module('wynik.routes', ['ngRoute'])
     templateUrl: 'partials/home.html'
   })
   $routeProvider.otherwise({
-      redirectTo: '/home'
+      redirectTo: '/scoreboard'
   });
 }]);
