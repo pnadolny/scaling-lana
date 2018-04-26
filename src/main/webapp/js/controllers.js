@@ -26,6 +26,28 @@ angular.module('wynik.controllers', []).controller('WynikController',
                 console.log(user);
                 $scope.authData = user;
                 $scope.authenticated = true;
+
+
+                var displayName = user.displayName;
+                var email = user.email;
+                var emailVerified = user.emailVerified;
+                var photoURL = user.photoURL;
+                var uid = user.uid;
+                var phoneNumber = user.phoneNumber;
+                var providerData = user.providerData;
+
+                user.getIdToken().then(function(accessToken) {
+                    $scope.accountDetails = JSON.stringify({
+                        displayName: displayName,
+                        email: email,
+                        emailVerified: emailVerified,
+                        phoneNumber: phoneNumber,
+                        photoURL: photoURL,
+                        uid: uid,
+                        accessToken: accessToken,
+                        providerData: providerData
+                    }, null, '  ');
+                });
             } else {
                 $scope.authenticated = false;
             }
