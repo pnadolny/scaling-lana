@@ -5,7 +5,6 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
         $scope.predicate = 'date';
         $scope.reverse = true;
-        $scope.authenticatedDisplayName = null;
         $scope.authenticated = false;
         $scope.authData = null;
         $scope.followGame = null;
@@ -24,7 +23,8 @@ angular.module('wynik.controllers', []).controller('WynikController',
         firebase.initializeApp(config);
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                $scope.user = user;
+                console.log(user);
+                $scope.authData = user;
                 $scope.authenticated = true;
             } else {
                 $scope.authenticated = false;
@@ -119,13 +119,13 @@ angular.module('wynik.controllers', []).controller('WynikController',
             $scope.games.$add({
                 'homeScore': 0,
                 'visitorScore': 0,
-                'author': $scope.authenticatedDisplayName,
+                'author': $scope.authData.displayName,
                 'status': 'Pending',
                 'date': Date.now(),
                 'guid': guid(),
-                'uid': $scope.user.uid
+                'uid': $scope.authData.uid
             }).then(function(ref) {
-                $scope.showSimpleToast("New Game created. " + ref.key());
+                $scope.showSimpleToast("New Game created.");
             }).catch(function(error) {
                 $scope.showSimpleToast(error);
             })
