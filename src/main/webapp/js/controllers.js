@@ -5,10 +5,11 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
         $scope.predicate = 'date';
         $scope.reverse = true;
-
-        $scope.order = function(reverse) {
-              $scope.reverse = reverse;
-        };
+        $scope.authenticatedDisplayName = null;
+        $scope.authenticated = false;
+        $scope.authData = null;
+        $scope.followGame = null;
+        $scope.search = $routeParams.search;
 
         var config = {
             apiKey: "AIzaSyA1NdrMhxtBy-RPfIzcUa8EoiQCFGndb0o",
@@ -21,14 +22,48 @@ angular.module('wynik.controllers', []).controller('WynikController',
 
 
         firebase.initializeApp(config);
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                $scope.user = user;
+                $scope.authenticated = true;
+            } else {
+                $scope.authenticated = false;
+            }
+        });
 
 
         var ref = firebase.database().ref('games');
-
         $scope.games = $firebaseArray(ref);
 
-        $scope.followGame = null;
-        $scope.search = $routeParams.search;
+
+        $scope.order = function(reverse) {
+            $scope.reverse = reverse;
+        };
+
+
+        $scope.signInFB = function() {
+
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+            ui.start('#firebaseui-auth-container', {
+                callbacks: {
+                    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                        return true;
+                    }
+                },
+                signInFlow: 'popup',
+                signInSuccessUrl: '#!/scoreboard',
+                signInOptions: [
+                    {
+                        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                        requireDisplayName: false
+                    }
+                ]
+            });
+
+        };
+
+
 
         $scope.toggleSidenav = function(menuId) {
             $mdSidenav("left").toggle().then(function() {
@@ -60,35 +95,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
             'description': 'Final'
         }];
 
-        $scope.authenticatedDisplayName = null;
-        $scope.authenticated = false;
-        $scope.authData = null;
 
-
-        $scope.isAuthenticated = function() {
-            if ($scope.ref.$getAuth()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-
-        // Returns a promise which is resolved when the initial object data has been downloaded from Firebase.
-
-
-        /*
-        $scope.games.$loaded().then(function() {
-            $log.debug("Firebase data is loaded.");
-        }).catch(function(error) {
-            $scope.showSimpleToast(error);
-        });
-
-        $scope.games.$watch(function(event) {
-            $log.debug(event);
-        });
-
-       */
 
         $scope.debug = function() {
             $log.debug(angular.toJson($scope.games));
@@ -116,7 +123,7 @@ angular.module('wynik.controllers', []).controller('WynikController',
                 'status': 'Pending',
                 'date': Date.now(),
                 'guid': guid(),
-                'uid': $scope.authData.user.uid
+                'uid': $scope.user.uid
             }).then(function(ref) {
                 $scope.showSimpleToast("New Game created. " + ref.key());
             }).catch(function(error) {
@@ -168,34 +175,6 @@ angular.module('wynik.controllers', []).controller('WynikController',
         }
 
 
-
-        $scope.signIn = function(provider) {
-            var auth = firebase.auth();
-            var authProvider;
-            switch (provider) {
-                case 'google':
-                    authProvider = new firebase.auth.GoogleAuthProvider();
-                    break;
-                case 'facebook':
-                    authProvider = new firebase.auth.FacebookAuthProvider();
-                    break;
-                case 'twitter':
-                    authProvider = new firebase.auth.TwitterAuthProvider();
-                    break;
-            }
-            auth.signInWithPopup(authProvider).then(function(result) {
-                $scope.authData = result;
-                $scope.authenticated = true;
-                $scope.authenticatedDisplayName = authData.twitter.displayName;
-                $scope.showSimpleToast($scope.authenticatedDisplayName + " is logged in via provider " + authData.provider);
-                $scope.games = $firebaseArray(ref);
-            }).catch(function(error) {
-                $scope.authenticated = false;
-                $scope.authenticatedDisplayName = null;
-                $scope.showSimpleToast(error);
-            });
-
-        };
 
 
         $scope.signOut = function() {

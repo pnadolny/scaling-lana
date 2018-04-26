@@ -9,15 +9,12 @@
     <p ng-show="!authenticated">
         Sign in to score games.
     </p>
+
+    <div id="firebaseui-auth-container"></div>
+
     <div class="md-actions" layout="row" layout-sm="column" layout-md="column">
-        <md-button class="md-raised" ng-show="!authenticated" ng-click="signIn('facebook')">
-            Sign In with Facebook
-        </md-button>
-        <md-button class="md-raised" ng-show="!authenticated" ng-click="signIn('google')">
-            Sign In with Google
-        </md-button>
-        <md-button class="md-raised" ng-show="!authenticated" ng-click="signIn('twitter')">
-            Sign In with Twitter
+        <md-button class="md-raised" ng-show="!authenticated" ng-click="signInFB()">
+            Sign In
         </md-button>
     </div>
     <p>
